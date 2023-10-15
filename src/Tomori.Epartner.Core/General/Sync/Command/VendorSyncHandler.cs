@@ -170,8 +170,8 @@ namespace Tomori.Epartner.Core.Sync.Command
                             UploadDateAhuOnline = item.uploadDateAHUOnline,
                             CompletedDate = item.completedDate,
                             StatusPerusahaan = item.statusPerusahaan,
-                            UpdateBy = "SYSTEM SYNC",
-                            UpdateDate = DateTime.Now,
+                            CreateBy = "SYSTEM SYNC",
+                            CreateDate = DateTime.Now,
                         });
                     }
                 }
