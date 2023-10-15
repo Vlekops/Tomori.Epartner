@@ -287,7 +287,10 @@ namespace Tomori.Epartner.Data
 
                 entity.Property(e => e.FileVendorId).HasColumnName("FILE_VENDOR_ID");
 
-                entity.Property(e => e.IsAutoGenerate).HasColumnName("IS_AUTO_GENERATE");
+                entity.Property(e => e.IsAutoGenerate)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("IS_AUTO_GENERATE");
 
                 entity.Property(e => e.Jabatan)
                     .HasMaxLength(50)

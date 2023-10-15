@@ -43,7 +43,7 @@ namespace Tomori.Epartner.Data.Model
         public Guid? FileSpdaId { get; set; }
         public string SpdaValidity { get; set; }
         public string K3snameSpda { get; set; }
-        public bool? IsAutoGenerate { get; set; }
+        public string IsAutoGenerate { get; set; }
         public string ActivityName { get; set; }
         public string AhuOnlineFile { get; set; }
         public string K3sAhuOnlineFile { get; set; }

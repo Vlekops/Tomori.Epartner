@@ -25,7 +25,7 @@ namespace Tomori.Epartner.Core.Request
 		public string FaxNumber{ get; set; }
 		public Guid? FileSpdaId{ get; set; }
 		public Guid? FileVendorId{ get; set; }
-		public bool? IsAutoGenerate{ get; set; }
+		public string IsAutoGenerate{ get; set; }
 		public string Jabatan{ get; set; }
 		[Required]
 		public string JenisUsaha{ get; set; }

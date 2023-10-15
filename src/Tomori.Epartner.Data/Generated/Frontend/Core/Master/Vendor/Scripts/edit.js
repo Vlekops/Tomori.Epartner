@@ -23,7 +23,7 @@ function editVendorDialog(el) {
 	$('#Edit-Vendor-FaxNumber').val(data.faxNumber);
 	$('#Edit-Vendor-FileSpdaId').val(data.fileSpdaId);
 	$('#Edit-Vendor-FileVendorId').val(data.fileVendorId);
-	$('#Edit-Vendor-IsAutoGenerate').prop('checked', data.isAutoGenerate);
+	$('#Edit-Vendor-IsAutoGenerate').val(data.isAutoGenerate);
 	$('#Edit-Vendor-Jabatan').val(data.jabatan);
 	$('#Edit-Vendor-JenisUsaha').val(data.jenisUsaha);
 	$('#Edit-Vendor-K3sAhuOnlineFile').val(data.k3sAhuOnlineFile);
@@ -84,7 +84,7 @@ function editVendorSave() {
 				faxNumber:$('#Edit-Vendor-FaxNumber').val(),
 				fileSpdaId:$('#Edit-Vendor-FileSpdaId').val(),
 				fileVendorId:$('#Edit-Vendor-FileVendorId').val(),
-				isAutoGenerate:$('#Edit-Vendor-IsAutoGenerate').is(":checked"),
+				isAutoGenerate:$('#Edit-Vendor-IsAutoGenerate').val(),
 				jabatan:$('#Edit-Vendor-Jabatan').val(),
 				jenisUsaha:$('#Edit-Vendor-JenisUsaha').val(),
 				k3sAhuOnlineFile:$('#Edit-Vendor-K3sAhuOnlineFile').val(),

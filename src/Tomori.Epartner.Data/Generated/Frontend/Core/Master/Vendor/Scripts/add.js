@@ -33,7 +33,7 @@ function addVendorSave() {
 				faxNumber:$('#Add-Vendor-FaxNumber').val(),
 				fileSpdaId:$('#Add-Vendor-FileSpdaId').val(),
 				fileVendorId:$('#Add-Vendor-FileVendorId').val(),
-				isAutoGenerate:$('#Add-Vendor-IsAutoGenerate').is(":checked"),
+				isAutoGenerate:$('#Add-Vendor-IsAutoGenerate').val(),
 				jabatan:$('#Add-Vendor-Jabatan').val(),
 				jenisUsaha:$('#Add-Vendor-JenisUsaha').val(),
 				k3sAhuOnlineFile:$('#Add-Vendor-K3sAhuOnlineFile').val(),

@@ -29,8 +29,6 @@ namespace Tomori.Epartner.Core.Sync.Command
     #region Request
     public class BranchSyncRequest :IRequest<StatusResponse>
     {
-        [Required]
-        public DateTime CompletedDateForm { get; set; }
     }
     #endregion
 
@@ -65,7 +63,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                     if (await _context.Entity<MstVendorBranch>().Where(d => d.Id == item.vendorBranchId).AnyAsync())
                     {
                         var update = await _context.Entity<MstVendorBranch>().Where(d => d.Id == item.vendorBranchId).FirstOrDefaultAsync();
-                        update.CompanyType = update.CompanyType;
+                        update.CompanyType = item.compTypeDesc;
                         update.VendorBranchName = item.vendorBranchName;
                         update.Address = item.vendorBranchAddress;
                         update.ZipCode = item.vendorBranchZipCode;

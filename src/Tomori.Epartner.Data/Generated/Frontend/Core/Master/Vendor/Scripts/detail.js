@@ -23,7 +23,7 @@ function detailVendorDialog(el) {
 				$('#Detail-Vendor-FaxNumber').val(data.faxNumber);
 				$('#Detail-Vendor-FileSpdaId').val(data.fileSpdaId);
 				$('#Detail-Vendor-FileVendorId').val(data.fileVendorId);
-				$('#Detail-Vendor-IsAutoGenerate').prop('checked', data.isAutoGenerate);
+				$('#Detail-Vendor-IsAutoGenerate').val(data.isAutoGenerate);
 				$('#Detail-Vendor-Jabatan').val(data.jabatan);
 				$('#Detail-Vendor-JenisUsaha').val(data.jenisUsaha);
 				$('#Detail-Vendor-K3sAhuOnlineFile').val(data.k3sAhuOnlineFile);
