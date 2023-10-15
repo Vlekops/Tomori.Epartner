@@ -18,6 +18,9 @@ using Tomori.Epartner.Core.Request;
 using HeyRed.Mime;
 using System.Buffers.Text;
 using Tomori.Epartner.API.Helper;
+using AutoMapper.Features;
+using Tomori.Epartner.Data.Model;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Tomori.Epartner.Core.Sync.Command
 {
@@ -54,7 +57,48 @@ namespace Tomori.Epartner.Core.Sync.Command
             StatusResponse result = new StatusResponse();
             try
             {
-                
+                var data = await _restHelper.GetAfiliasi(request.CompletedDateForm);
+
+                foreach ( var item in data.result )
+                {
+                    if (await _context.Entity<TrsAfiliasi>().Where(d => d.Id == item.id).AnyAsync())
+                    {
+                        var dataAfiliasi = await _context.Entity<TrsAfiliasi>().Where(d => d.Id == item.id).FirstOrDefaultAsync();
+                        dataAfiliasi.TipeAfiliasi = item.tipeAfiliasi;
+                        dataAfiliasi.Deskripsi = item.deskripsi;
+                        dataAfiliasi.Share = item.share;
+                        dataAfiliasi.Terafiliasi = item.terafiliasi;
+                        dataAfiliasi.FileAfiliasiId = item.fileAfiliasiId;
+                        dataAfiliasi.UpdateBy = "SYSTEM SYNC";
+                        dataAfiliasi.UpdateDate = DateTime.Now;
+
+                        _context.Update(dataAfiliasi);
+                    }
+                    else {
+
+                        _context.Add(new TrsAfiliasi {
+                            Id = item.id,
+                            VendorId = item.vendorId,
+                            TipeAfiliasi = item.tipeAfiliasi,
+                            Deskripsi = item.deskripsi,
+                            Share = item.share,
+                            Terafiliasi = item.terafiliasi,
+                            FileAfiliasiId = item.fileAfiliasiId,
+                            CreateBy = "SYSTEM SYNC",
+                            CreateDate = DateTime.Now
+                        });
+                    }
+                }
+
+                var save = await _context.Commit();
+                if (!save.Success)
+                {
+                    result.Error("Error sync Data Afiliasi", save.Message);
+                }
+                else
+                {
+                    result.OK();
+                }
             }
             catch (Exception ex)
             {

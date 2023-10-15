@@ -14,6 +14,7 @@ namespace Tomori.Epartner.Data
         public virtual DbSet<MstLandasanHukum> MST_LANDASAN_HUKUM { get; set; }
         public virtual DbSet<MstVendor> MST_VENDOR { get; set; }
         public virtual DbSet<MstVendorBranch> MST_VENDOR_BRANCH { get; set; }
+        public virtual DbSet<TrsAfiliasi> TRS_AFILIASI { get; set; }
         public virtual DbSet<TrsAnnouncement> TRS_ANNOUNCEMENT { get; set; }
         public virtual DbSet<TrsIzinUsaha> TRS_IZIN_USAHA { get; set; }
         public virtual DbSet<TrsKompetensi> TRS_KOMPETENSI { get; set; }
@@ -514,6 +515,55 @@ namespace Tomori.Epartner.Data
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("ZIP_CODE");
+            });
+
+            modelBuilder.Entity<TrsAfiliasi>(entity =>
+            {
+                entity.ToTable("TRS_AFILIASI");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.CreateBy)
+                    .IsRequired()
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Deskripsi)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("DESKRIPSI");
+
+                entity.Property(e => e.FileAfiliasiId).HasColumnName("FILE_AFILIASI_ID");
+
+                entity.Property(e => e.Share).HasColumnName("SHARE");
+
+                entity.Property(e => e.Terafiliasi)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("TERAFILIASI");
+
+                entity.Property(e => e.TipeAfiliasi)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("TIPE_AFILIASI");
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPDATE_DATE");
+
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
             });
 
             modelBuilder.Entity<TrsAnnouncement>(entity =>
