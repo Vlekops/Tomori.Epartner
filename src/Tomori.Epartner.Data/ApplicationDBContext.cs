@@ -9,36 +9,20 @@ namespace Tomori.Epartner.Data
 {
     public partial class ApplicationDBContext : DbContext
     {
-        public virtual DbSet<ApiLog> ApiLog { get; set; }
-        public virtual DbSet<ChangeConfig> ChangeConfig { get; set; }
-        public virtual DbSet<ChangeLog> ChangeLog { get; set; }
-        public virtual DbSet<ChangeLogProperty> ChangeLogProperty { get; set; }
-        public virtual DbSet<Config> Config { get; set; }
-        public virtual DbSet<CounterTransaction> CounterTransaction { get; set; }
-        public virtual DbSet<DocumentPayment> DocumentPayment { get; set; }
-        public virtual DbSet<DocumentTemplate> DocumentTemplate { get; set; }
-        public virtual DbSet<FaqQuestionnaire> FaqQuestionnaire { get; set; }
-        public virtual DbSet<MailLog> MailLog { get; set; }
-        public virtual DbSet<Notification> Notification { get; set; }
-        public virtual DbSet<Page> Page { get; set; }
-        public virtual DbSet<PagePermission> PagePermission { get; set; }
-        public virtual DbSet<Report> Report { get; set; }
-        public virtual DbSet<ReportRole> ReportRole { get; set; }
-        public virtual DbSet<Repository> Repository { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<RolePermission> RolePermission { get; set; }
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserActivity> UserActivity { get; set; }
-        public virtual DbSet<UserDelegate> UserDelegate { get; set; }
-        public virtual DbSet<UserPassword> UserPassword { get; set; }
-        public virtual DbSet<UserRole> UserRole { get; set; }
-        public virtual DbSet<Workflow> Workflow { get; set; }
-        public virtual DbSet<WorkflowAttachment> WorkflowAttachment { get; set; }
-        public virtual DbSet<WorkflowConfig> WorkflowConfig { get; set; }
-        public virtual DbSet<WorkflowConfigDetail> WorkflowConfigDetail { get; set; }
-        public virtual DbSet<WorkflowDetail> WorkflowDetail { get; set; }
-        public virtual DbSet<WorkflowLog> WorkflowLog { get; set; }
-        public virtual DbSet<WorkflowStatus> WorkflowStatus { get; set; }
+        public virtual DbSet<HisSanksi> HIS_SANKSI { get; set; }
+        public virtual DbSet<HisSpda> HIS_SPDA { get; set; }
+        public virtual DbSet<MstLandasanHukum> MST_LANDASAN_HUKUM { get; set; }
+        public virtual DbSet<MstVendor> MST_VENDOR { get; set; }
+        public virtual DbSet<MstVendorBranch> MST_VENDOR_BRANCH { get; set; }
+        public virtual DbSet<TrsAnnouncement> TRS_ANNOUNCEMENT { get; set; }
+        public virtual DbSet<TrsIzinUsaha> TRS_IZIN_USAHA { get; set; }
+        public virtual DbSet<TrsKompetensi> TRS_KOMPETENSI { get; set; }
+        public virtual DbSet<TrsNeraca> TRS_NERACA { get; set; }
+        public virtual DbSet<TrsPajak> TRS_PAJAK { get; set; }
+        public virtual DbSet<TrsPengalaman> TRS_PENGALAMAN { get; set; }
+        public virtual DbSet<TrsRekeningBank> TRS_REKENING_BANK { get; set; }
+        public virtual DbSet<TrsSusunanPengurus> TRS_SUSUNAN_PENGURUS { get; set; }
+        public virtual DbSet<TrsSusunanSaham> TRS_SUSUNAN_SAHAM { get; set; }
 
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
         {
@@ -46,1214 +30,1242 @@ namespace Tomori.Epartner.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ApiLog>(entity =>
+            modelBuilder.Entity<HisSanksi>(entity =>
             {
-                entity.ToTable("ApiLog", "log");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Endpoint)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Request)
-                    .IsRequired()
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Response)
-                    .IsRequired()
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.HasOne(d => d.IdUserNavigation)
-                    .WithMany(p => p.ApiLog)
-                    .HasForeignKey(d => d.IdUser)
-                    .HasConstraintName("FK_ApiLogUser");
-            });
-
-            modelBuilder.Entity<ChangeConfig>(entity =>
-            {
-                entity.ToTable("ChangeConfig", "general");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Field)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Modul)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateBy)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
-            });
-
-            modelBuilder.Entity<ChangeLog>(entity =>
-            {
-                entity.ToTable("ChangeLog", "log");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.PrimaryKey)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.TableName)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Tipe)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.HasOne(d => d.IdUserNavigation)
-                    .WithMany(p => p.ChangeLog)
-                    .HasForeignKey(d => d.IdUser)
-                    .HasConstraintName("FK_ChangeLogUser");
-            });
-
-            modelBuilder.Entity<ChangeLogProperty>(entity =>
-            {
-                entity.ToTable("ChangeLogProperty", "log");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.NewValue)
-                    .IsRequired()
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.OldValue)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Property)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.HasOne(d => d.IdChangeLogNavigation)
-                    .WithMany(p => p.ChangeLogProperty)
-                    .HasForeignKey(d => d.IdChangeLog)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ChangeLogProperty");
-            });
-
-            modelBuilder.Entity<Config>(entity =>
-            {
-                entity.ToTable("Config", "general");
+                entity.ToTable("HIS_SANKSI");
 
                 entity.Property(e => e.Id)
-                    .HasMaxLength(10)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Category)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
 
                 entity.Property(e => e.CreateBy)
                     .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
 
                 entity.Property(e => e.CreateDate)
                     .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateBy)
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
-
-                entity.Property(e => e.Value)
-                    .IsRequired()
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-            });
-
-            modelBuilder.Entity<CounterTransaction>(entity =>
-            {
-                entity.ToTable("CounterTransaction", "general");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
+                entity.Property(e => e.FilePernyataanPerbaikan)
                     .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("FILE_PERNYATAAN_PERBAIKAN");
 
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.FilePernyataanPerbaikanId).HasColumnName("FILE_PERNYATAAN_PERBAIKAN_ID");
 
-                entity.Property(e => e.Modul)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .UseCollation("Latin1_General_CI_AS");
-            });
-
-            modelBuilder.Entity<DocumentPayment>(entity =>
-            {
-                entity.ToTable("DocumentPayment", "general");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.Code)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
+                entity.Property(e => e.FileSuratSanksi)
                     .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("FILE_SURAT_SANKSI");
 
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.FileSuratSanksiId).HasColumnName("FILE_SURAT_SANKSI_ID");
 
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.FileExtension)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.MasterValueCode)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.MasterValueText)
-                    .IsRequired()
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.ProgramDana)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Title)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Type)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateBy)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
-            });
-
-            modelBuilder.Entity<DocumentTemplate>(entity =>
-            {
-                entity.ToTable("DocumentTemplate", "general");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.Code)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Subject)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateBy)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
-
-                entity.Property(e => e.Value)
-                    .IsRequired()
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-            });
-
-            modelBuilder.Entity<FaqQuestionnaire>(entity =>
-            {
-                entity.ToTable("FaqQuestionnaire", "general");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.Answer)
-                    .IsRequired()
+                entity.Property(e => e.Keterangan)
                     .HasColumnType("text")
-                    .HasDefaultValueSql("('Sorry, there is no answer to this question yet')")
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("KETERANGAN");
 
-                entity.Property(e => e.CreateBy)
-                    .HasMaxLength(100)
+                entity.Property(e => e.Percobaan)
+                    .HasMaxLength(25)
                     .IsUnicode(false)
-                    .HasDefaultValueSql("('Admin')")
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("PERCOBAAN");
 
-                entity.Property(e => e.CreateDate)
+                entity.Property(e => e.Sanksi)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("SANKSI");
+
+                entity.Property(e => e.TglBerakhirPercobaan)
                     .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                    .HasColumnName("TGL_BERAKHIR_PERCOBAAN");
 
-                entity.Property(e => e.Questionnaire)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Section)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-            });
-
-            modelBuilder.Entity<MailLog>(entity =>
-            {
-                entity.ToTable("MailLog", "log");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.BodyMail)
-                    .IsRequired()
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CcMail)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate)
+                entity.Property(e => e.TglBerakhirSanksi)
                     .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                    .HasColumnName("TGL_BERAKHIR_SANKSI");
 
-                entity.Property(e => e.SenderMail)
-                    .IsRequired()
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Subject)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.ToMail)
-                    .IsRequired()
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.HasOne(d => d.IdUserNavigation)
-                    .WithMany(p => p.MailLog)
-                    .HasForeignKey(d => d.IdUser)
-                    .HasConstraintName("FK_MailLogUser");
-            });
-
-            modelBuilder.Entity<Notification>(entity =>
-            {
-                entity.ToTable("Notification", "general");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate)
+                entity.Property(e => e.TglBerlakuSanksi)
                     .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                    .HasColumnName("TGL_BERLAKU_SANKSI");
 
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Navigation)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Subject)
-                    .IsRequired()
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.HasOne(d => d.IdUserNavigation)
-                    .WithMany(p => p.Notification)
-                    .HasForeignKey(d => d.IdUser)
-                    .HasConstraintName("FK_NotificationUser");
-            });
-
-            modelBuilder.Entity<Page>(entity =>
-            {
-                entity.ToTable("Page", "identity");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.Code)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate)
+                entity.Property(e => e.TglPelepasanSanksi)
                     .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Description)
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Icon)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Navigation)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Section)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("TGL_PELEPASAN_SANKSI");
 
                 entity.Property(e => e.UpdateBy)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
 
-                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
-
-                entity.HasOne(d => d.IdParentNavigation)
-                    .WithMany(p => p.InverseIdParentNavigation)
-                    .HasForeignKey(d => d.IdParent)
-                    .HasConstraintName("FK_PageParent");
-            });
-
-            modelBuilder.Entity<PagePermission>(entity =>
-            {
-                entity.ToTable("PagePermission", "identity");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate)
+                entity.Property(e => e.UpdateDate)
                     .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                    .HasColumnName("UPDATE_DATE");
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateBy)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
-
-                entity.HasOne(d => d.IdPageNavigation)
-                    .WithMany(p => p.PagePermission)
-                    .HasForeignKey(d => d.IdPage)
-                    .HasConstraintName("FK_Permission_Page");
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
             });
 
-            modelBuilder.Entity<Report>(entity =>
+            modelBuilder.Entity<HisSpda>(entity =>
             {
-                entity.ToTable("Report", "general");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate).HasColumnType("datetime");
-
-                entity.Property(e => e.Description)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Modul)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Query)
-                    .IsRequired()
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateBy)
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
-            });
-
-            modelBuilder.Entity<ReportRole>(entity =>
-            {
-                entity.ToTable("ReportRole", "general");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.IdRole)
-                    .IsRequired()
-                    .HasMaxLength(5)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.HasOne(d => d.IdReportNavigation)
-                    .WithMany(p => p.ReportRole)
-                    .HasForeignKey(d => d.IdReport)
-                    .HasConstraintName("FK_ReportRole_Report");
-
-                entity.HasOne(d => d.IdRoleNavigation)
-                    .WithMany(p => p.ReportRole)
-                    .HasForeignKey(d => d.IdRole)
-                    .HasConstraintName("FK_ReportRole_Role");
-            });
-
-            modelBuilder.Entity<Repository>(entity =>
-            {
-                entity.ToTable("Repository", "general");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.Base64)
-                    .IsRequired()
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Code)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Description)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Extension)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.FileName)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.MimeType)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Modul)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-            });
-
-            modelBuilder.Entity<Role>(entity =>
-            {
-                entity.ToTable("Role", "identity");
+                entity.ToTable("HIS_SPDA");
 
                 entity.Property(e => e.Id)
-                    .HasMaxLength(5)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
 
                 entity.Property(e => e.CreateBy)
                     .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
 
                 entity.Property(e => e.CreateDate)
                     .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(100)
+                entity.Property(e => e.ExpiredDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("EXPIRED_DATE");
+
+                entity.Property(e => e.FileSpda)
+                    .HasMaxLength(250)
+                    .HasColumnName("FILE_SPDA");
+
+                entity.Property(e => e.FileSpdaId).HasColumnName("FILE_SPDA_ID");
+
+                entity.Property(e => e.SpdaNo)
+                    .HasMaxLength(25)
                     .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("SPDA_NO");
+
+                entity.Property(e => e.SpdaValidity)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("SPDA_VALIDITY");
 
                 entity.Property(e => e.UpdateBy)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
 
-                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPDATE_DATE");
+
+                entity.Property(e => e.UploadDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPLOAD_DATE");
+
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
             });
 
-            modelBuilder.Entity<RolePermission>(entity =>
+            modelBuilder.Entity<MstLandasanHukum>(entity =>
             {
-                entity.ToTable("RolePermission", "identity");
+                entity.ToTable("MST_LANDASAN_HUKUM");
 
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
 
                 entity.Property(e => e.CreateBy)
                     .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
 
                 entity.Property(e => e.CreateDate)
                     .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.IdRole)
-                    .IsRequired()
-                    .HasMaxLength(5)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.HasOne(d => d.IdPermissionNavigation)
-                    .WithMany(p => p.RolePermission)
-                    .HasForeignKey(d => d.IdPermission)
-                    .HasConstraintName("FK_RolePermission");
-
-                entity.HasOne(d => d.IdRoleNavigation)
-                    .WithMany(p => p.RolePermission)
-                    .HasForeignKey(d => d.IdRole)
-                    .HasConstraintName("FK_RolePermissionRole");
-            });
-
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.ToTable("User", "identity");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
+                entity.Property(e => e.FileLandasanHukum)
                     .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("FILE_LANDASAN_HUKUM");
 
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.FileLandasanHukumId).HasColumnName("FILE_LANDASAN_HUKUM_ID");
 
-                entity.Property(e => e.ExpiredPassword).HasColumnType("datetime");
-
-                entity.Property(e => e.ExpiredUser).HasColumnType("datetime");
-
-                entity.Property(e => e.Fullname)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.LastChangePassword).HasColumnType("datetime");
-
-                entity.Property(e => e.LastLogin).HasColumnType("datetime");
-
-                entity.Property(e => e.Mail)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Password)
-                    .IsRequired()
+                entity.Property(e => e.JenisAkta)
                     .HasMaxLength(50)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .IsUnicode(false)
+                    .HasColumnName("JENIS_AKTA");
+
+                entity.Property(e => e.NamaNotaris)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("NAMA_NOTARIS");
+
+                entity.Property(e => e.NamaSkMenteri)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("NAMA_SK_MENTERI");
+
+                entity.Property(e => e.NoAkta)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("NO_AKTA");
+
+                entity.Property(e => e.TglAkta)
+                    .HasColumnType("datetime")
+                    .HasColumnName("TGL_AKTA");
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPDATE_DATE");
+
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
+            });
+
+            modelBuilder.Entity<MstVendor>(entity =>
+            {
+                entity.ToTable("MST_VENDOR");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.ActivityName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ACTIVITY_NAME");
+
+                entity.Property(e => e.Address)
+                    .HasColumnType("text")
+                    .HasColumnName("ADDRESS");
+
+                entity.Property(e => e.AhuOnlineFile)
+                    .HasMaxLength(200)
+                    .HasColumnName("AHU_ONLINE_FILE");
+
+                entity.Property(e => e.AktaNotarisFile)
+                    .HasMaxLength(200)
+                    .HasColumnName("AKTA_NOTARIS_FILE");
+
+                entity.Property(e => e.CityName)
+                    .HasMaxLength(150)
+                    .HasColumnName("CITY_NAME");
+
+                entity.Property(e => e.CompanyType)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("COMPANY_TYPE");
+
+                entity.Property(e => e.CompletedDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("COMPLETED_DATE");
+
+                entity.Property(e => e.ContactPerson)
+                    .HasMaxLength(250)
+                    .HasColumnName("CONTACT_PERSON");
+
+                entity.Property(e => e.CreateBy)
+                    .IsRequired()
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.DocNpwp)
+                    .HasMaxLength(250)
+                    .HasColumnName("DOC_NPWP");
+
+                entity.Property(e => e.ExpiredDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("EXPIRED_DATE");
+
+                entity.Property(e => e.FaxNumber)
+                    .HasMaxLength(50)
+                    .HasColumnName("FAX_NUMBER");
+
+                entity.Property(e => e.FileSpdaId).HasColumnName("FILE_SPDA_ID");
+
+                entity.Property(e => e.FileVendorId).HasColumnName("FILE_VENDOR_ID");
+
+                entity.Property(e => e.IsAutoGenerate).HasColumnName("IS_AUTO_GENERATE");
+
+                entity.Property(e => e.Jabatan)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("JABATAN");
+
+                entity.Property(e => e.JenisUsaha)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("JENIS_USAHA");
+
+                entity.Property(e => e.K3sAhuOnlineFile)
+                    .HasMaxLength(150)
+                    .HasColumnName("K3S_AHU_ONLINE_FILE");
+
+                entity.Property(e => e.K3sname)
+                    .IsRequired()
+                    .HasColumnName("K3SNAME");
+
+                entity.Property(e => e.K3snameSpda).HasColumnName("K3SNAME_SPDA");
+
+                entity.Property(e => e.LinkPid)
+                    .HasColumnType("text")
+                    .HasColumnName("LINK_PID");
+
+                entity.Property(e => e.Npwp)
+                    .HasMaxLength(200)
+                    .HasColumnName("NPWP");
+
+                entity.Property(e => e.NpwpPusat)
+                    .HasMaxLength(250)
+                    .HasColumnName("NPWP_PUSAT");
+
+                entity.Property(e => e.OfficeStatus)
+                    .IsRequired()
+                    .HasColumnName("OFFICE_STATUS");
+
+                entity.Property(e => e.Pabrikan)
+                    .IsRequired()
+                    .HasColumnName("PABRIKAN");
+
+                entity.Property(e => e.PemberiSanksi)
+                    .HasMaxLength(150)
+                    .HasColumnName("PEMBERI_SANKSI");
 
                 entity.Property(e => e.PhoneNumber)
-                    .IsRequired()
                     .HasMaxLength(50)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("PHONE_NUMBER");
 
-                entity.Property(e => e.PhotoUrl)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                entity.Property(e => e.ProvinceName)
+                    .HasMaxLength(200)
+                    .HasColumnName("PROVINCE_NAME");
 
-                entity.Property(e => e.Token)
-                    .HasMaxLength(250)
-                    .UseCollation("Latin1_General_CI_AS");
+                entity.Property(e => e.RegId).HasColumnName("REG_ID");
 
-                entity.Property(e => e.UpdateBy)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
-
-                entity.Property(e => e.Username)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .UseCollation("Latin1_General_CI_AS");
-            });
-
-            modelBuilder.Entity<UserActivity>(entity =>
-            {
-                entity.ToTable("UserActivity", "log");
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("ID")
-                    .HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.PageName)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.HasOne(d => d.IdUserNavigation)
-                    .WithMany(p => p.UserActivity)
-                    .HasForeignKey(d => d.IdUser)
-                    .HasConstraintName("FK_UserActivityUser");
-            });
-
-            modelBuilder.Entity<UserDelegate>(entity =>
-            {
-                entity.ToTable("UserDelegate", "identity");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.ExpiredDate).HasColumnType("datetime");
-
-                entity.Property(e => e.StartDate).HasColumnType("datetime");
-
-                entity.HasOne(d => d.IdUserNavigation)
-                    .WithMany(p => p.UserDelegateIdUserNavigation)
-                    .HasForeignKey(d => d.IdUser)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UserDelegateUser");
-
-                entity.HasOne(d => d.IdUserDelegateNavigation)
-                    .WithMany(p => p.UserDelegateIdUserDelegateNavigation)
-                    .HasForeignKey(d => d.IdUserDelegate)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_UserDelegate");
-            });
-
-            modelBuilder.Entity<UserPassword>(entity =>
-            {
-                entity.ToTable("UserPassword", "identity");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.HasOne(d => d.IdUserNavigation)
-                    .WithMany(p => p.UserPassword)
-                    .HasForeignKey(d => d.IdUser)
-                    .HasConstraintName("FK_UserPassword");
-            });
-
-            modelBuilder.Entity<UserRole>(entity =>
-            {
-                entity.ToTable("UserRole", "identity");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.IdRole)
+                entity.Property(e => e.SahamAsing)
                     .IsRequired()
                     .HasMaxLength(5)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .IsUnicode(false)
+                    .HasColumnName("SAHAM_ASING");
 
-                entity.HasOne(d => d.IdRoleNavigation)
-                    .WithMany(p => p.UserRole)
-                    .HasForeignKey(d => d.IdRole)
-                    .HasConstraintName("FK_UserRole");
+                entity.Property(e => e.Sanksi)
+                    .HasMaxLength(100)
+                    .HasColumnName("SANKSI");
 
-                entity.HasOne(d => d.IdUserNavigation)
-                    .WithMany(p => p.UserRole)
-                    .HasForeignKey(d => d.IdUser)
-                    .HasConstraintName("FK_UserRole_User");
+                entity.Property(e => e.Situ)
+                    .HasMaxLength(100)
+                    .HasColumnName("SITU");
+
+                entity.Property(e => e.SituEndDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("SITU_END_DATE");
+
+                entity.Property(e => e.SituFile)
+                    .HasMaxLength(150)
+                    .HasColumnName("SITU_FILE");
+
+                entity.Property(e => e.SituStartDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("SITU_START_DATE");
+
+                entity.Property(e => e.SpdaFile)
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("SPDA_FILE");
+
+                entity.Property(e => e.SpdaId).HasColumnName("SPDA_ID");
+
+                entity.Property(e => e.SpdaNo)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("SPDA_NO");
+
+                entity.Property(e => e.SpdaValidity)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("SPDA_VALIDITY");
+
+                entity.Property(e => e.StatusPerusahaan)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("STATUS_PERUSAHAAN");
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPDATE_DATE");
+
+                entity.Property(e => e.UploadDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPLOAD_DATE");
+
+                entity.Property(e => e.UploadDateAhuOnline)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPLOAD_DATE_AHU_ONLINE");
+
+                entity.Property(e => e.VendorEmail1)
+                    .HasMaxLength(50)
+                    .HasColumnName("VENDOR_EMAIL1");
+
+                entity.Property(e => e.VendorEmail2)
+                    .HasMaxLength(50)
+                    .HasColumnName("VENDOR_EMAIL2");
+
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
+
+                entity.Property(e => e.VendorName)
+                    .IsRequired()
+                    .HasColumnName("VENDOR_NAME");
+
+                entity.Property(e => e.VendorStatus)
+                    .IsRequired()
+                    .HasColumnName("VENDOR_STATUS");
+
+                entity.Property(e => e.Website)
+                    .HasMaxLength(150)
+                    .HasColumnName("WEBSITE");
+
+                entity.Property(e => e.ZipCode)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ZIP_CODE");
             });
 
-            modelBuilder.Entity<Workflow>(entity =>
+            modelBuilder.Entity<MstVendorBranch>(entity =>
             {
-                entity.ToTable("Workflow", "general");
+                entity.ToTable("MST_VENDOR_BRANCH");
 
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
 
-                entity.Property(e => e.CallbackUrl)
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                entity.Property(e => e.Address)
+                    .HasColumnType("text")
+                    .HasColumnName("ADDRESS");
 
-                entity.Property(e => e.Code)
+                entity.Property(e => e.CompanyType)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("COMPANY_TYPE");
+
+                entity.Property(e => e.ContactPerson)
+                    .HasMaxLength(250)
+                    .HasColumnName("CONTACT_PERSON");
 
                 entity.Property(e => e.CreateBy)
                     .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
 
                 entity.Property(e => e.CreateDate)
                     .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.DataWorkflow)
+                entity.Property(e => e.FaxNumber)
+                    .HasMaxLength(50)
+                    .HasColumnName("FAX_NUMBER");
+
+                entity.Property(e => e.Npwp)
+                    .HasMaxLength(200)
+                    .HasColumnName("NPWP");
+
+                entity.Property(e => e.PhoneNumber)
+                    .HasMaxLength(50)
+                    .HasColumnName("PHONE_NUMBER");
+
+                entity.Property(e => e.Pkp)
+                    .HasMaxLength(200)
+                    .HasColumnName("PKP");
+
+                entity.Property(e => e.Situ)
+                    .HasMaxLength(100)
+                    .HasColumnName("SITU");
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPDATE_DATE");
+
+                entity.Property(e => e.VendorBranchName)
+                    .IsRequired()
+                    .HasColumnName("VENDOR_BRANCH_NAME");
+
+                entity.Property(e => e.VendorEmail1)
+                    .HasMaxLength(50)
+                    .HasColumnName("VENDOR_EMAIL1");
+
+                entity.Property(e => e.VendorEmail2)
+                    .HasMaxLength(50)
+                    .HasColumnName("VENDOR_EMAIL2");
+
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
+
+                entity.Property(e => e.ZipCode)
+                    .HasMaxLength(50)
                     .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("ZIP_CODE");
+            });
+
+            modelBuilder.Entity<TrsAnnouncement>(entity =>
+            {
+                entity.ToTable("TRS_ANNOUNCEMENT");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.AnnouncementCategory)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("ANNOUNCEMENT_CATEGORY");
+
+                entity.Property(e => e.AnnouncementType)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ANNOUNCEMENT_TYPE");
+
+                entity.Property(e => e.Attachment)
+                    .HasMaxLength(250)
+                    .HasColumnName("ATTACHMENT");
+
+                entity.Property(e => e.BidangUsaha)
+                    .HasMaxLength(250)
+                    .IsUnicode(false)
+                    .HasColumnName("BIDANG_USAHA");
+
+                entity.Property(e => e.CreateBy)
+                    .IsRequired()
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Description)
+                    .HasColumnType("text")
+                    .HasColumnName("DESCRIPTION");
+
+                entity.Property(e => e.EndDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("END_DATE");
+
+                entity.Property(e => e.GolonganUsaha)
+                    .HasMaxLength(25)
                     .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("GOLONGAN_USAHA");
 
-                entity.Property(e => e.DocumentNo)
-                    .HasMaxLength(50)
-                    .UseCollation("Latin1_General_CI_AS");
+                entity.Property(e => e.K3sId).HasColumnName("K3S_ID");
 
-                entity.Property(e => e.EmailRequester)
+                entity.Property(e => e.K3sName)
                     .HasMaxLength(100)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.FullnameRequester)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.NavigationUrl)
-                    .HasMaxLength(150)
                     .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("K3S_NAME");
 
-                entity.Property(e => e.StatusDescription)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Subject)
-                    .IsRequired()
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateBy)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.UpdateDate)
+                entity.Property(e => e.PublishDate)
                     .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                    .HasColumnName("PUBLISH_DATE");
 
-                entity.Property(e => e.WorkflowCode)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .UseCollation("Latin1_General_CI_AS");
-            });
-
-            modelBuilder.Entity<WorkflowAttachment>(entity =>
-            {
-                entity.ToTable("WorkflowAttachment", "general");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.HasOne(d => d.IdRepositoryNavigation)
-                    .WithMany(p => p.WorkflowAttachment)
-                    .HasForeignKey(d => d.IdRepository)
-                    .HasConstraintName("FK_WorkflowAttachment_Repository");
-
-                entity.HasOne(d => d.IdWorkflowNavigation)
-                    .WithMany(p => p.WorkflowAttachment)
-                    .HasForeignKey(d => d.IdWorkflow)
-                    .HasConstraintName("FK_WorkflowAttachment_Workflow");
-            });
-
-            modelBuilder.Entity<WorkflowConfig>(entity =>
-            {
-                entity.ToTable("WorkflowConfig", "general");
-
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-
-                entity.Property(e => e.CallbackUrl)
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.Code)
-                    .IsRequired()
+                entity.Property(e => e.TenderType)
                     .HasMaxLength(50)
                     .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("TENDER_TYPE");
 
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasMaxLength(250)
+                entity.Property(e => e.Title)
+                    .HasMaxLength(200)
                     .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.NavigationUrl)
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("TITLE");
 
                 entity.Property(e => e.UpdateBy)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
 
                 entity.Property(e => e.UpdateDate)
                     .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                    .HasColumnName("UPDATE_DATE");
             });
 
-            modelBuilder.Entity<WorkflowConfigDetail>(entity =>
+            modelBuilder.Entity<TrsIzinUsaha>(entity =>
             {
-                entity.ToTable("WorkflowConfigDetail", "general");
+                entity.ToTable("TRS_IZIN_USAHA");
 
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
 
-                entity.Property(e => e.AutoApproveExpired).HasColumnType("datetime");
+                entity.Property(e => e.AkhirBerlaku)
+                    .HasColumnType("datetime")
+                    .HasColumnName("AKHIR_BERLAKU");
+
+                entity.Property(e => e.BidangUsaha)
+                    .HasMaxLength(150)
+                    .IsUnicode(false)
+                    .HasColumnName("BIDANG_USAHA");
 
                 entity.Property(e => e.CreateBy)
                     .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
 
                 entity.Property(e => e.CreateDate)
                     .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.StepName)
-                    .IsRequired()
+                entity.Property(e => e.FileIzinUsaha)
+                    .HasMaxLength(250)
+                    .HasColumnName("FILE_IZIN_USAHA");
+
+                entity.Property(e => e.FileIzinUsahaId).HasColumnName("FILE_IZIN_USAHA_ID");
+
+                entity.Property(e => e.GolonganUsaha)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("GOLONGAN_USAHA");
+
+                entity.Property(e => e.InstansiPemberiIzin)
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("INSTANSI_PEMBERI_IZIN");
+
+                entity.Property(e => e.JenisIzinUsaha)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("JENIS_IZIN_USAHA");
+
+                entity.Property(e => e.JenisMataUang)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("JENIS_MATA_UANG");
+
+                entity.Property(e => e.KekayaanBershi)
+                    .HasColumnType("decimal(18, 0)")
+                    .HasColumnName("KEKAYAAN_BERSHI");
+
+                entity.Property(e => e.MerkStp)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("MERK_STP");
+
+                entity.Property(e => e.MulaiBerlaku)
+                    .HasColumnType("datetime")
+                    .HasColumnName("MULAI_BERLAKU");
+
+                entity.Property(e => e.NoIzinUsaha)
                     .HasMaxLength(150)
                     .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("NO_IZIN_USAHA");
+
+                entity.Property(e => e.Other)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("OTHER");
+
+                entity.Property(e => e.PeringkatInspeksi)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("PERINGKAT_INSPEKSI");
+
+                entity.Property(e => e.TipeStp)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("TIPE_STP");
 
                 entity.Property(e => e.UpdateBy)
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
 
                 entity.Property(e => e.UpdateDate)
                     .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                    .HasColumnName("UPDATE_DATE");
 
-                entity.HasOne(d => d.IdUserNavigation)
-                    .WithMany(p => p.WorkflowConfigDetail)
-                    .HasForeignKey(d => d.IdUser)
-                    .HasConstraintName("FK_WorkflowConfigDetail_User");
-
-                entity.HasOne(d => d.IdWorkflowConfigNavigation)
-                    .WithMany(p => p.WorkflowConfigDetail)
-                    .HasForeignKey(d => d.IdWorkflowConfig)
-                    .HasConstraintName("FK_WorkflowConfigDetail_WorkflowConfig");
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
             });
 
-            modelBuilder.Entity<WorkflowDetail>(entity =>
+            modelBuilder.Entity<TrsKompetensi>(entity =>
             {
-                entity.ToTable("WorkflowDetail", "general");
+                entity.ToTable("TRS_KOMPETENSI");
 
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
 
-                entity.Property(e => e.AutoApproveExpired).HasColumnType("datetime");
+                entity.Property(e => e.BidangSubBidang)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("BIDANG_SUB_BIDANG");
+
+                entity.Property(e => e.BidangSubBidangCode)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("BIDANG_SUB_BIDANG_CODE");
 
                 entity.Property(e => e.CreateBy)
                     .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
 
                 entity.Property(e => e.CreateDate)
                     .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Deskripsi)
+                    .HasColumnType("text")
+                    .HasColumnName("DESKRIPSI");
+
+                entity.Property(e => e.Document)
+                    .HasMaxLength(250)
+                    .HasColumnName("DOCUMENT");
+
+                entity.Property(e => e.DocumentId).HasColumnName("DOCUMENT_ID");
+
+                entity.Property(e => e.JenisMataUang)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("JENIS_MATA_UANG");
+
+                entity.Property(e => e.NilaiKontrakPoso).HasColumnName("NILAI_KONTRAK_POSO");
+
+                entity.Property(e => e.NoKontrakPoso)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("NO_KONTRAK_POSO");
+
+                entity.Property(e => e.Perusahaan)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PERUSAHAAN");
+
+                entity.Property(e => e.ProgressKontrakPoso)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("PROGRESS_KONTRAK_POSO");
+
+                entity.Property(e => e.TglKontrakPoso)
+                    .HasColumnType("datetime")
+                    .HasColumnName("TGL_KONTRAK_POSO");
+
+                entity.Property(e => e.TglPenyelesaian)
+                    .HasColumnType("datetime")
+                    .HasColumnName("TGL_PENYELESAIAN");
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPDATE_DATE");
+
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
+            });
+
+            modelBuilder.Entity<TrsNeraca>(entity =>
+            {
+                entity.ToTable("TRS_NERACA");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.AccountReceivables).HasColumnName("ACCOUNT_RECEIVABLES");
+
+                entity.Property(e => e.AkhirBerlaku)
+                    .HasColumnType("datetime")
+                    .HasColumnName("AKHIR_BERLAKU");
+
+                entity.Property(e => e.Cash).HasColumnName("CASH");
+
+                entity.Property(e => e.CostOfRevenue).HasColumnName("COST_OF_REVENUE");
+
+                entity.Property(e => e.CreateBy)
+                    .IsRequired()
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.CurrentAsset).HasColumnName("CURRENT_ASSET");
+
+                entity.Property(e => e.CurrentLiabilities).HasColumnName("CURRENT_LIABILITIES");
+
+                entity.Property(e => e.DepreciationExpense).HasColumnName("DEPRECIATION_EXPENSE");
+
+                entity.Property(e => e.EarningBeforeTax).HasColumnName("EARNING_BEFORE_TAX");
+
+                entity.Property(e => e.Ebit).HasColumnName("EBIT");
+
+                entity.Property(e => e.FileNeraca)
+                    .HasMaxLength(250)
+                    .HasColumnName("FILE_NERACA");
+
+                entity.Property(e => e.FileNeracaId).HasColumnName("FILE_NERACA_ID");
+
+                entity.Property(e => e.FixedAsset).HasColumnName("FIXED_ASSET");
+
+                entity.Property(e => e.GolonganPerusahaan)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("GOLONGAN_PERUSAHAAN");
+
+                entity.Property(e => e.GrossProfit).HasColumnName("GROSS_PROFIT");
+
+                entity.Property(e => e.InterestExpense).HasColumnName("INTEREST_EXPENSE");
+
+                entity.Property(e => e.JenisMataUang)
+                    .HasMaxLength(15)
+                    .IsUnicode(false)
+                    .HasColumnName("JENIS_MATA_UANG");
+
+                entity.Property(e => e.JenisMataUangSales)
+                    .HasMaxLength(15)
+                    .IsUnicode(false)
+                    .HasColumnName("JENIS_MATA_UANG_SALES");
+
+                entity.Property(e => e.JumlahAktiva).HasColumnName("JUMLAH_AKTIVA");
+
+                entity.Property(e => e.JumlahHutang).HasColumnName("JUMLAH_HUTANG");
+
+                entity.Property(e => e.KekayaanBersih).HasColumnName("KEKAYAAN_BERSIH");
+
+                entity.Property(e => e.NetEkuitas).HasColumnName("NET_EKUITAS");
+
+                entity.Property(e => e.NetProfit).HasColumnName("NET_PROFIT");
+
+                entity.Property(e => e.NonCurrentLiabilities).HasColumnName("NON_CURRENT_LIABILITIES");
+
+                entity.Property(e => e.OperatingExpense).HasColumnName("OPERATING_EXPENSE");
+
+                entity.Property(e => e.OtherCurrentAsset).HasColumnName("OTHER_CURRENT_ASSET");
+
+                entity.Property(e => e.OthersExpense).HasColumnName("OTHERS_EXPENSE");
+
+                entity.Property(e => e.OthersIncome).HasColumnName("OTHERS_INCOME");
+
+                entity.Property(e => e.Penjualan).HasColumnName("PENJUALAN");
+
+                entity.Property(e => e.PeriodeAkhir)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIODE_AKHIR");
+
+                entity.Property(e => e.PeriodeAwal)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIODE_AWAL");
+
+                entity.Property(e => e.StatusAudit)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("STATUS_AUDIT");
+
+                entity.Property(e => e.Tahun).HasColumnName("TAHUN");
+
+                entity.Property(e => e.TanahBangunan).HasColumnName("TANAH_BANGUNAN");
+
+                entity.Property(e => e.TglAkhirSales)
+                    .HasColumnType("datetime")
+                    .HasColumnName("TGL_AKHIR_SALES");
+
+                entity.Property(e => e.TglSales)
+                    .HasColumnType("datetime")
+                    .HasColumnName("TGL_SALES");
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPDATE_DATE");
+
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
+
+                entity.Property(e => e.ZeroControl).HasColumnName("ZERO_CONTROL");
+            });
+
+            modelBuilder.Entity<TrsPajak>(entity =>
+            {
+                entity.ToTable("TRS_PAJAK");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.CreateBy)
+                    .IsRequired()
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.FileDokumen)
+                    .HasMaxLength(250)
+                    .HasColumnName("FILE_DOKUMEN");
+
+                entity.Property(e => e.FileDokumenId).HasColumnName("FILE_DOKUMEN_ID");
+
+                entity.Property(e => e.Kondisi)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("KONDISI");
+
+                entity.Property(e => e.NoDokumen)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("NO_DOKUMEN");
+
+                entity.Property(e => e.PeriodeAkhir)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIODE_AKHIR");
+
+                entity.Property(e => e.PeriodeAwal)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("PERIODE_AWAL");
+
+                entity.Property(e => e.Tahun).HasColumnName("TAHUN");
+
+                entity.Property(e => e.Tanggal)
+                    .HasColumnType("datetime")
+                    .HasColumnName("TANGGAL");
+
+                entity.Property(e => e.TanggalAkhir)
+                    .HasColumnType("datetime")
+                    .HasColumnName("TANGGAL_AKHIR");
+
+                entity.Property(e => e.TipeDokumen)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("TIPE_DOKUMEN");
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPDATE_DATE");
+
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
+            });
+
+            modelBuilder.Entity<TrsPengalaman>(entity =>
+            {
+                entity.ToTable("TRS_PENGALAMAN");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.Alamat)
+                    .HasMaxLength(250)
+                    .HasColumnName("ALAMAT");
+
+                entity.Property(e => e.BidangSubBidang)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("BIDANG_SUB_BIDANG");
+
+                entity.Property(e => e.BidangSubBidangCode)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("BIDANG_SUB_BIDANG_CODE");
+
+                entity.Property(e => e.CreateBy)
+                    .IsRequired()
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.FileBast)
+                    .HasMaxLength(250)
+                    .HasColumnName("FILE_BAST");
+
+                entity.Property(e => e.FileBastId).HasColumnName("FILE_BAST_ID");
+
+                entity.Property(e => e.FileBuktiPengalaman)
+                    .HasMaxLength(250)
+                    .HasColumnName("FILE_BUKTI_PENGALAMAN");
+
+                entity.Property(e => e.FileBuktiPengalamanId).HasColumnName("FILE_BUKTI_PENGALAMAN_ID");
+
+                entity.Property(e => e.JenisMataUang)
+                    .HasMaxLength(15)
+                    .IsUnicode(false)
+                    .HasColumnName("JENIS_MATA_UANG");
+
+                entity.Property(e => e.Lokasi)
+                    .HasMaxLength(200)
+                    .HasColumnName("LOKASI");
+
+                entity.Property(e => e.NamaPaketPekerjaan)
+                    .HasMaxLength(250)
+                    .HasColumnName("NAMA_PAKET_PEKERJAAN");
+
+                entity.Property(e => e.NamaPenggunaJasa)
+                    .HasMaxLength(150)
+                    .HasColumnName("NAMA_PENGGUNA_JASA");
+
+                entity.Property(e => e.NilaiKontrakPo).HasColumnName("NILAI_KONTRAK_PO");
+
+                entity.Property(e => e.NoKontrakPo)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("NO_KONTRAK_PO");
+
+                entity.Property(e => e.NoTelepon)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("NO_TELEPON");
+
+                entity.Property(e => e.SelesaiKontrakPo)
+                    .HasColumnType("datetime")
+                    .HasColumnName("SELESAI_KONTRAK_PO");
+
+                entity.Property(e => e.TglKontrakPo)
+                    .HasColumnType("datetime")
+                    .HasColumnName("TGL_KONTRAK_PO");
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPDATE_DATE");
+
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
+            });
+
+            modelBuilder.Entity<TrsRekeningBank>(entity =>
+            {
+                entity.ToTable("TRS_REKENING_BANK");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.CreateBy)
+                    .IsRequired()
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.FileSuratPernyataan)
+                    .HasMaxLength(250)
+                    .HasColumnName("FILE_SURAT_PERNYATAAN");
+
+                entity.Property(e => e.FileSuratPernyataanId).HasColumnName("FILE_SURAT_PERNYATAAN_ID");
+
+                entity.Property(e => e.JenisMataUang)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("JENIS_MATA_UANG");
+
+                entity.Property(e => e.KantorCabang)
+                    .HasMaxLength(150)
+                    .IsUnicode(false)
+                    .HasColumnName("KANTOR_CABANG");
+
+                entity.Property(e => e.NamaBank)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("NAMA_BANK");
+
+                entity.Property(e => e.Negara)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("NEGARA");
+
+                entity.Property(e => e.NoRekening)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("NO_REKENING");
+
+                entity.Property(e => e.NoRekeningFormat)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("NO_REKENING_FORMAT");
+
+                entity.Property(e => e.PemegangRekening)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("PEMEGANG_REKENING");
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPDATE_DATE");
+
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
+            });
+
+            modelBuilder.Entity<TrsSusunanPengurus>(entity =>
+            {
+                entity.ToTable("TRS_SUSUNAN_PENGURUS");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.CreateBy)
+                    .IsRequired()
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Email)
-                    .HasMaxLength(100)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.FullName)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.StepName)
-                    .IsRequired()
-                    .HasMaxLength(150)
+                    .HasMaxLength(50)
                     .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("EMAIL");
 
-                entity.HasOne(d => d.IdWorkflowNavigation)
-                    .WithMany(p => p.WorkflowDetail)
-                    .HasForeignKey(d => d.IdWorkflow)
-                    .HasConstraintName("FK_WorkflowDetail_Workflow");
+                entity.Property(e => e.FileKtpKitas)
+                    .HasMaxLength(250)
+                    .HasColumnName("FILE_KTP_KITAS");
+
+                entity.Property(e => e.FileKtpKitasId).HasColumnName("FILE_KTP_KITAS_ID");
+
+                entity.Property(e => e.FileTandaTangan)
+                    .HasMaxLength(250)
+                    .HasColumnName("FILE_TANDA_TANGAN");
+
+                entity.Property(e => e.FileTandaTanganId).HasColumnName("FILE_TANDA_TANGAN_ID");
+
+                entity.Property(e => e.Jabatan)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("JABATAN");
+
+                entity.Property(e => e.Nama)
+                    .HasMaxLength(75)
+                    .IsUnicode(false)
+                    .HasColumnName("NAMA");
+
+                entity.Property(e => e.NoKtpKitas)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("NO_KTP_KITAS");
+
+                entity.Property(e => e.TipePengurus)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("TIPE_PENGURUS");
+
+                entity.Property(e => e.UpdateBy)
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
+
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPDATE_DATE");
+
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
             });
 
-            modelBuilder.Entity<WorkflowLog>(entity =>
+            modelBuilder.Entity<TrsSusunanSaham>(entity =>
             {
-                entity.ToTable("WorkflowLog", "general");
+                entity.ToTable("TRS_SUSUNAN_SAHAM");
 
-                entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.BadanUsaha)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("BADAN_USAHA");
 
                 entity.Property(e => e.CreateBy)
                     .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasMaxLength(80)
+                    .HasColumnName("CREATE_BY")
+                    .HasDefaultValueSql("(('SYSTEM') collate SQL_Latin1_General_CP1_CI_AS)");
 
                 entity.Property(e => e.CreateDate)
                     .HasColumnType("datetime")
+                    .HasColumnName("CREATE_DATE")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Email)
-                    .HasMaxLength(100)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.FullName)
-                    .IsRequired()
+                entity.Property(e => e.DocNpwp)
                     .HasMaxLength(250)
+                    .HasColumnName("DOC_NPWP");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
                     .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("EMAIL");
 
-                entity.Property(e => e.Notes)
+                entity.Property(e => e.JumlahSaham).HasColumnName("JUMLAH_SAHAM");
+
+                entity.Property(e => e.Nama)
+                    .HasMaxLength(75)
                     .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("NAMA");
 
-                entity.Property(e => e.StatusDescription)
-                    .IsRequired()
-                    .HasMaxLength(150)
+                entity.Property(e => e.NoKtpKitas)
+                    .HasMaxLength(100)
                     .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasColumnName("NO_KTP_KITAS");
 
-                entity.Property(e => e.StepName)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.HasOne(d => d.IdWorkflowNavigation)
-                    .WithMany(p => p.WorkflowLog)
-                    .HasForeignKey(d => d.IdWorkflow)
-                    .HasConstraintName("FK_WorkflowLog_Workflow");
-
-                entity.HasOne(d => d.IdWorkflowStatusNavigation)
-                    .WithMany(p => p.WorkflowLog)
-                    .HasForeignKey(d => d.IdWorkflowStatus)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_WorkflowLog_WorkflowStatus");
-            });
-
-            modelBuilder.Entity<WorkflowStatus>(entity =>
-            {
-                entity.ToTable("WorkflowStatus", "general");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
-
-                entity.Property(e => e.CreateDate).HasColumnType("datetime");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                entity.Property(e => e.Perorangan).HasColumnName("PERORANGAN");
 
                 entity.Property(e => e.UpdateBy)
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
-                    .UseCollation("Latin1_General_CI_AS");
+                    .HasMaxLength(80)
+                    .HasColumnName("UPDATE_BY");
 
-                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
+                entity.Property(e => e.UpdateDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("UPDATE_DATE");
+
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
+
+                entity.Property(e => e.WargaNegara)
+                    .HasMaxLength(15)
+                    .IsUnicode(false)
+                    .HasColumnName("WARGA_NEGARA");
             });
 
             OnModelCreatingPartial(modelBuilder);
