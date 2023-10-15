@@ -121,7 +121,7 @@ namespace Tomori.Epartner.Core.Sync.Command
 
                         _context.Add(new MstVendor
                         {
-                            Id = item.vendorId,
+                            Id = item.id,
                             VendorId = item.vendorId,
                             RegId = item.regId,
                             LinkPid = item.linkPID,

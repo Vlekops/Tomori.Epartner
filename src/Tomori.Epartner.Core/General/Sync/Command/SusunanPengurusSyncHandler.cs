@@ -82,7 +82,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                     else {
 
                         _context.Add(new TrsSusunanPengurus {
-                            Id = item.vendorId,
+                            Id = item.id,
                             VendorId = item.vendorId,
                             TipePengurus = item.tipePengurus,
                             Nama = item.nama,
