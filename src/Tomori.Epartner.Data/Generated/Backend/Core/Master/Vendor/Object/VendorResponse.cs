@@ -34,7 +34,7 @@ namespace Tomori.Epartner.Core.Response
 		public string FaxNumber{ get; set; }
 		public Guid? FileSpdaId{ get; set; }
 		public Guid? FileVendorId{ get; set; }
-		public bool? IsAutoGenerate{ get; set; }
+		public string IsAutoGenerate{ get; set; }
 		public string Jabatan{ get; set; }
 		public string JenisUsaha{ get; set; }
 		public string K3sAhuOnlineFile{ get; set; }

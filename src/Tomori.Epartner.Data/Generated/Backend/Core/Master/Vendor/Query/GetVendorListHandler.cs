@@ -227,8 +227,7 @@ namespace Tomori.Epartner.Core.Vendor.Query
 					break;
 					case "isautogenerate" : 
 						if(is_where){
-							if (bool.TryParse(search, out var _IsAutoGenerate))
-								result_where = (d=>d.IsAutoGenerate == _IsAutoGenerate);
+							result_where = (d=>d.IsAutoGenerate.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.IsAutoGenerate);
