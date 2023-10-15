@@ -45,13 +45,15 @@ namespace Tomori.Epartner.Core.Sync.Command
             ILogger<PengalamanSyncHandler> logger,
             IMapper mapper,
             IMediator mediator,
-            IUnitOfWork<ApplicationDBContext> context
+            IUnitOfWork<ApplicationDBContext> context,
+            IRestAPIHelper restAPIHelper
             )
         {
             _logger = logger;
             _mapper = mapper;
             _mediator = mediator;
             _context = context;
+            _restHelper = restAPIHelper;
         }
         public async Task<StatusResponse> Handle(PengalamanSyncRequest request, CancellationToken cancellationToken)
         {
@@ -117,7 +119,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                 var save = await _context.Commit();
                 if (!save.Success)
                 {
-                    result.Error("Error sync Data Pengalaman", save.Message);
+                    result.Error("Error sync Data Pengalaman", save.ex.Message);
                 }
                 else
                 {

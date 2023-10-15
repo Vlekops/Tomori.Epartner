@@ -21,7 +21,6 @@ function addHisSanksiSave() {
         if (isConfirm) {
             var param = {
 				filePernyataanPerbaikan:$('#Add-HisSanksi-FilePernyataanPerbaikan').val(),
-				filePernyataanPerbaikanId:$('#Add-HisSanksi-FilePernyataanPerbaikanId').val(),
 				fileSuratSanksi:$('#Add-HisSanksi-FileSuratSanksi').val(),
 				fileSuratSanksiId:$('#Add-HisSanksi-FileSuratSanksiId').val(),
 				keterangan:$('#Add-HisSanksi-Keterangan').val(),

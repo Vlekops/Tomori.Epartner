@@ -133,16 +133,6 @@ namespace Tomori.Epartner.Core.HisSanksi.Query
 						else
 							result_order = (d => d.FilePernyataanPerbaikan);
 					break;
-					case "filepernyataanperbaikanid" : 
-						if(is_where){
-							if (Guid.TryParse(search, out var _FilePernyataanPerbaikanId))
-								result_where = (d=>d.FilePernyataanPerbaikanId == _FilePernyataanPerbaikanId);
-								else
-								result_where = (d=>d.FilePernyataanPerbaikanId == Guid.Empty);
-						}
-						else
-							result_order = (d => d.FilePernyataanPerbaikanId);
-					break;
 					case "filesuratsanksi" : 
 						if(is_where){
 							result_where = (d=>d.FileSuratSanksi.Trim().ToLower().Contains(search));

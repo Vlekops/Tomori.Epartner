@@ -45,7 +45,6 @@ function getListHisSanksi(page) {
                             <tr>
                                 <td class="text-nowrap text-center">${count}</td>
 								<td class="text-nowrap">${item.filePernyataanPerbaikan}</td>
-								<td class="text-nowrap">${item.filePernyataanPerbaikanId}</td>
 								<td class="text-nowrap">${item.fileSuratSanksi}</td>
 								<td class="text-nowrap">${item.fileSuratSanksiId}</td>
 								<td class="text-nowrap">${item.keterangan}</td>

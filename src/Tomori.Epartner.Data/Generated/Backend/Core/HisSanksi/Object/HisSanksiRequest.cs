@@ -12,7 +12,6 @@ namespace Tomori.Epartner.Core.Request
     public partial class HisSanksiRequest
     {
 		public string FilePernyataanPerbaikan{ get; set; }
-		public Guid? FilePernyataanPerbaikanId{ get; set; }
 		public string FileSuratSanksi{ get; set; }
 		public Guid? FileSuratSanksiId{ get; set; }
 		public string Keterangan{ get; set; }

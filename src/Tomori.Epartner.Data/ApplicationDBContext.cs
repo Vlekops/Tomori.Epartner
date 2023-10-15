@@ -54,8 +54,6 @@ namespace Tomori.Epartner.Data
                     .HasMaxLength(250)
                     .HasColumnName("FILE_PERNYATAAN_PERBAIKAN");
 
-                entity.Property(e => e.FilePernyataanPerbaikanId).HasColumnName("FILE_PERNYATAAN_PERBAIKAN_ID");
-
                 entity.Property(e => e.FileSuratSanksi)
                     .HasMaxLength(250)
                     .HasColumnName("FILE_SURAT_SANKSI");

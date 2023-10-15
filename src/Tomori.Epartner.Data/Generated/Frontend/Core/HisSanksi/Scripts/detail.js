@@ -11,7 +11,6 @@ function detailHisSanksiDialog(el) {
     $('#md-HisSanksi-detail').modal('show');
 
 				$('#Detail-HisSanksi-FilePernyataanPerbaikan').val(data.filePernyataanPerbaikan);
-				$('#Detail-HisSanksi-FilePernyataanPerbaikanId').val(data.filePernyataanPerbaikanId);
 				$('#Detail-HisSanksi-FileSuratSanksi').val(data.fileSuratSanksi);
 				$('#Detail-HisSanksi-FileSuratSanksiId').val(data.fileSuratSanksiId);
 				$('#Detail-HisSanksi-Keterangan').val(data.keterangan);

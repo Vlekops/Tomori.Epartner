@@ -15,7 +15,6 @@ namespace Tomori.Epartner.Data.Model
         public string FileSuratSanksi { get; set; }
         public Guid? FileSuratSanksiId { get; set; }
         public string FilePernyataanPerbaikan { get; set; }
-        public Guid? FilePernyataanPerbaikanId { get; set; }
         public DateTime? TglBerlakuSanksi { get; set; }
         public DateTime? TglBerakhirSanksi { get; set; }
         public DateTime? TglBerakhirPercobaan { get; set; }

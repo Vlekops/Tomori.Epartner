@@ -11,7 +11,6 @@ function editHisSanksiDialog(el) {
     $('#md-HisSanksi-edit').modal('show');
 
 	$('#Edit-HisSanksi-FilePernyataanPerbaikan').val(data.filePernyataanPerbaikan);
-	$('#Edit-HisSanksi-FilePernyataanPerbaikanId').val(data.filePernyataanPerbaikanId);
 	$('#Edit-HisSanksi-FileSuratSanksi').val(data.fileSuratSanksi);
 	$('#Edit-HisSanksi-FileSuratSanksiId').val(data.fileSuratSanksiId);
 	$('#Edit-HisSanksi-Keterangan').val(data.keterangan);
@@ -36,7 +35,6 @@ function editHisSanksiSave() {
         if (isConfirm) {
             var param = {
 				filePernyataanPerbaikan:$('#Edit-HisSanksi-FilePernyataanPerbaikan').val(),
-				filePernyataanPerbaikanId:$('#Edit-HisSanksi-FilePernyataanPerbaikanId').val(),
 				fileSuratSanksi:$('#Edit-HisSanksi-FileSuratSanksi').val(),
 				fileSuratSanksiId:$('#Edit-HisSanksi-FileSuratSanksiId').val(),
 				keterangan:$('#Edit-HisSanksi-Keterangan').val(),

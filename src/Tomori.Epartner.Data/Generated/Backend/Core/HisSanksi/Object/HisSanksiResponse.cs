@@ -22,7 +22,6 @@ namespace Tomori.Epartner.Core.Response
 		public string CreateBy{ get; set; }
 		public DateTime CreateDate{ get; set; }
 		public string FilePernyataanPerbaikan{ get; set; }
-		public Guid? FilePernyataanPerbaikanId{ get; set; }
 		public string FileSuratSanksi{ get; set; }
 		public Guid? FileSuratSanksiId{ get; set; }
 		public string Keterangan{ get; set; }
