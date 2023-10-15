@@ -7,7 +7,7 @@ using Tomori.Epartner.Data;
 using Vleko.Result;
 using Tomori.Epartner.Core.Helper;
 using Tomori.Epartner.Core.Request;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 using Microsoft.EntityFrameworkCore;
 using Tomori.Epartner.Core.Attributes;
 using DocumentFormat.OpenXml.Spreadsheet;
@@ -117,7 +117,7 @@ namespace Tomori.Epartner.Core.Workflow.Command
                     var save_review = await _context.Commit();
                     if (save_review.Success)
                     {
-                        await _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = save_review.log });
+                        //await _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = save_review.log });
                         result.OK();
                     }
                     else
@@ -209,7 +209,7 @@ namespace Tomori.Epartner.Core.Workflow.Command
                         {
                             await _mediator.Send(n);
                         }
-                        await _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = save_next.log });
+                        //await _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = save_next.log });
                         result.OK();
                     }
                     else
@@ -252,7 +252,7 @@ namespace Tomori.Epartner.Core.Workflow.Command
                             await _helper.DoRequest<StatusResponse>(HttpMethod.Post, request.RawToken, _config.ApiUrl + workflow_data.CallbackUrl, data_request, true, false, null);
                         }
 
-                        await _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = save_final.log });
+                        //await _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = save_final.log });
                         result.OK();
                     }
                     else

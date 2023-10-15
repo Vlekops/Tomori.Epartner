@@ -2,7 +2,7 @@
 using Vleko.Result;
 using System.Reflection;
 using Vleko.DAL.Interface;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 using Tomori.Epartner.Core.Request;
 
 namespace Tomori.Epartner.Core.Helper

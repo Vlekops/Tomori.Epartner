@@ -9,7 +9,7 @@ using Tomori.Epartner.Core.Helper;
 using Microsoft.Extensions.Caching.Memory;
 using Tomori.Epartner.Data;
 using Vleko.DAL.Interface;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 using Tomori.Epartner.Core.Attributes;
 using Tomori.Epartner.Core.Config.Query;
 

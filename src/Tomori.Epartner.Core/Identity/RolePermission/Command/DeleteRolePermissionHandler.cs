@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Tomori.Epartner.Data;
 using Vleko.Result;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 using Microsoft.Extensions.Caching.Memory;
 using Tomori.Epartner.Core.Attributes;
 
@@ -60,7 +60,7 @@ namespace Tomori.Epartner.Core.Identity.RolePermission.Command
                     {
                         _cache.Remove(CacheKey.ROLE_PERMISSION);
                         _cache.Remove($"{CacheKey.USER_ROLE_PERMISSION}_{item.IdRole}");
-                        _ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = delete.log }));
+                        //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = delete.log }));
                         result.OK();
                     }
                     else

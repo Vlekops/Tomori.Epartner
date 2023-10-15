@@ -4,7 +4,7 @@ using AutoMapper;
 using Newtonsoft.Json;
 using Tomori.Epartner.Core.Helper;
 using Tomori.Epartner.Core;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 
 namespace Tomori.Epartner.API.Controllers
 {
@@ -25,13 +25,13 @@ namespace Tomori.Epartner.API.Controllers
             var user = Token;
             if (user != null && user.User != null)
             {
-                _ = Task.Run(() => _mediator.Send(new AddApiLogRequest()
-                {
-                    IdUser = user.User.Id,
-                    Endpoint = Request.Path.Value,
-                    Request = request != null ? JsonConvert.SerializeObject(request) : "-",
-                    Response = response != null ? JsonConvert.SerializeObject(response) : "-",
-                }));
+                //_ = Task.Run(() => _mediator.Send(new AddApiLogRequest()
+                //{
+                //    IdUser = user.User.Id,
+                //    Endpoint = Request.Path.Value,
+                //    Request = request != null ? JsonConvert.SerializeObject(request) : "-",
+                //    Response = response != null ? JsonConvert.SerializeObject(response) : "-",
+                //}));
             }
             dynamic result = response!;
             int code = result.Code;

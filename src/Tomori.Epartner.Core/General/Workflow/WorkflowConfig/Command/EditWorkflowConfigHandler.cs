@@ -14,7 +14,7 @@ using Tomori.Epartner.Data;
 using Vleko.Result;
 using Tomori.Epartner.Core.Helper;
 using Tomori.Epartner.Core.Request;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 
 namespace Tomori.Epartner.Core.WorkflowConfig.Command
 {
@@ -73,7 +73,7 @@ namespace Tomori.Epartner.Core.WorkflowConfig.Command
                     var update = await _context.UpdateSave(item);
                     if (update.Success)
                     {
-                        _ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = update.log }));
+                        //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = update.log }));
                         result.OK();
                     }
                     else

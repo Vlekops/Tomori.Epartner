@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Tomori.Epartner.Data;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 
 namespace Tomori.Epartner.Core.Identity.User.Command
 {
@@ -51,7 +51,7 @@ namespace Tomori.Epartner.Core.Identity.User.Command
                     var update = await _context.UpdateSave(item);
                     if (update.Success)
                     {
-                        _ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = update.log }));
+                        //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = update.log }));
                         result.OK();
                     }
                     else

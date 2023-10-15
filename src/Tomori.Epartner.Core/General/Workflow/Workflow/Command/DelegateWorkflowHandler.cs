@@ -7,7 +7,7 @@ using Tomori.Epartner.Data;
 using Vleko.Result;
 using Tomori.Epartner.Core.Helper;
 using Tomori.Epartner.Core.Request;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 using Microsoft.EntityFrameworkCore;
 using Tomori.Epartner.Core.Attributes;
 using DocumentFormat.OpenXml.Spreadsheet;
@@ -123,7 +123,7 @@ namespace Tomori.Epartner.Core.Workflow.Command
                         Token = request.Token,
                         Subject = $"{subject_notif} {workflow_data.Subject}"
                     });
-                    _ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = save.log }));
+                    //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = save.log }));
                     result.OK();
                 }
                 else

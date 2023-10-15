@@ -19,7 +19,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Tomori.Epartner.Core.Attributes;
 using Microsoft.EntityFrameworkCore;
 using HeyRed.Mime;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 using System.Buffers.Text;
 
 namespace Tomori.Epartner.Core.Repository.Command
@@ -94,7 +94,7 @@ namespace Tomori.Epartner.Core.Repository.Command
 
                 if (commit.Success)
                 {
-                    await _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = commit.log });
+                    //await _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = commit.log });
                     result.Data = id;
                     result.OK();
                 }

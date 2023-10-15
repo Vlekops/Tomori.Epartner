@@ -14,7 +14,7 @@ using Tomori.Epartner.Data;
 using Vleko.Result;
 using Tomori.Epartner.Core.Helper;
 using Tomori.Epartner.Core.Request;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 using Microsoft.Extensions.Caching.Memory;
 using Tomori.Epartner.Core.Attributes;
 
@@ -77,7 +77,7 @@ namespace Tomori.Epartner.Core.Identity.Role.Command
                     if (update.Success)
                     {
                         _cache.Remove(CacheKey.ROLE);
-                        _ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = update.log }));
+                        //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = update.log }));
                         result.OK();
                     }
                     else

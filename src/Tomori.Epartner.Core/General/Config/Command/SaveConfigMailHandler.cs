@@ -14,7 +14,7 @@ using Tomori.Epartner.Data;
 using Vleko.Result;
 using Tomori.Epartner.Core.Helper;
 using Tomori.Epartner.Core.Request;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 using Microsoft.Extensions.Caching.Memory;
 using Tomori.Epartner.Core.Attributes;
 using Tomori.Epartner.Core.Config.Query;
@@ -86,7 +86,7 @@ namespace Tomori.Epartner.Core.Config.Command
                 if (save.Success)
                 {
                     _cache.Remove($"{CacheKey.CONFIG}_{ConfigCategory.EMAIL.ToString()}");
-                    _ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = save.log }));
+                    //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = save.log }));
                     result.OK();
                 }
                 else

@@ -14,7 +14,7 @@ using Tomori.Epartner.Data;
 using Vleko.Result;
 using Tomori.Epartner.Core.Helper;
 using Tomori.Epartner.Core.Request;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Tomori.Epartner.Data.Model;

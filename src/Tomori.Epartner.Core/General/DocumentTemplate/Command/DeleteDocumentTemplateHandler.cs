@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Tomori.Epartner.Data;
 using Vleko.Result;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 using Microsoft.Extensions.Caching.Memory;
 using Tomori.Epartner.Core.Attributes;
 using Tomori.Epartner.Core.Repository.Command;

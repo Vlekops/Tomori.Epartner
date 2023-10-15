@@ -56,6 +56,7 @@ namespace Tomori.Epartner.API.Controllers
             return Wrapper(await _mediator.Send(new GetRepositoryByIdRequest() { Id = id }), new { id });
         }
 
+        [AllowAnonymous]
         [HttpPost(template: "list")]
         public async Task<IActionResult> List([FromBody] ListRequest request)
         {

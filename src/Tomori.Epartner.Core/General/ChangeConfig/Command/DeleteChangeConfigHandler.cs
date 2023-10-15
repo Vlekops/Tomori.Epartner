@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Tomori.Epartner.Data;
 using Vleko.Result;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 using Microsoft.Extensions.Caching.Memory;
 using Tomori.Epartner.Core.Attributes;
 
@@ -59,7 +59,7 @@ namespace Tomori.Epartner.Core.ChangeConfig.Command
                     if (delete.Success)
                     {
                         _cache.Remove($"{CacheKey.CHANGE_CONFIG}_{item.Modul}");
-                        _ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = delete.log }));
+                        //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = delete.log }));
                         result.OK();
                     }
                     else

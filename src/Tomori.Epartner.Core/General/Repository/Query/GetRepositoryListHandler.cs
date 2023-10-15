@@ -17,6 +17,10 @@ using Vleko.Result;
 using Tomori.Epartner.Core.Response;
 using Tomori.Epartner.Core.Helper;
 using Newtonsoft.Json;
+using Tomori.Epartner.API.Helper;
+using DocumentFormat.OpenXml.Wordprocessing;
+using System;
+using Tomori.Epartner.Core.Request;
 
 namespace Tomori.Epartner.Core.Repository.Query
 {
@@ -28,15 +32,17 @@ namespace Tomori.Epartner.Core.Repository.Query
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork<ApplicationDBContext> _context;
+        private readonly IRestAPIHelper _api;
         public GetRepositoryListHandler(
             ILogger<GetRepositoryListHandler> logger,
             IMapper mapper,
-            IUnitOfWork<ApplicationDBContext> context
-            )
+            IUnitOfWork<ApplicationDBContext> context,
+            IRestAPIHelper api)
         {
             _logger = logger;
             _mapper = mapper;
             _context = context;
+			_api = api;
         }
 
         public async Task<ListResponse<RepositoryResponse>> Handle(GetRepositoryListRequest request, CancellationToken cancellationToken)
@@ -73,9 +79,10 @@ namespace Tomori.Epartner.Core.Repository.Query
 					else
 						query = query.OrderBy(d=>d.Id);
 				}
+
 				#endregion
 
-				var query_count = query;
+                var query_count = query;
 				if (request.Start.HasValue && request.Length.HasValue && request.Length > 0)
 					query = query.Skip((request.Start.Value - 1) * request.Length.Value).Take(request.Length.Value);
 				var data_list = await query.ToListAsync();

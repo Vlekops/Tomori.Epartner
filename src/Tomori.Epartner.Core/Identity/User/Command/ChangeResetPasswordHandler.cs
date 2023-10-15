@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Tomori.Epartner.Core.Attributes;
 using Tomori.Epartner.Core.Config.Query;
 using Tomori.Epartner.Core.Helper;
-using Tomori.Epartner.Core.Log.Command;
+//using Tomori.Epartner.Core.Log.Command;
 using Tomori.Epartner.Core.Request;
 using Tomori.Epartner.Data;
 using System;
@@ -97,7 +97,7 @@ namespace Tomori.Epartner.Core.Identity.User.Command
 					var save = await _context.Commit();
 					if (save.Success)
 					{
-						_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = user.Id, ChangeLog = save.log }));
+						//_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = user.Id, ChangeLog = save.log }));
 						result.OK();
 					}
 					else
