@@ -72,6 +72,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                         update.Attachment = item.attachment;
                         update.AnnouncementCategory = item.announcementCategory;
                         update.AnnouncementType = item.announcementType;
+                        update.PreviousId = item.previousId;
                         update.TenderType = item.tenderType;
                         update.BidangUsaha = item.bidangUsaha;
                         update.GolonganUsaha = item.golonganUsaha;
@@ -95,6 +96,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                             Attachment = item.attachment,
                             AnnouncementCategory = item.announcementCategory,
                             AnnouncementType = item.announcementType,
+                            PreviousId = item.previousId,
                             TenderType = item.tenderType,
                             BidangUsaha = item.bidangUsaha,
                             GolonganUsaha = item.golonganUsaha,

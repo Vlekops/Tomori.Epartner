@@ -21,8 +21,8 @@ namespace Tomori.Epartner.Data.Model
         public long? NilaiKontrakPo { get; set; }
         public string FileBast { get; set; }
         public string FileBuktiPengalaman { get; set; }
-        public Guid? FileBastId { get; set; }
-        public Guid? FileBuktiPengalamanId { get; set; }
+        public string FileBastId { get; set; }
+        public string FileBuktiPengalamanId { get; set; }
         public DateTime? TglKontrakPo { get; set; }
         public DateTime? SelesaiKontrakPo { get; set; }
         public string CreateBy { get; set; }

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
 using Tomori.Epartner.API.Helper;
+using Tomori.Epartner.Core.Response;
 using Tomori.Epartner.Data;
 using Tomori.Epartner.Data.Model;
 using Vleko.DAL.Interface;
@@ -42,6 +43,7 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             {
                 var listInsert = new List<HisSanksi>();
                 var listUpdate = new List<HisSanksi>();
+                var listExists = new List<GetSanksiHistoryResponse>();
                 var rest = await _restHelper.GetSanksiHistory(request.CompletedDateFrom);
                 if (rest.success)
                 {
@@ -51,43 +53,50 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                         var update = new HisSanksi();
                         if (!await _context.Entity<HisSanksi>().AnyAsync(a => a.Id == data.id))
                         {
-                            insert.Id = data.id;
-                            insert.VendorId = data.vendorId;
-                            insert.Sanksi = data.sanksi;
-                            insert.Keterangan = data.keterangan;
-                            insert.Percobaan = data.percobaan;
-                            insert.FileSuratSanksi = data.fileSuratSanksi;
-                            insert.FileSuratSanksiId = data.fileSanksiId;
-                            insert.FilePernyataanPerbaikan = data.filePernyataanPerbaikan;
-                            insert.TglBerlakuSanksi = data.tanggalBerlakuSanksi;
-                            insert.TglBerakhirSanksi = data.tanggalBerakhirSanksi;
-                            insert.TglBerakhirPercobaan = data.tanggalBerakhirPercobaan;
-                            insert.TglPelepasanSanksi = data.tanggalPelepasanSanksi;
-                            insert.CreateBy = "SYSTEM SYNC";
-                            insert.CreateDate = DateTime.Now;
-                            insert.UpdateBy = "SYSTEM SYNC";
-                            insert.UpdateDate = DateTime.Now;
-                            listInsert.Add(insert);
+                            if (!listExists.Where(d => d.id == data.id).Any())
+                            {
+                                insert.Id = data.id;
+                                insert.VendorId = data.vendorId;
+                                insert.Sanksi = data.sanksi;
+                                insert.Keterangan = data.keterangan;
+                                insert.Percobaan = data.percobaan;
+                                insert.FileSuratSanksi = data.fileSuratSanksi;
+                                insert.FileSuratSanksiId = data.fileSanksiId;
+                                insert.FilePernyataanPerbaikan = data.filePernyataanPerbaikan;
+                                insert.TglBerlakuSanksi = data.tanggalBerlakuSanksi;
+                                insert.TglBerakhirSanksi = data.tanggalBerakhirSanksi;
+                                insert.TglBerakhirPercobaan = data.tanggalBerakhirPercobaan;
+                                insert.TglPelepasanSanksi = data.tanggalPelepasanSanksi;
+                                insert.CreateBy = "SYSTEM SYNC";
+                                insert.CreateDate = DateTime.Now;
+                                insert.UpdateBy = "SYSTEM SYNC";
+                                insert.UpdateDate = DateTime.Now;
+                                listInsert.Add(insert);
+                                listExists.Add(data);
+                            }
                         }
                         else
                         {
-                            update.Id = data.id;
-                            update.VendorId = data.vendorId;
-                            update.Sanksi = data.sanksi;
-                            update.Keterangan = data.keterangan;
-                            update.Percobaan = data.percobaan;
-                            update.FileSuratSanksi = data.fileSuratSanksi;
-                            update.FileSuratSanksiId = data.fileSanksiId;
-                            update.FilePernyataanPerbaikan = data.filePernyataanPerbaikan;
-                            update.TglBerlakuSanksi = data.tanggalBerlakuSanksi;
-                            update.TglBerakhirSanksi = data.tanggalBerakhirSanksi;
-                            update.TglBerakhirPercobaan = data.tanggalBerakhirPercobaan;
-                            update.TglPelepasanSanksi = data.tanggalPelepasanSanksi;
-                            update.CreateBy = "SYSTEM SYNC";
-                            update.CreateDate = DateTime.Now;
-                            update.UpdateBy = "SYSTEM SYNC";
-                            update.UpdateDate = DateTime.Now;
-                            listUpdate.Add(update);
+                            
+                                update.Id = data.id;
+                                update.VendorId = data.vendorId;
+                                update.Sanksi = data.sanksi;
+                                update.Keterangan = data.keterangan;
+                                update.Percobaan = data.percobaan;
+                                update.FileSuratSanksi = data.fileSuratSanksi;
+                                update.FileSuratSanksiId = data.fileSanksiId;
+                                update.FilePernyataanPerbaikan = data.filePernyataanPerbaikan;
+                                update.TglBerlakuSanksi = data.tanggalBerlakuSanksi;
+                                update.TglBerakhirSanksi = data.tanggalBerakhirSanksi;
+                                update.TglBerakhirPercobaan = data.tanggalBerakhirPercobaan;
+                                update.TglPelepasanSanksi = data.tanggalPelepasanSanksi;
+                                update.CreateBy = "SYSTEM SYNC";
+                                update.CreateDate = DateTime.Now;
+                                update.UpdateBy = "SYSTEM SYNC";
+                                update.UpdateDate = DateTime.Now;
+                                listUpdate.Add(update);
+                                
+                            
                         }
                     }
 

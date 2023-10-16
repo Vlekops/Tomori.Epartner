@@ -156,10 +156,7 @@ namespace Tomori.Epartner.Core.Kompetensi.Query
 					break;
 					case "documentid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _DocumentId))
-								result_where = (d=>d.DocumentId == _DocumentId);
-								else
-								result_where = (d=>d.DocumentId == Guid.Empty);
+							result_where = (d=>d.DocumentId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.DocumentId);

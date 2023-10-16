@@ -14,8 +14,8 @@ namespace Tomori.Epartner.Data.Model
         public string NamaNotaris { get; set; }
         public string NamaSkMenteri { get; set; }
         public string FileLandasanHukum { get; set; }
-        public Guid? FileLandasanHukumId { get; set; }
-        public DateTime TglAkta { get; set; }
+        public string FileLandasanHukumId { get; set; }
+        public DateTime? TglAkta { get; set; }
         public string CreateBy { get; set; }
         public DateTime CreateDate { get; set; }
         public string UpdateBy { get; set; }

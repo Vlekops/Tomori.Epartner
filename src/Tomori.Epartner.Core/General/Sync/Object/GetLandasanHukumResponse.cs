@@ -17,9 +17,9 @@ namespace Tomori.Epartner.Core.Response
         public string noSKMenteri { get; set; }
         public string fileLandasanHukum { get; set; }
         public string countryIssuedForeign { get; set; }
-        public Guid fileLandasanHukumId { get; set; }
-        public DateTime tanggalAkta { get; set; }
-        public DateTime completedDate { get; set; }
+        public string fileLandasanHukumId { get; set; }
+        public DateTime? tanggalAkta { get; set; }
+        public DateTime? completedDate { get; set; }
     }
 }
 

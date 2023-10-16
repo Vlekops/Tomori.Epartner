@@ -46,6 +46,7 @@ function getListIzinUsaha(page) {
                                 <td class="text-nowrap text-center">${count}</td>
 								<td class="text-nowrap">${item.akhirBerlaku}</td>
 								<td class="text-nowrap">${item.bidangUsaha}</td>
+								<td class="text-nowrap">${item.bidangUsahaCode}</td>
 								<td class="text-nowrap">${item.fileIzinUsaha}</td>
 								<td class="text-nowrap">${item.fileIzinUsahaId}</td>
 								<td class="text-nowrap">${item.golonganUsaha}</td>

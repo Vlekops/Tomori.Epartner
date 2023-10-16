@@ -26,7 +26,7 @@ namespace Tomori.Epartner.Core.Response
         public string statusAuditAktual { get; set; }
         public string fileNeraca { get; set; }
         public string perusahaanBaru { get; set; }
-        public Guid fileNeracaId { get; set; }
+        public string fileNeracaId { get; set; }
         public string periodeAwal { get; set; }
         public string periodeAkhir { get; set; }
         public long cash { get; set; }

@@ -21,12 +21,12 @@ namespace Tomori.Epartner.Core.Response
         public string tipeSTP { get; set; }
         public string merkSTP { get; set; }
         public string peringkatInspeksi { get; set; }
-        public Guid fileIzinUsahaId { get; set; }
+        public string fileIzinUsahaId { get; set; }
         public string bidangUsahaCode { get; set; }
         public string jenisMataUang { get; set; }
-        public decimal kekayaanBersih { get; set; }
-        public DateTime mulaiBerlaku { get; set; }
-        public DateTime akhirBerlaku { get; set; }
+        public decimal? kekayaanBersih { get; set; }
+        public DateTime? mulaiBerlaku { get; set; }
+        public DateTime? akhirBerlaku { get; set; }
         public DateTime completedDate { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace Tomori.Epartner.Core.Response
 		public DateTime CreateDate{ get; set; }
 		public string DocNpwp{ get; set; }
 		public string Email{ get; set; }
-		public int JumlahSaham{ get; set; }
+		public decimal JumlahSaham{ get; set; }
 		public string Nama{ get; set; }
 		public string NoKtpKitas{ get; set; }
 		public bool Perorangan{ get; set; }

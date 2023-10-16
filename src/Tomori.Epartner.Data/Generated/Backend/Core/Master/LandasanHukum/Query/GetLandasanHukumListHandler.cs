@@ -135,10 +135,7 @@ namespace Tomori.Epartner.Core.LandasanHukum.Query
 					break;
 					case "filelandasanhukumid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _FileLandasanHukumId))
-								result_where = (d=>d.FileLandasanHukumId == _FileLandasanHukumId);
-								else
-								result_where = (d=>d.FileLandasanHukumId == Guid.Empty);
+							result_where = (d=>d.FileLandasanHukumId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.FileLandasanHukumId);

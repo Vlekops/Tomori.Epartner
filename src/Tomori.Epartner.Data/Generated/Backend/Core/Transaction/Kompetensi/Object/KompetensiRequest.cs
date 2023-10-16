@@ -15,16 +15,14 @@ namespace Tomori.Epartner.Core.Request
 		public string BidangSubBidangCode{ get; set; }
 		public string Deskripsi{ get; set; }
 		public string Document{ get; set; }
-		public Guid? DocumentId{ get; set; }
+		public string DocumentId{ get; set; }
 		public string JenisMataUang{ get; set; }
 		public long? NilaiKontrakPoso{ get; set; }
 		public string NoKontrakPoso{ get; set; }
 		public string Perusahaan{ get; set; }
 		public string ProgressKontrakPoso{ get; set; }
-		[Required]
-		public DateTime TglKontrakPoso{ get; set; }
-		[Required]
-		public DateTime TglPenyelesaian{ get; set; }
+		public DateTime? TglKontrakPoso{ get; set; }
+		public DateTime? TglPenyelesaian{ get; set; }
 		[Required]
 		public int VendorId{ get; set; }
 

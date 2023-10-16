@@ -22,6 +22,7 @@ using AutoMapper.Features;
 using Tomori.Epartner.Data.Model;
 using DocumentFormat.OpenXml.Wordprocessing;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Tomori.Epartner.Core.Response;
 
 namespace Tomori.Epartner.Core.Sync.Command
 {
@@ -61,13 +62,13 @@ namespace Tomori.Epartner.Core.Sync.Command
             try
             {
                 var data = await _restHelper.GetKompetensi(request.CompletedDateForm);
-
+                var listExist = new List<GetKompetensiResponse>();
                 foreach ( var item in data.result )
                 {
                     if (await _context.Entity<TrsKompetensi>().Where(d => d.Id == item.id).AnyAsync())
                     {
                         var update = await _context.Entity<TrsKompetensi>().Where(d => d.Id == item.id).FirstOrDefaultAsync();
-                        update.BidangSubBidangCode = item.bidangSubBidang;
+                        update.BidangSubBidangCode = item.bidangSubBidangCode;
                         update.BidangSubBidang = item.bidangSubBidang;
                         update.Deskripsi = item.deskripsi;
                         update.Perusahaan = item.perusahaan;
@@ -85,26 +86,30 @@ namespace Tomori.Epartner.Core.Sync.Command
                         _context.Update(update);
                     }
                     else {
+                        if (!listExist.Where(d => d.id == item.id).Any()) {
+                            _context.Add(new TrsKompetensi
+                            {
+                                Id = item.id,
+                                VendorId = item.vendorId,
+                                BidangSubBidangCode = item.bidangSubBidangCode,
+                                BidangSubBidang = item.bidangSubBidang,
+                                Deskripsi = item.deskripsi,
+                                Perusahaan = item.perusahaan,
+                                NoKontrakPoso = item.noKontrakPOSO,
+                                JenisMataUang = item.jenisMataUang,
+                                NilaiKontrakPoso = 0,
+                                ProgressKontrakPoso = item.progressKontrakPOSO,
+                                Document = item.dokumen,
+                                DocumentId = item.dokumenId,
+                                TglKontrakPoso = item.tanggalKontrakPOSO,
+                                TglPenyelesaian = item.tanggalPenyelesaian,
+                                CreateBy = "SYSTEM SYNC",
+                                CreateDate = DateTime.Now,
+                            });
+                            listExist.Add(item);
+                        }
 
-                        _context.Add(new TrsKompetensi
-                        {
-                            Id = item.id,
-                            VendorId = item.vendorId,
-                            BidangSubBidangCode = item.bidangSubBidang,
-                            BidangSubBidang = item.bidangSubBidang,
-                            Deskripsi = item.deskripsi,
-                            Perusahaan = item.perusahaan,
-                            NoKontrakPoso = item.noKontrakPOSO,
-                            JenisMataUang = item.jenisMataUang,
-                            NilaiKontrakPoso = 0,
-                            ProgressKontrakPoso = item.progressKontrakPOSO,
-                            Document = item.dokumen,
-                            DocumentId = item.dokumenId,
-                            TglKontrakPoso = item.tanggalKontrakPOSO,
-                            TglPenyelesaian = item.tanggalPenyelesaian,
-                            CreateBy = "SYSTEM SYNC",
-                            CreateDate = DateTime.Now,
-                        });
+                        
                     }
                 }
 

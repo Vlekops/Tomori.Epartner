@@ -12,7 +12,7 @@ namespace Tomori.Epartner.Core.Request
     public partial class PajakRequest
     {
 		public string FileDokumen{ get; set; }
-		public Guid? FileDokumenId{ get; set; }
+		public string FileDokumenId{ get; set; }
 		public string Kondisi{ get; set; }
 		public string NoDokumen{ get; set; }
 		public string PeriodeAkhir{ get; set; }

@@ -12,6 +12,7 @@ function editIzinUsahaDialog(el) {
 
 	$('#Edit-IzinUsaha-AkhirBerlaku').val(data.akhirBerlaku);
 	$('#Edit-IzinUsaha-BidangUsaha').val(data.bidangUsaha);
+	$('#Edit-IzinUsaha-BidangUsahaCode').val(data.bidangUsahaCode);
 	$('#Edit-IzinUsaha-FileIzinUsaha').val(data.fileIzinUsaha);
 	$('#Edit-IzinUsaha-FileIzinUsahaId').val(data.fileIzinUsahaId);
 	$('#Edit-IzinUsaha-GolonganUsaha').val(data.golonganUsaha);
@@ -41,6 +42,7 @@ function editIzinUsahaSave() {
             var param = {
 				akhirBerlaku:$('#Edit-IzinUsaha-AkhirBerlaku').val(),
 				bidangUsaha:$('#Edit-IzinUsaha-BidangUsaha').val(),
+				bidangUsahaCode:$('#Edit-IzinUsaha-BidangUsahaCode').val(),
 				fileIzinUsaha:$('#Edit-IzinUsaha-FileIzinUsaha').val(),
 				fileIzinUsahaId:$('#Edit-IzinUsaha-FileIzinUsahaId').val(),
 				golonganUsaha:$('#Edit-IzinUsaha-GolonganUsaha').val(),

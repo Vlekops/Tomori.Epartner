@@ -17,10 +17,10 @@ namespace Tomori.Epartner.Core.Response
         public string tenderType { get; set; }
         public string bidangUsaha { get; set; }
         public string golonganUsaha { get; set; }
-        public int previousId { get; set; }
-        public DateTime publishDate { get; set; }
-        public DateTime endDate { get; set; }
-        public DateTime createdDate { get; set; }
+        public int? previousId { get; set; }
+        public DateTime? publishDate { get; set; }
+        public DateTime? endDate { get; set; }
+        public DateTime? createdDate { get; set; }
     }
 }
 

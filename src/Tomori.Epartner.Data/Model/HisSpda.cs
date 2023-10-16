@@ -12,9 +12,9 @@ namespace Tomori.Epartner.Data.Model
         public string SpdaNo { get; set; }
         public string FileSpda { get; set; }
         public string SpdaValidity { get; set; }
-        public Guid? FileSpdaId { get; set; }
-        public DateTime UploadDate { get; set; }
-        public DateTime ExpiredDate { get; set; }
+        public string FileSpdaId { get; set; }
+        public DateTime? UploadDate { get; set; }
+        public DateTime? ExpiredDate { get; set; }
         public string CreateBy { get; set; }
         public DateTime CreateDate { get; set; }
         public string UpdateBy { get; set; }

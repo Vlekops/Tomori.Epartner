@@ -29,6 +29,7 @@ function addAnnouncementSave() {
 				golonganUsaha:$('#Add-Announcement-GolonganUsaha').val(),
 				k3sId:$('#Add-Announcement-K3sId').val(),
 				k3sName:$('#Add-Announcement-K3sName').val(),
+				previousId:$('#Add-Announcement-PreviousId').val(),
 				publishDate:$('#Add-Announcement-PublishDate').val(),
 				tenderType:$('#Add-Announcement-TenderType').val(),
 				title:$('#Add-Announcement-Title').val(),

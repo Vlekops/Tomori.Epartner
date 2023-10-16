@@ -32,8 +32,8 @@ namespace Tomori.Epartner.Core.Response
 		public string DocNpwp{ get; set; }
 		public DateTime? ExpiredDate{ get; set; }
 		public string FaxNumber{ get; set; }
-		public Guid? FileSpdaId{ get; set; }
-		public Guid? FileVendorId{ get; set; }
+		public string FileSpdaId{ get; set; }
+		public string FileVendorId{ get; set; }
 		public string IsAutoGenerate{ get; set; }
 		public string Jabatan{ get; set; }
 		public string JenisUsaha{ get; set; }

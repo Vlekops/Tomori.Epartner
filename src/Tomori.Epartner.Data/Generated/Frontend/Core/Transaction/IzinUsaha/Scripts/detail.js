@@ -12,6 +12,7 @@ function detailIzinUsahaDialog(el) {
 
 				$('#Detail-IzinUsaha-AkhirBerlaku').val(data.akhirBerlaku);
 				$('#Detail-IzinUsaha-BidangUsaha').val(data.bidangUsaha);
+				$('#Detail-IzinUsaha-BidangUsahaCode').val(data.bidangUsahaCode);
 				$('#Detail-IzinUsaha-FileIzinUsaha').val(data.fileIzinUsaha);
 				$('#Detail-IzinUsaha-FileIzinUsahaId').val(data.fileIzinUsahaId);
 				$('#Detail-IzinUsaha-GolonganUsaha').val(data.golonganUsaha);

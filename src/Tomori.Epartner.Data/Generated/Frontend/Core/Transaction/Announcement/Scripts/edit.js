@@ -19,6 +19,7 @@ function editAnnouncementDialog(el) {
 	$('#Edit-Announcement-GolonganUsaha').val(data.golonganUsaha);
 	$('#Edit-Announcement-K3sId').val(data.k3sId);
 	$('#Edit-Announcement-K3sName').val(data.k3sName);
+	$('#Edit-Announcement-PreviousId').val(data.previousId);
 	$('#Edit-Announcement-PublishDate').val(data.publishDate);
 	$('#Edit-Announcement-TenderType').val(data.tenderType);
 	$('#Edit-Announcement-Title').val(data.title);
@@ -44,6 +45,7 @@ function editAnnouncementSave() {
 				golonganUsaha:$('#Edit-Announcement-GolonganUsaha').val(),
 				k3sId:$('#Edit-Announcement-K3sId').val(),
 				k3sName:$('#Edit-Announcement-K3sName').val(),
+				previousId:$('#Edit-Announcement-PreviousId').val(),
 				publishDate:$('#Edit-Announcement-PublishDate').val(),
 				tenderType:$('#Edit-Announcement-TenderType').val(),
 				title:$('#Edit-Announcement-Title').val(),

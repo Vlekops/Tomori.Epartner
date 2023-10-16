@@ -23,8 +23,8 @@ namespace Tomori.Epartner.Core.Response
         public long? nilaiKontrakPo { get; set; }
         public string fileBast { get; set; }
         public string fileBuktiPengalaman { get; set; }
-        public Guid fileBastId { get; set; }
-        public Guid fileBuktiPengalamanId { get; set; }
+        public string fileBastId { get; set; }
+        public string fileBuktiPengalamanId { get; set; }
         public string companyType { get; set; }
         public DateTime selesaiKontrakPo { get; set; }
         public DateTime tanggalKontrakPo { get; set; }

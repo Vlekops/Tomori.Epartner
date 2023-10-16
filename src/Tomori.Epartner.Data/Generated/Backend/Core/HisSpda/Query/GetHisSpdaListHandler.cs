@@ -143,10 +143,7 @@ namespace Tomori.Epartner.Core.HisSpda.Query
 					break;
 					case "filespdaid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _FileSpdaId))
-								result_where = (d=>d.FileSpdaId == _FileSpdaId);
-								else
-								result_where = (d=>d.FileSpdaId == Guid.Empty);
+							result_where = (d=>d.FileSpdaId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.FileSpdaId);

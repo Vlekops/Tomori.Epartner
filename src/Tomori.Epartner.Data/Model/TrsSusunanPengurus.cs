@@ -16,8 +16,8 @@ namespace Tomori.Epartner.Data.Model
         public string Email { get; set; }
         public string FileKtpKitas { get; set; }
         public string FileTandaTangan { get; set; }
-        public Guid? FileKtpKitasId { get; set; }
-        public Guid? FileTandaTanganId { get; set; }
+        public string FileKtpKitasId { get; set; }
+        public string FileTandaTanganId { get; set; }
         public string CreateBy { get; set; }
         public DateTime CreateDate { get; set; }
         public string UpdateBy { get; set; }

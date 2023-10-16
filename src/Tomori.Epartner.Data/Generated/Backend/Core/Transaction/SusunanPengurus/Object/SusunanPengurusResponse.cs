@@ -23,9 +23,9 @@ namespace Tomori.Epartner.Core.Response
 		public DateTime CreateDate{ get; set; }
 		public string Email{ get; set; }
 		public string FileKtpKitas{ get; set; }
-		public Guid? FileKtpKitasId{ get; set; }
+		public string FileKtpKitasId{ get; set; }
 		public string FileTandaTangan{ get; set; }
-		public Guid? FileTandaTanganId{ get; set; }
+		public string FileTandaTanganId{ get; set; }
 		public string Jabatan{ get; set; }
 		public string Nama{ get; set; }
 		public string NoKtpKitas{ get; set; }

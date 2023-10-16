@@ -135,17 +135,14 @@ namespace Tomori.Epartner.Core.Afiliasi.Query
 					break;
 					case "fileafiliasiid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _FileAfiliasiId))
-								result_where = (d=>d.FileAfiliasiId == _FileAfiliasiId);
-								else
-								result_where = (d=>d.FileAfiliasiId == Guid.Empty);
+							result_where = (d=>d.FileAfiliasiId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.FileAfiliasiId);
 					break;
 					case "share" : 
 						if(is_where){
-							if (int.TryParse(search, out var _Share))
+							if (decimal.TryParse(search, out var _Share))
 								result_where = (d=>d.Share == _Share);
 						}
 						else

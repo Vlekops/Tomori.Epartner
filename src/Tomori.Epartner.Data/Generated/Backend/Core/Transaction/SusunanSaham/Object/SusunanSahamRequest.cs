@@ -15,7 +15,7 @@ namespace Tomori.Epartner.Core.Request
 		public string DocNpwp{ get; set; }
 		public string Email{ get; set; }
 		[Required]
-		public int JumlahSaham{ get; set; }
+		public decimal JumlahSaham{ get; set; }
 		public string Nama{ get; set; }
 		public string NoKtpKitas{ get; set; }
 		[Required]

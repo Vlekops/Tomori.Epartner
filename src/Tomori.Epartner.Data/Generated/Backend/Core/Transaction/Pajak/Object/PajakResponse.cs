@@ -22,7 +22,7 @@ namespace Tomori.Epartner.Core.Response
 		public string CreateBy{ get; set; }
 		public DateTime CreateDate{ get; set; }
 		public string FileDokumen{ get; set; }
-		public Guid? FileDokumenId{ get; set; }
+		public string FileDokumenId{ get; set; }
 		public string Kondisi{ get; set; }
 		public string NoDokumen{ get; set; }
 		public string PeriodeAkhir{ get; set; }

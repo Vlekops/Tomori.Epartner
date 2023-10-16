@@ -149,7 +149,7 @@ namespace Tomori.Epartner.Core.SusunanSaham.Query
 					break;
 					case "jumlahsaham" : 
 						if(is_where){
-							if (int.TryParse(search, out var _JumlahSaham))
+							if (decimal.TryParse(search, out var _JumlahSaham))
 								result_where = (d=>d.JumlahSaham == _JumlahSaham);
 						}
 						else

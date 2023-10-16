@@ -50,27 +50,26 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("CREATE_DATE")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.FilePernyataanPerbaikan)
-                    .HasMaxLength(250)
-                    .HasColumnName("FILE_PERNYATAAN_PERBAIKAN");
+                entity.Property(e => e.FilePernyataanPerbaikan).HasColumnName("FILE_PERNYATAAN_PERBAIKAN");
 
-                entity.Property(e => e.FileSuratSanksi)
-                    .HasMaxLength(250)
-                    .HasColumnName("FILE_SURAT_SANKSI");
+                entity.Property(e => e.FileSuratSanksi).HasColumnName("FILE_SURAT_SANKSI");
 
-                entity.Property(e => e.FileSuratSanksiId).HasColumnName("FILE_SURAT_SANKSI_ID");
+                entity.Property(e => e.FileSuratSanksiId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("FILE_SURAT_SANKSI_ID");
 
                 entity.Property(e => e.Keterangan)
                     .HasColumnType("text")
                     .HasColumnName("KETERANGAN");
 
                 entity.Property(e => e.Percobaan)
-                    .HasMaxLength(25)
+                    .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("PERCOBAAN");
 
                 entity.Property(e => e.Sanksi)
-                    .HasMaxLength(25)
+                    .HasMaxLength(150)
                     .IsUnicode(false)
                     .HasColumnName("SANKSI");
 
@@ -124,19 +123,20 @@ namespace Tomori.Epartner.Data
                     .HasColumnType("datetime")
                     .HasColumnName("EXPIRED_DATE");
 
-                entity.Property(e => e.FileSpda)
-                    .HasMaxLength(250)
-                    .HasColumnName("FILE_SPDA");
+                entity.Property(e => e.FileSpda).HasColumnName("FILE_SPDA");
 
-                entity.Property(e => e.FileSpdaId).HasColumnName("FILE_SPDA_ID");
+                entity.Property(e => e.FileSpdaId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("FILE_SPDA_ID");
 
                 entity.Property(e => e.SpdaNo)
-                    .HasMaxLength(25)
+                    .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("SPDA_NO");
 
                 entity.Property(e => e.SpdaValidity)
-                    .HasMaxLength(25)
+                    .HasMaxLength(150)
                     .IsUnicode(false)
                     .HasColumnName("SPDA_VALIDITY");
 
@@ -174,11 +174,11 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("CREATE_DATE")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.FileLandasanHukum)
-                    .HasMaxLength(250)
-                    .HasColumnName("FILE_LANDASAN_HUKUM");
+                entity.Property(e => e.FileLandasanHukum).HasColumnName("FILE_LANDASAN_HUKUM");
 
-                entity.Property(e => e.FileLandasanHukumId).HasColumnName("FILE_LANDASAN_HUKUM_ID");
+                entity.Property(e => e.FileLandasanHukumId)
+                    .IsUnicode(false)
+                    .HasColumnName("FILE_LANDASAN_HUKUM_ID");
 
                 entity.Property(e => e.JenisAkta)
                     .HasMaxLength(50)
@@ -191,12 +191,11 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("NAMA_NOTARIS");
 
                 entity.Property(e => e.NamaSkMenteri)
-                    .HasMaxLength(100)
+                    .HasMaxLength(350)
                     .IsUnicode(false)
                     .HasColumnName("NAMA_SK_MENTERI");
 
                 entity.Property(e => e.NoAkta)
-                    .HasMaxLength(25)
                     .IsUnicode(false)
                     .HasColumnName("NO_AKTA");
 
@@ -245,8 +244,7 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("CITY_NAME");
 
                 entity.Property(e => e.CompanyType)
-                    .IsRequired()
-                    .HasMaxLength(10)
+                    .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("COMPANY_TYPE");
 
@@ -281,9 +279,15 @@ namespace Tomori.Epartner.Data
                     .HasMaxLength(50)
                     .HasColumnName("FAX_NUMBER");
 
-                entity.Property(e => e.FileSpdaId).HasColumnName("FILE_SPDA_ID");
+                entity.Property(e => e.FileSpdaId)
+                    .HasMaxLength(150)
+                    .IsUnicode(false)
+                    .HasColumnName("FILE_SPDA_ID");
 
-                entity.Property(e => e.FileVendorId).HasColumnName("FILE_VENDOR_ID");
+                entity.Property(e => e.FileVendorId)
+                    .HasMaxLength(150)
+                    .IsUnicode(false)
+                    .HasColumnName("FILE_VENDOR_ID");
 
                 entity.Property(e => e.IsAutoGenerate)
                     .HasMaxLength(25)
@@ -291,12 +295,11 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("IS_AUTO_GENERATE");
 
                 entity.Property(e => e.Jabatan)
-                    .HasMaxLength(50)
+                    .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("JABATAN");
 
                 entity.Property(e => e.JenisUsaha)
-                    .IsRequired()
                     .HasMaxLength(25)
                     .IsUnicode(false)
                     .HasColumnName("JENIS_USAHA");
@@ -305,9 +308,7 @@ namespace Tomori.Epartner.Data
                     .HasMaxLength(150)
                     .HasColumnName("K3S_AHU_ONLINE_FILE");
 
-                entity.Property(e => e.K3sname)
-                    .IsRequired()
-                    .HasColumnName("K3SNAME");
+                entity.Property(e => e.K3sname).HasColumnName("K3SNAME");
 
                 entity.Property(e => e.K3snameSpda).HasColumnName("K3SNAME_SPDA");
 
@@ -327,9 +328,7 @@ namespace Tomori.Epartner.Data
                     .IsRequired()
                     .HasColumnName("OFFICE_STATUS");
 
-                entity.Property(e => e.Pabrikan)
-                    .IsRequired()
-                    .HasColumnName("PABRIKAN");
+                entity.Property(e => e.Pabrikan).HasColumnName("PABRIKAN");
 
                 entity.Property(e => e.PemberiSanksi)
                     .HasMaxLength(150)
@@ -346,7 +345,6 @@ namespace Tomori.Epartner.Data
                 entity.Property(e => e.RegId).HasColumnName("REG_ID");
 
                 entity.Property(e => e.SahamAsing)
-                    .IsRequired()
                     .HasMaxLength(5)
                     .IsUnicode(false)
                     .HasColumnName("SAHAM_ASING");
@@ -450,7 +448,6 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("ADDRESS");
 
                 entity.Property(e => e.CompanyType)
-                    .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false)
                     .HasColumnName("COMPANY_TYPE");
@@ -498,9 +495,7 @@ namespace Tomori.Epartner.Data
                     .HasColumnType("datetime")
                     .HasColumnName("UPDATE_DATE");
 
-                entity.Property(e => e.VendorBranchName)
-                    .IsRequired()
-                    .HasColumnName("VENDOR_BRANCH_NAME");
+                entity.Property(e => e.VendorBranchName).HasColumnName("VENDOR_BRANCH_NAME");
 
                 entity.Property(e => e.VendorEmail1)
                     .HasMaxLength(50)
@@ -542,9 +537,14 @@ namespace Tomori.Epartner.Data
                     .IsUnicode(false)
                     .HasColumnName("DESKRIPSI");
 
-                entity.Property(e => e.FileAfiliasiId).HasColumnName("FILE_AFILIASI_ID");
+                entity.Property(e => e.FileAfiliasiId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("FILE_AFILIASI_ID");
 
-                entity.Property(e => e.Share).HasColumnName("SHARE");
+                entity.Property(e => e.Share)
+                    .HasColumnType("decimal(10, 0)")
+                    .HasColumnName("SHARE");
 
                 entity.Property(e => e.Terafiliasi)
                     .HasMaxLength(25)
@@ -576,12 +576,12 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("ID");
 
                 entity.Property(e => e.AnnouncementCategory)
-                    .HasMaxLength(25)
+                    .HasMaxLength(150)
                     .IsUnicode(false)
                     .HasColumnName("ANNOUNCEMENT_CATEGORY");
 
                 entity.Property(e => e.AnnouncementType)
-                    .HasMaxLength(50)
+                    .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("ANNOUNCEMENT_TYPE");
 
@@ -614,28 +614,30 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("END_DATE");
 
                 entity.Property(e => e.GolonganUsaha)
-                    .HasMaxLength(25)
+                    .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("GOLONGAN_USAHA");
 
                 entity.Property(e => e.K3sId).HasColumnName("K3S_ID");
 
                 entity.Property(e => e.K3sName)
-                    .HasMaxLength(100)
+                    .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("K3S_NAME");
+
+                entity.Property(e => e.PreviousId).HasColumnName("PREVIOUS_ID");
 
                 entity.Property(e => e.PublishDate)
                     .HasColumnType("datetime")
                     .HasColumnName("PUBLISH_DATE");
 
                 entity.Property(e => e.TenderType)
-                    .HasMaxLength(50)
+                    .HasMaxLength(150)
                     .IsUnicode(false)
                     .HasColumnName("TENDER_TYPE");
 
                 entity.Property(e => e.Title)
-                    .HasMaxLength(200)
+                    .HasMaxLength(300)
                     .IsUnicode(false)
                     .HasColumnName("TITLE");
 
@@ -661,9 +663,13 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("AKHIR_BERLAKU");
 
                 entity.Property(e => e.BidangUsaha)
-                    .HasMaxLength(150)
                     .IsUnicode(false)
                     .HasColumnName("BIDANG_USAHA");
+
+                entity.Property(e => e.BidangUsahaCode)
+                    .HasMaxLength(15)
+                    .IsUnicode(false)
+                    .HasColumnName("BIDANG_USAHA_CODE");
 
                 entity.Property(e => e.CreateBy)
                     .IsRequired()
@@ -680,10 +686,13 @@ namespace Tomori.Epartner.Data
                     .HasMaxLength(250)
                     .HasColumnName("FILE_IZIN_USAHA");
 
-                entity.Property(e => e.FileIzinUsahaId).HasColumnName("FILE_IZIN_USAHA_ID");
+                entity.Property(e => e.FileIzinUsahaId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("FILE_IZIN_USAHA_ID");
 
                 entity.Property(e => e.GolonganUsaha)
-                    .HasMaxLength(50)
+                    .HasMaxLength(150)
                     .IsUnicode(false)
                     .HasColumnName("GOLONGAN_USAHA");
 
@@ -693,7 +702,6 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("INSTANSI_PEMBERI_IZIN");
 
                 entity.Property(e => e.JenisIzinUsaha)
-                    .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("JENIS_IZIN_USAHA");
 
@@ -721,12 +729,12 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("NO_IZIN_USAHA");
 
                 entity.Property(e => e.Other)
-                    .HasMaxLength(100)
+                    .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("OTHER");
 
                 entity.Property(e => e.PeringkatInspeksi)
-                    .HasMaxLength(50)
+                    .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("PERINGKAT_INSPEKSI");
 
@@ -755,7 +763,7 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("ID");
 
                 entity.Property(e => e.BidangSubBidang)
-                    .HasMaxLength(100)
+                    .HasMaxLength(300)
                     .IsUnicode(false)
                     .HasColumnName("BIDANG_SUB_BIDANG");
 
@@ -783,7 +791,10 @@ namespace Tomori.Epartner.Data
                     .HasMaxLength(250)
                     .HasColumnName("DOCUMENT");
 
-                entity.Property(e => e.DocumentId).HasColumnName("DOCUMENT_ID");
+                entity.Property(e => e.DocumentId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("DOCUMENT_ID");
 
                 entity.Property(e => e.JenisMataUang)
                     .HasMaxLength(25)
@@ -869,7 +880,10 @@ namespace Tomori.Epartner.Data
                     .HasMaxLength(250)
                     .HasColumnName("FILE_NERACA");
 
-                entity.Property(e => e.FileNeracaId).HasColumnName("FILE_NERACA_ID");
+                entity.Property(e => e.FileNeracaId)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("FILE_NERACA_ID");
 
                 entity.Property(e => e.FixedAsset).HasColumnName("FIXED_ASSET");
 
@@ -973,11 +987,12 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("CREATE_DATE")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.FileDokumen)
-                    .HasMaxLength(250)
-                    .HasColumnName("FILE_DOKUMEN");
+                entity.Property(e => e.FileDokumen).HasColumnName("FILE_DOKUMEN");
 
-                entity.Property(e => e.FileDokumenId).HasColumnName("FILE_DOKUMEN_ID");
+                entity.Property(e => e.FileDokumenId)
+                    .HasMaxLength(150)
+                    .IsUnicode(false)
+                    .HasColumnName("FILE_DOKUMEN_ID");
 
                 entity.Property(e => e.Kondisi)
                     .HasMaxLength(25)
@@ -985,7 +1000,6 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("KONDISI");
 
                 entity.Property(e => e.NoDokumen)
-                    .HasMaxLength(30)
                     .IsUnicode(false)
                     .HasColumnName("NO_DOKUMEN");
 
@@ -1010,7 +1024,7 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("TANGGAL_AKHIR");
 
                 entity.Property(e => e.TipeDokumen)
-                    .HasMaxLength(50)
+                    .HasMaxLength(150)
                     .IsUnicode(false)
                     .HasColumnName("TIPE_DOKUMEN");
 
@@ -1038,12 +1052,11 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("ALAMAT");
 
                 entity.Property(e => e.BidangSubBidang)
-                    .HasMaxLength(100)
                     .IsUnicode(false)
                     .HasColumnName("BIDANG_SUB_BIDANG");
 
                 entity.Property(e => e.BidangSubBidangCode)
-                    .HasMaxLength(25)
+                    .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("BIDANG_SUB_BIDANG_CODE");
 
@@ -1062,13 +1075,19 @@ namespace Tomori.Epartner.Data
                     .HasMaxLength(250)
                     .HasColumnName("FILE_BAST");
 
-                entity.Property(e => e.FileBastId).HasColumnName("FILE_BAST_ID");
+                entity.Property(e => e.FileBastId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("FILE_BAST_ID");
 
                 entity.Property(e => e.FileBuktiPengalaman)
                     .HasMaxLength(250)
                     .HasColumnName("FILE_BUKTI_PENGALAMAN");
 
-                entity.Property(e => e.FileBuktiPengalamanId).HasColumnName("FILE_BUKTI_PENGALAMAN_ID");
+                entity.Property(e => e.FileBuktiPengalamanId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("FILE_BUKTI_PENGALAMAN_ID");
 
                 entity.Property(e => e.JenisMataUang)
                     .HasMaxLength(15)
@@ -1090,7 +1109,7 @@ namespace Tomori.Epartner.Data
                 entity.Property(e => e.NilaiKontrakPo).HasColumnName("NILAI_KONTRAK_PO");
 
                 entity.Property(e => e.NoKontrakPo)
-                    .HasMaxLength(50)
+                    .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("NO_KONTRAK_PO");
 
@@ -1138,10 +1157,13 @@ namespace Tomori.Epartner.Data
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.FileSuratPernyataan)
-                    .HasMaxLength(250)
+                    .HasMaxLength(300)
                     .HasColumnName("FILE_SURAT_PERNYATAAN");
 
-                entity.Property(e => e.FileSuratPernyataanId).HasColumnName("FILE_SURAT_PERNYATAAN_ID");
+                entity.Property(e => e.FileSuratPernyataanId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("FILE_SURAT_PERNYATAAN_ID");
 
                 entity.Property(e => e.JenisMataUang)
                     .HasMaxLength(25)
@@ -1164,17 +1186,17 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("NEGARA");
 
                 entity.Property(e => e.NoRekening)
-                    .HasMaxLength(25)
+                    .HasMaxLength(150)
                     .IsUnicode(false)
                     .HasColumnName("NO_REKENING");
 
                 entity.Property(e => e.NoRekeningFormat)
-                    .HasMaxLength(25)
+                    .HasMaxLength(150)
                     .IsUnicode(false)
                     .HasColumnName("NO_REKENING_FORMAT");
 
                 entity.Property(e => e.PemegangRekening)
-                    .HasMaxLength(50)
+                    .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("PEMEGANG_REKENING");
 
@@ -1217,16 +1239,22 @@ namespace Tomori.Epartner.Data
                     .HasMaxLength(250)
                     .HasColumnName("FILE_KTP_KITAS");
 
-                entity.Property(e => e.FileKtpKitasId).HasColumnName("FILE_KTP_KITAS_ID");
+                entity.Property(e => e.FileKtpKitasId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("FILE_KTP_KITAS_ID");
 
                 entity.Property(e => e.FileTandaTangan)
                     .HasMaxLength(250)
                     .HasColumnName("FILE_TANDA_TANGAN");
 
-                entity.Property(e => e.FileTandaTanganId).HasColumnName("FILE_TANDA_TANGAN_ID");
+                entity.Property(e => e.FileTandaTanganId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("FILE_TANDA_TANGAN_ID");
 
                 entity.Property(e => e.Jabatan)
-                    .HasMaxLength(50)
+                    .HasMaxLength(300)
                     .IsUnicode(false)
                     .HasColumnName("JABATAN");
 
@@ -1265,7 +1293,7 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("ID");
 
                 entity.Property(e => e.BadanUsaha)
-                    .HasMaxLength(100)
+                    .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("BADAN_USAHA");
 
@@ -1281,7 +1309,7 @@ namespace Tomori.Epartner.Data
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.DocNpwp)
-                    .HasMaxLength(250)
+                    .HasMaxLength(350)
                     .HasColumnName("DOC_NPWP");
 
                 entity.Property(e => e.Email)
@@ -1289,15 +1317,17 @@ namespace Tomori.Epartner.Data
                     .IsUnicode(false)
                     .HasColumnName("EMAIL");
 
-                entity.Property(e => e.JumlahSaham).HasColumnName("JUMLAH_SAHAM");
+                entity.Property(e => e.JumlahSaham)
+                    .HasColumnType("decimal(10, 0)")
+                    .HasColumnName("JUMLAH_SAHAM");
 
                 entity.Property(e => e.Nama)
-                    .HasMaxLength(75)
+                    .HasMaxLength(250)
                     .IsUnicode(false)
                     .HasColumnName("NAMA");
 
                 entity.Property(e => e.NoKtpKitas)
-                    .HasMaxLength(100)
+                    .HasMaxLength(300)
                     .IsUnicode(false)
                     .HasColumnName("NO_KTP_KITAS");
 
@@ -1314,7 +1344,7 @@ namespace Tomori.Epartner.Data
                 entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
 
                 entity.Property(e => e.WargaNegara)
-                    .HasMaxLength(15)
+                    .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("WARGA_NEGARA");
             });

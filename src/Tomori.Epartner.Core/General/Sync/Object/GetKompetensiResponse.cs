@@ -16,10 +16,10 @@ namespace Tomori.Epartner.Core.Response
         public string nilaiKontrakPOSO { get; set; }
         public string progressKontrakPOSO { get; set; }
         public string dokumen { get; set; }
-        public Guid dokumenId { get; set; }
-        public DateTime completedDate { get; set; }
-        public DateTime tanggalKontrakPOSO { get; set; }
-        public DateTime tanggalPenyelesaian { get; set; }
+        public string dokumenId { get; set; }
+        public DateTime? completedDate { get; set; }
+        public DateTime? tanggalKontrakPOSO { get; set; }
+        public DateTime? tanggalPenyelesaian { get; set; }
     }
 }
 

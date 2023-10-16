@@ -19,14 +19,15 @@ namespace Tomori.Epartner.Data.Model
         public string TipeStp { get; set; }
         public string MerkStp { get; set; }
         public string PeringkatInspeksi { get; set; }
-        public Guid? FileIzinUsahaId { get; set; }
+        public string FileIzinUsahaId { get; set; }
         public string JenisMataUang { get; set; }
         public decimal? KekayaanBershi { get; set; }
-        public DateTime MulaiBerlaku { get; set; }
-        public DateTime AkhirBerlaku { get; set; }
+        public DateTime? MulaiBerlaku { get; set; }
+        public DateTime? AkhirBerlaku { get; set; }
         public string CreateBy { get; set; }
         public DateTime CreateDate { get; set; }
         public string UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
+        public string BidangUsahaCode { get; set; }
     }
 }

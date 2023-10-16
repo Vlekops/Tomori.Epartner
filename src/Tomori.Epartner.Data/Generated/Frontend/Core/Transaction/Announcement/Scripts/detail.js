@@ -19,6 +19,7 @@ function detailAnnouncementDialog(el) {
 				$('#Detail-Announcement-GolonganUsaha').val(data.golonganUsaha);
 				$('#Detail-Announcement-K3sId').val(data.k3sId);
 				$('#Detail-Announcement-K3sName').val(data.k3sName);
+				$('#Detail-Announcement-PreviousId').val(data.previousId);
 				$('#Detail-Announcement-PublishDate').val(data.publishDate);
 				$('#Detail-Announcement-TenderType').val(data.tenderType);
 				$('#Detail-Announcement-Title').val(data.title);

@@ -156,10 +156,7 @@ namespace Tomori.Epartner.Core.Pengalaman.Query
 					break;
 					case "filebastid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _FileBastId))
-								result_where = (d=>d.FileBastId == _FileBastId);
-								else
-								result_where = (d=>d.FileBastId == Guid.Empty);
+							result_where = (d=>d.FileBastId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.FileBastId);
@@ -173,10 +170,7 @@ namespace Tomori.Epartner.Core.Pengalaman.Query
 					break;
 					case "filebuktipengalamanid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _FileBuktiPengalamanId))
-								result_where = (d=>d.FileBuktiPengalamanId == _FileBuktiPengalamanId);
-								else
-								result_where = (d=>d.FileBuktiPengalamanId == Guid.Empty);
+							result_where = (d=>d.FileBuktiPengalamanId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.FileBuktiPengalamanId);

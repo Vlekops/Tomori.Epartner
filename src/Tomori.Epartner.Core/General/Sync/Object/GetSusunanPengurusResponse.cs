@@ -18,8 +18,8 @@ namespace Tomori.Epartner.Core.Response
         public string email { get; set; }
         public string fileKTPKITAS { get; set; }
         public string fileTandaTangan { get; set; }
-        public Guid? fileKTPKITASId { get; set; }
-        public Guid? fileTandaTanganId { get; set; }
+        public string fileKTPKITASId { get; set; }
+        public string fileTandaTanganId { get; set; }
         public DateTime completedDate { get; set; }
     }
 }

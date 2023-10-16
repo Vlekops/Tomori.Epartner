@@ -22,7 +22,7 @@ namespace Tomori.Epartner.Core.Response
 		public string CreateBy{ get; set; }
 		public DateTime CreateDate{ get; set; }
 		public string FileSuratPernyataan{ get; set; }
-		public Guid? FileSuratPernyataanId{ get; set; }
+		public string FileSuratPernyataanId{ get; set; }
 		public string JenisMataUang{ get; set; }
 		public string KantorCabang{ get; set; }
 		public string NamaBank{ get; set; }

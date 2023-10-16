@@ -12,7 +12,7 @@ namespace Tomori.Epartner.Core.Request
     public partial class RekeningBankRequest
     {
 		public string FileSuratPernyataan{ get; set; }
-		public Guid? FileSuratPernyataanId{ get; set; }
+		public string FileSuratPernyataanId{ get; set; }
 		public string JenisMataUang{ get; set; }
 		public string KantorCabang{ get; set; }
 		public string NamaBank{ get; set; }

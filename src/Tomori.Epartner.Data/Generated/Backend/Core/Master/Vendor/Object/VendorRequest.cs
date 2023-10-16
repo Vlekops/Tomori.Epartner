@@ -16,21 +16,18 @@ namespace Tomori.Epartner.Core.Request
 		public string AhuOnlineFile{ get; set; }
 		public string AktaNotarisFile{ get; set; }
 		public string CityName{ get; set; }
-		[Required]
 		public string CompanyType{ get; set; }
 		public DateTime? CompletedDate{ get; set; }
 		public string ContactPerson{ get; set; }
 		public string DocNpwp{ get; set; }
 		public DateTime? ExpiredDate{ get; set; }
 		public string FaxNumber{ get; set; }
-		public Guid? FileSpdaId{ get; set; }
-		public Guid? FileVendorId{ get; set; }
+		public string FileSpdaId{ get; set; }
+		public string FileVendorId{ get; set; }
 		public string IsAutoGenerate{ get; set; }
 		public string Jabatan{ get; set; }
-		[Required]
 		public string JenisUsaha{ get; set; }
 		public string K3sAhuOnlineFile{ get; set; }
-		[Required]
 		public string K3sname{ get; set; }
 		public string K3snameSpda{ get; set; }
 		public string LinkPid{ get; set; }
@@ -38,14 +35,12 @@ namespace Tomori.Epartner.Core.Request
 		public string NpwpPusat{ get; set; }
 		[Required]
 		public string OfficeStatus{ get; set; }
-		[Required]
 		public string Pabrikan{ get; set; }
 		public string PemberiSanksi{ get; set; }
 		public string PhoneNumber{ get; set; }
 		public string ProvinceName{ get; set; }
 		[Required]
 		public int RegId{ get; set; }
-		[Required]
 		public string SahamAsing{ get; set; }
 		public string Sanksi{ get; set; }
 		public string Situ{ get; set; }

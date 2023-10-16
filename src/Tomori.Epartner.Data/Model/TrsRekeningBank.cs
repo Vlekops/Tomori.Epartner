@@ -17,7 +17,7 @@ namespace Tomori.Epartner.Data.Model
         public string KantorCabang { get; set; }
         public string Negara { get; set; }
         public string FileSuratPernyataan { get; set; }
-        public Guid? FileSuratPernyataanId { get; set; }
+        public string FileSuratPernyataanId { get; set; }
         public string CreateBy { get; set; }
         public DateTime CreateDate { get; set; }
         public string UpdateBy { get; set; }

@@ -135,10 +135,7 @@ namespace Tomori.Epartner.Core.Pajak.Query
 					break;
 					case "filedokumenid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _FileDokumenId))
-								result_where = (d=>d.FileDokumenId == _FileDokumenId);
-								else
-								result_where = (d=>d.FileDokumenId == Guid.Empty);
+							result_where = (d=>d.FileDokumenId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.FileDokumenId);

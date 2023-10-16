@@ -207,20 +207,14 @@ namespace Tomori.Epartner.Core.Vendor.Query
 					break;
 					case "filespdaid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _FileSpdaId))
-								result_where = (d=>d.FileSpdaId == _FileSpdaId);
-								else
-								result_where = (d=>d.FileSpdaId == Guid.Empty);
+							result_where = (d=>d.FileSpdaId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.FileSpdaId);
 					break;
 					case "filevendorid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _FileVendorId))
-								result_where = (d=>d.FileVendorId == _FileVendorId);
-								else
-								result_where = (d=>d.FileVendorId == Guid.Empty);
+							result_where = (d=>d.FileVendorId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.FileVendorId);

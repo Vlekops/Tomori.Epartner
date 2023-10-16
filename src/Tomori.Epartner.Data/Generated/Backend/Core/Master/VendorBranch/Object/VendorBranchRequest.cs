@@ -12,7 +12,6 @@ namespace Tomori.Epartner.Core.Request
     public partial class VendorBranchRequest
     {
 		public string Address{ get; set; }
-		[Required]
 		public string CompanyType{ get; set; }
 		public string ContactPerson{ get; set; }
 		public string FaxNumber{ get; set; }
@@ -20,7 +19,6 @@ namespace Tomori.Epartner.Core.Request
 		public string PhoneNumber{ get; set; }
 		public string Pkp{ get; set; }
 		public string Situ{ get; set; }
-		[Required]
 		public string VendorBranchName{ get; set; }
 		public string VendorEmail1{ get; set; }
 		public string VendorEmail2{ get; set; }

@@ -23,11 +23,14 @@ namespace Tomori.Epartner.API.Helper
 		Task<SyncResponse<GetPajakResponse>> GetPajak(DateTime completedDateFrom);
 		Task<SyncResponse<GetNeracaResponse>> GetNeraca(string k3sName);
 		Task<SyncResponse<GetPengalamanResponse>> GetPengalaman(DateTime completedDateFrom);
-		Task<SyncResponse<GetSusunanPengurusResponse>> GetSusunanPengurus(DateTime completedDateFrom);
+        Task<SyncResponse<GetRekeningBankResponse>> GetRekeningBank(DateTime completedDateFrom);
+        Task<SyncResponse<GetSusunanPengurusResponse>> GetSusunanPengurus(DateTime completedDateFrom);
 		Task<SyncResponse<GetSusunanSahamResponse>> GetSusunanSaham(DateTime completedDateFrom);
 		Task<SyncResponse<GetKompetensiResponse>> GetKompetensi(DateTime completedDateFrom);
 		Task<SyncResponse<GetSanksiHistoryResponse>> GetSanksiHistory(DateTime completedDateFrom);
-		Task<SyncResponse<GetAnnouncementResponse>> GetAnnouncement();
+		Task<SyncResponse<GetSpdaHistoryResponse>> GetSpdaHistory(string k3sName);
+
+        Task<SyncResponse<GetAnnouncementResponse>> GetAnnouncement();
         Task<dynamic> DoRequest(string url, string method, string body, string token, bool isAnnonymous);
 		#endregion
 	}
@@ -41,7 +44,7 @@ namespace Tomori.Epartner.API.Helper
 		{
 			_logger = logger;
 			BASE_URL = configuration.GetValue<string>("APIBaseUrl");
-			BASE_API_CIVD = configuration.GetValue<string>("API_CIVD");
+			BASE_API_CIVD = "https://ebff-202-80-217-43.ngrok-free.app/api/";
 		}
 
         #region API CIVD
@@ -85,6 +88,11 @@ namespace Tomori.Epartner.API.Helper
             return await DoRequest<SyncResponse<GetPengalamanResponse>>(BASE_API_CIVD + "vendor/getPengalaman" + "?completedDateFrom=" + completedDateFrom.ToString("yyyy-MM-dd"), HttpMethod.Get, null, null, true);
         }
 
+        public async Task<SyncResponse<GetRekeningBankResponse>> GetRekeningBank(DateTime completedDateFrom)
+        {
+            return await DoRequest<SyncResponse<GetRekeningBankResponse>>(BASE_API_CIVD + "vendor/getRekeningBank" + "?completedDateFrom=" + completedDateFrom.ToString("yyyy-MM-dd"), HttpMethod.Get, null, null, true);
+        }
+
         public async Task<SyncResponse<GetSusunanPengurusResponse>> GetSusunanPengurus(DateTime completedDateFrom)
         {
             return await DoRequest<SyncResponse<GetSusunanPengurusResponse>>(BASE_API_CIVD + "vendor/getSusunanPengurus" + "?completedDateFrom=" + completedDateFrom.ToString("yyyy-MM-dd"), HttpMethod.Get, null, null, true);
@@ -97,13 +105,19 @@ namespace Tomori.Epartner.API.Helper
 
         public async Task<SyncResponse<GetKompetensiResponse>> GetKompetensi(DateTime completedDateFrom)
         {
-            return await DoRequest<SyncResponse<GetKompetensiResponse>>(BASE_API_CIVD + "vendor/Kompetensi" + "?completedDateFrom=" + completedDateFrom.ToString("yyyy-MM-dd"), HttpMethod.Get, null, null, true);
+            return await DoRequest<SyncResponse<GetKompetensiResponse>>(BASE_API_CIVD + "vendor/kompetensi" + "?completedDateFrom=" + completedDateFrom.ToString("yyyy-MM-dd"), HttpMethod.Get, null, null, true);
         }
 
         public async Task<SyncResponse<GetSanksiHistoryResponse>> GetSanksiHistory(DateTime completedDateFrom)
         {
             return await DoRequest<SyncResponse<GetSanksiHistoryResponse>>(BASE_API_CIVD + "vendor/sanksiHistory" + "?completedDateFrom=" + completedDateFrom.ToString("yyyy-MM-dd"), HttpMethod.Get, null, null, true);
         }
+
+        public async Task<SyncResponse<GetSpdaHistoryResponse>> GetSpdaHistory(string k3sName)
+        {
+            return await DoRequest<SyncResponse<GetSpdaHistoryResponse>>(BASE_API_CIVD + "vendor/spdaHistory" + "?k3sName=" + k3sName, HttpMethod.Get, null, null, true);
+        }
+
 
         public async Task<SyncResponse<GetAnnouncementResponse>> GetAnnouncement()
         {

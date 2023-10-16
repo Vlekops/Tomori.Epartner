@@ -40,14 +40,14 @@ namespace Tomori.Epartner.Data.Model
         public int? SpdaId { get; set; }
         public string SpdaNo { get; set; }
         public string SpdaFile { get; set; }
-        public Guid? FileSpdaId { get; set; }
+        public string FileSpdaId { get; set; }
         public string SpdaValidity { get; set; }
         public string K3snameSpda { get; set; }
         public string IsAutoGenerate { get; set; }
         public string ActivityName { get; set; }
         public string AhuOnlineFile { get; set; }
         public string K3sAhuOnlineFile { get; set; }
-        public Guid? FileVendorId { get; set; }
+        public string FileVendorId { get; set; }
         public string Jabatan { get; set; }
         public DateTime? SituStartDate { get; set; }
         public DateTime? SituEndDate { get; set; }

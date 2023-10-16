@@ -13,9 +13,9 @@ namespace Tomori.Epartner.Core.Response
         public string spdaNo { get; set; }
         public string fileSPDA { get; set; }
         public string spdaValidity { get; set; }
-        public Guid fileSPDAId { get; set; }
-        public DateTime uploadDate { get; set; }
-        public DateTime expiredDate { get; set; }
+        public string fileSPDAId { get; set; }
+        public DateTime? uploadDate { get; set; }
+        public DateTime? expiredDate { get; set; }
     }
 }
 

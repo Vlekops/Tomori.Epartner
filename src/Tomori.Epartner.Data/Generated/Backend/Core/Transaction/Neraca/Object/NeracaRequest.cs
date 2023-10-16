@@ -29,7 +29,7 @@ namespace Tomori.Epartner.Core.Request
 		[Required]
 		public long Ebit{ get; set; }
 		public string FileNeraca{ get; set; }
-		public Guid? FileNeracaId{ get; set; }
+		public string FileNeracaId{ get; set; }
 		[Required]
 		public long FixedAsset{ get; set; }
 		public string GolonganPerusahaan{ get; set; }

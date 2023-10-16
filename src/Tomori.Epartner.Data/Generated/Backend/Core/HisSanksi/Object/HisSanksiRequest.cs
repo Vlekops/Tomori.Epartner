@@ -13,7 +13,7 @@ namespace Tomori.Epartner.Core.Request
     {
 		public string FilePernyataanPerbaikan{ get; set; }
 		public string FileSuratSanksi{ get; set; }
-		public Guid? FileSuratSanksiId{ get; set; }
+		public string FileSuratSanksiId{ get; set; }
 		public string Keterangan{ get; set; }
 		public string Percobaan{ get; set; }
 		public string Sanksi{ get; set; }
@@ -21,8 +21,7 @@ namespace Tomori.Epartner.Core.Request
 		public DateTime? TglBerakhirSanksi{ get; set; }
 		public DateTime? TglBerlakuSanksi{ get; set; }
 		public DateTime? TglPelepasanSanksi{ get; set; }
-		[Required]
-		public int VendorId{ get; set; }
+		public int? VendorId{ get; set; }
 
     }
 }

@@ -11,19 +11,18 @@ namespace Tomori.Epartner.Core.Request
 {
     public partial class IzinUsahaRequest
     {
-		[Required]
-		public DateTime AkhirBerlaku{ get; set; }
+		public DateTime? AkhirBerlaku{ get; set; }
 		public string BidangUsaha{ get; set; }
+		public string BidangUsahaCode{ get; set; }
 		public string FileIzinUsaha{ get; set; }
-		public Guid? FileIzinUsahaId{ get; set; }
+		public string FileIzinUsahaId{ get; set; }
 		public string GolonganUsaha{ get; set; }
 		public string InstansiPemberiIzin{ get; set; }
 		public string JenisIzinUsaha{ get; set; }
 		public string JenisMataUang{ get; set; }
 		public decimal? KekayaanBershi{ get; set; }
 		public string MerkStp{ get; set; }
-		[Required]
-		public DateTime MulaiBerlaku{ get; set; }
+		public DateTime? MulaiBerlaku{ get; set; }
 		public string NoIzinUsaha{ get; set; }
 		public string Other{ get; set; }
 		public string PeringkatInspeksi{ get; set; }

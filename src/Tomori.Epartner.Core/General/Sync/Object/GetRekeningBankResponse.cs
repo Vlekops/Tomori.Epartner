@@ -19,7 +19,7 @@ namespace Tomori.Epartner.Core.Response
         public string kantorCabang { get; set; }
         public string negara { get; set; }
         public string fileSuratPernyataan { get; set; }
-        public Guid fileSuratPernyataanId { get; set; }
+        public string fileSuratPernyataanId { get; set; }
         public DateTime completedDate { get; set; }
     }
 }

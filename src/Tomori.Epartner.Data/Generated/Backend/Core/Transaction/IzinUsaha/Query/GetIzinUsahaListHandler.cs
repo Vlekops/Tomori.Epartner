@@ -126,6 +126,13 @@ namespace Tomori.Epartner.Core.IzinUsaha.Query
 						else
 							result_order = (d => d.BidangUsaha);
 					break;
+					case "bidangusahacode" : 
+						if(is_where){
+							result_where = (d=>d.BidangUsahaCode.Trim().ToLower().Contains(search));
+						}
+						else
+							result_order = (d => d.BidangUsahaCode);
+					break;
 					case "createby" : 
 						if(is_where){
 							result_where = (d=>d.CreateBy.Trim().ToLower().Contains(search));
@@ -150,10 +157,7 @@ namespace Tomori.Epartner.Core.IzinUsaha.Query
 					break;
 					case "fileizinusahaid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _FileIzinUsahaId))
-								result_where = (d=>d.FileIzinUsahaId == _FileIzinUsahaId);
-								else
-								result_where = (d=>d.FileIzinUsahaId == Guid.Empty);
+							result_where = (d=>d.FileIzinUsahaId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.FileIzinUsahaId);

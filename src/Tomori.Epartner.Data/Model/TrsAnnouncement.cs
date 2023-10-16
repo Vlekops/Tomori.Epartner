@@ -18,11 +18,12 @@ namespace Tomori.Epartner.Data.Model
         public string TenderType { get; set; }
         public string BidangUsaha { get; set; }
         public string GolonganUsaha { get; set; }
-        public DateTime PublishDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? PublishDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string CreateBy { get; set; }
         public DateTime CreateDate { get; set; }
         public string UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
+        public int? PreviousId { get; set; }
     }
 }

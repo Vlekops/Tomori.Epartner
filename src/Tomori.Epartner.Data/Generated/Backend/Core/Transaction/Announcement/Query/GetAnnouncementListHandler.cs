@@ -191,6 +191,14 @@ namespace Tomori.Epartner.Core.Announcement.Query
 						else
 							result_order = (d => d.K3sName);
 					break;
+					case "previousid" : 
+						if(is_where){
+							if (int.TryParse(search, out var _PreviousId))
+								result_where = (d=>d.PreviousId == _PreviousId);
+						}
+						else
+							result_order = (d => d.PreviousId);
+					break;
 					case "publishdate" : 
 						if(is_where){
 							if (DateTime.TryParse(search, out var _PublishDate))

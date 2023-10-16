@@ -13,7 +13,7 @@ namespace Tomori.Epartner.Core.Response
         public string k3sName { get; set; }
         public string tipeAfiliasi { get; set; }
         public string deskripsi { get; set; }
-        public int share { get; set; }
+        public decimal? share { get; set; }
         public string tipePerusahaan { get; set; }
         public string namaPerusahaan { get; set; }
         public string statusPerusahaan { get; set; }
@@ -31,7 +31,7 @@ namespace Tomori.Epartner.Core.Response
         public string vendorNPWP { get; set; }
         public string countryForeign { get; set; }
         public string docNPWP { get; set; }
-        public Guid fileAfiliasiId { get; set; }
+        public string fileAfiliasiId { get; set; }
         public DateTime completedDate { get; set; }
 
     }

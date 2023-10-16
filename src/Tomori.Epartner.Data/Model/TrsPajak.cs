@@ -16,7 +16,7 @@ namespace Tomori.Epartner.Data.Model
         public string PeriodeAwal { get; set; }
         public string PeriodeAkhir { get; set; }
         public int? Tahun { get; set; }
-        public Guid? FileDokumenId { get; set; }
+        public string FileDokumenId { get; set; }
         public DateTime? Tanggal { get; set; }
         public DateTime? TanggalAkhir { get; set; }
         public string CreateBy { get; set; }

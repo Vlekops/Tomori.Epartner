@@ -17,11 +17,11 @@ namespace Tomori.Epartner.Core.Response
         public string kondisi { get; set; }
         public string periodeAwal { get; set; }
         public string periodeAkhir { get; set; }
-        public int tahun { get; set; }
-        public Guid fileDokumenId { get; set; }
+        public int? tahun { get; set; }
+        public string fileDokumenId { get; set; }
         public DateTime completedDate{ get; set; }
         public DateTime? tanggal { get; set; }
-        public DateTime tanggalAkhir { get; set; }
+        public DateTime? tanggalAkhir { get; set; }
     }
 }
 

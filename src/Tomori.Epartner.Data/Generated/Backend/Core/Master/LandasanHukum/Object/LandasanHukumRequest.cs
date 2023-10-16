@@ -12,13 +12,12 @@ namespace Tomori.Epartner.Core.Request
     public partial class LandasanHukumRequest
     {
 		public string FileLandasanHukum{ get; set; }
-		public Guid? FileLandasanHukumId{ get; set; }
+		public string FileLandasanHukumId{ get; set; }
 		public string JenisAkta{ get; set; }
 		public string NamaNotaris{ get; set; }
 		public string NamaSkMenteri{ get; set; }
 		public string NoAkta{ get; set; }
-		[Required]
-		public DateTime TglAkta{ get; set; }
+		public DateTime? TglAkta{ get; set; }
 		[Required]
 		public int VendorId{ get; set; }
 

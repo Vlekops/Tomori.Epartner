@@ -53,6 +53,7 @@ function getListAnnouncement(page) {
 								<td class="text-nowrap">${item.golonganUsaha}</td>
 								<td class="text-nowrap">${item.k3sId}</td>
 								<td class="text-nowrap">${item.k3sName}</td>
+								<td class="text-nowrap">${item.previousId}</td>
 								<td class="text-nowrap">${item.publishDate}</td>
 								<td class="text-nowrap">${item.tenderType}</td>
 								<td class="text-nowrap">${item.title}</td>

@@ -18,9 +18,9 @@ namespace Tomori.Epartner.Data.Model
         public long? NilaiKontrakPoso { get; set; }
         public string ProgressKontrakPoso { get; set; }
         public string Document { get; set; }
-        public Guid? DocumentId { get; set; }
-        public DateTime TglKontrakPoso { get; set; }
-        public DateTime TglPenyelesaian { get; set; }
+        public string DocumentId { get; set; }
+        public DateTime? TglKontrakPoso { get; set; }
+        public DateTime? TglPenyelesaian { get; set; }
         public string CreateBy { get; set; }
         public DateTime CreateDate { get; set; }
         public string UpdateBy { get; set; }

@@ -15,12 +15,12 @@ namespace Tomori.Epartner.Core.Response
         public bool perorangan { get; set; }
         public string wargaNegara { get; set; }
         public string badanUsaha { get; set; }
-        public int jumlahSaham { get; set; }
+        public decimal jumlahSaham { get; set; }
         public string email { get; set; }
         public string noKTPKITAS { get; set; }
         public string vendorNPWP { get; set; }
-        public Guid? fileIDid { get; set; }
-        public Guid? fileId { get; set; }
+        public string fileIDid { get; set; }
+        public string fileId { get; set; }
         public string docNPWP { get; set; }
         public DateTime completedDate { get; set; }
     }

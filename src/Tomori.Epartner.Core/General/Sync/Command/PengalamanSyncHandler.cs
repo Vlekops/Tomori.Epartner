@@ -22,6 +22,7 @@ using AutoMapper.Features;
 using Tomori.Epartner.Data.Model;
 using DocumentFormat.OpenXml.Wordprocessing;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Tomori.Epartner.Core.Response;
 
 namespace Tomori.Epartner.Core.Sync.Command
 {
@@ -62,7 +63,9 @@ namespace Tomori.Epartner.Core.Sync.Command
             {
                 var data = await _restHelper.GetPengalaman(request.CompletedDateForm);
 
-                foreach ( var item in data.result )
+                var listExist = new List<GetPengalamanResponse>();
+
+                foreach ( var item in data.result)
                 {
                     if (await _context.Entity<TrsPengalaman>().Where(d => d.Id == item.id).AnyAsync())
                     {
@@ -89,30 +92,35 @@ namespace Tomori.Epartner.Core.Sync.Command
                         _context.Update(update);
                     }
                     else {
-
-                        _context.Add(new TrsPengalaman
+                        if (!listExist.Where(d => d.id == item.id).Any())
                         {
-                            Id = item.id,
-                            VendorId = item.vendorId,
-                            NamaPaketPekerjaan = item.namaPaketPekerjaan,
-                            BidangSubBidangCode = item.bidangSubbidangCode,
-                            BidangSubBidang = item.bidangSubbidang,
-                            Lokasi = item.lokasi,
-                            NamaPenggunaJasa = item.namaPenggunaJasa,
-                            Alamat = item.alamat,
-                            NoTelepon = item.noTelepon,
-                            NoKontrakPo = item.noKontrakPo,
-                            JenisMataUang = item.jenisMataUang,
-                            NilaiKontrakPo = item.nilaiKontrakPo,
-                            FileBast = item.fileBast,
-                            FileBuktiPengalaman = item.fileBuktiPengalaman,
-                            FileBastId = item.fileBastId,
-                            FileBuktiPengalamanId = item.fileBuktiPengalamanId,
-                            TglKontrakPo = item.tanggalKontrakPo,
-                            SelesaiKontrakPo = item.selesaiKontrakPo,
-                            CreateBy = "SYSTEM SYNC",
-                            CreateDate = DateTime.Now,
-                        });
+                            _context.Add(new TrsPengalaman
+                            {
+                                Id = item.id,
+                                VendorId = item.vendorId,
+                                NamaPaketPekerjaan = item.namaPaketPekerjaan,
+                                BidangSubBidangCode = item.bidangSubbidangCode,
+                                BidangSubBidang = item.bidangSubbidang,
+                                Lokasi = item.lokasi,
+                                NamaPenggunaJasa = item.namaPenggunaJasa,
+                                Alamat = item.alamat,
+                                NoTelepon = item.noTelepon,
+                                NoKontrakPo = item.noKontrakPo,
+                                JenisMataUang = item.jenisMataUang,
+                                NilaiKontrakPo = item.nilaiKontrakPo,
+                                FileBast = item.fileBast,
+                                FileBuktiPengalaman = item.fileBuktiPengalaman,
+                                FileBastId = item.fileBastId,
+                                FileBuktiPengalamanId = item.fileBuktiPengalamanId,
+                                TglKontrakPo = item.tanggalKontrakPo,
+                                SelesaiKontrakPo = item.selesaiKontrakPo,
+                                CreateBy = "SYSTEM SYNC",
+                                CreateDate = DateTime.Now,
+                            });
+
+                            listExist.Add(item);
+                        }
+                        
                     }
                 }
 

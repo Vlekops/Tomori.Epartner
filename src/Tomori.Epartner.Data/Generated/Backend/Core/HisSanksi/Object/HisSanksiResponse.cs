@@ -23,7 +23,7 @@ namespace Tomori.Epartner.Core.Response
 		public DateTime CreateDate{ get; set; }
 		public string FilePernyataanPerbaikan{ get; set; }
 		public string FileSuratSanksi{ get; set; }
-		public Guid? FileSuratSanksiId{ get; set; }
+		public string FileSuratSanksiId{ get; set; }
 		public string Keterangan{ get; set; }
 		public string Percobaan{ get; set; }
 		public string Sanksi{ get; set; }
@@ -33,7 +33,7 @@ namespace Tomori.Epartner.Core.Response
 		public DateTime? TglPelepasanSanksi{ get; set; }
 		public string UpdateBy{ get; set; }
 		public DateTime? UpdateDate{ get; set; }
-		public int VendorId{ get; set; }
+		public int? VendorId{ get; set; }
 
 
         public void Mapping(IMappingExpression<Tomori.Epartner.Data.Model.HisSanksi, HisSanksiResponse> map)

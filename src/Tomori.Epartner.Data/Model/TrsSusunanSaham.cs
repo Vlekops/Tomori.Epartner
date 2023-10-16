@@ -13,7 +13,7 @@ namespace Tomori.Epartner.Data.Model
         public bool Perorangan { get; set; }
         public string WargaNegara { get; set; }
         public string BadanUsaha { get; set; }
-        public int JumlahSaham { get; set; }
+        public decimal JumlahSaham { get; set; }
         public string Email { get; set; }
         public string NoKtpKitas { get; set; }
         public string DocNpwp { get; set; }

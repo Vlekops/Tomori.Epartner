@@ -142,10 +142,7 @@ namespace Tomori.Epartner.Core.SusunanPengurus.Query
 					break;
 					case "filektpkitasid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _FileKtpKitasId))
-								result_where = (d=>d.FileKtpKitasId == _FileKtpKitasId);
-								else
-								result_where = (d=>d.FileKtpKitasId == Guid.Empty);
+							result_where = (d=>d.FileKtpKitasId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.FileKtpKitasId);
@@ -159,10 +156,7 @@ namespace Tomori.Epartner.Core.SusunanPengurus.Query
 					break;
 					case "filetandatanganid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _FileTandaTanganId))
-								result_where = (d=>d.FileTandaTanganId == _FileTandaTanganId);
-								else
-								result_where = (d=>d.FileTandaTanganId == Guid.Empty);
+							result_where = (d=>d.FileTandaTanganId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.FileTandaTanganId);

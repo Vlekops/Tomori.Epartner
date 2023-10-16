@@ -142,10 +142,7 @@ namespace Tomori.Epartner.Core.HisSanksi.Query
 					break;
 					case "filesuratsanksiid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _FileSuratSanksiId))
-								result_where = (d=>d.FileSuratSanksiId == _FileSuratSanksiId);
-								else
-								result_where = (d=>d.FileSuratSanksiId == Guid.Empty);
+							result_where = (d=>d.FileSuratSanksiId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.FileSuratSanksiId);

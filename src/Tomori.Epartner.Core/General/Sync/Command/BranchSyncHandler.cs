@@ -87,6 +87,8 @@ namespace Tomori.Epartner.Core.Sync.Command
                         _context.Add(new MstVendorBranch {
                             Id = item.vendorBranchId,
                             VendorId = item.vendorId,
+                            CompanyType = item.compTypeDesc,
+                            VendorBranchName = item.vendorBranchName,
                             Address = item.vendorBranchAddress,
                             ZipCode = item.vendorBranchPhone,
                             PhoneNumber = item.vendorBranchPhone,

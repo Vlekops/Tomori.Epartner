@@ -11,14 +11,12 @@ namespace Tomori.Epartner.Core.Request
 {
     public partial class HisSpdaRequest
     {
-		[Required]
-		public DateTime ExpiredDate{ get; set; }
+		public DateTime? ExpiredDate{ get; set; }
 		public string FileSpda{ get; set; }
-		public Guid? FileSpdaId{ get; set; }
+		public string FileSpdaId{ get; set; }
 		public string SpdaNo{ get; set; }
 		public string SpdaValidity{ get; set; }
-		[Required]
-		public DateTime UploadDate{ get; set; }
+		public DateTime? UploadDate{ get; set; }
 		[Required]
 		public int VendorId{ get; set; }
 

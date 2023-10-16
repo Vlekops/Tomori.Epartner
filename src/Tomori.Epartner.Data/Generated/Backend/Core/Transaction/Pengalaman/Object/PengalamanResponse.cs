@@ -25,9 +25,9 @@ namespace Tomori.Epartner.Core.Response
 		public string CreateBy{ get; set; }
 		public DateTime CreateDate{ get; set; }
 		public string FileBast{ get; set; }
-		public Guid? FileBastId{ get; set; }
+		public string FileBastId{ get; set; }
 		public string FileBuktiPengalaman{ get; set; }
-		public Guid? FileBuktiPengalamanId{ get; set; }
+		public string FileBuktiPengalamanId{ get; set; }
 		public string JenisMataUang{ get; set; }
 		public string Lokasi{ get; set; }
 		public string NamaPaketPekerjaan{ get; set; }

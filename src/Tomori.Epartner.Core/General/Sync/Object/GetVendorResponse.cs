@@ -34,10 +34,10 @@ namespace Tomori.Epartner.Core.Response
         public string situ { get; set; }
         public string situFile { get; set; }
         public string aktaNotarisFile { get; set; }
-        public int spdaId { get; set; }
+        public int? spdaId { get; set; }
         public string spdaNo { get; set; }
         public string spdaFile { get; set; }
-        public Guid fileSPDAId { get; set; }
+        public string fileSPDAId { get; set; }
         public string spdaValidity { get; set; }
         public string k3sNameSPDA { get; set; }
         public string isAutoGenerate { get; set; }
@@ -46,7 +46,7 @@ namespace Tomori.Epartner.Core.Response
         public string fileSKUP { get; set; }
         public string ahuOnlineFile { get; set; }
         public string k3sAHUOnline { get; set; }
-        public Guid fileVendorId { get; set; }
+        public string fileVendorId { get; set; }
         public string jabatan { get; set; }
         public string fileBranchOfficeAssignment { get; set; }
         public string fileLegalOperationalAddress { get; set; }
@@ -55,11 +55,11 @@ namespace Tomori.Epartner.Core.Response
         public string fileNib { get; set; }
         public DateTime? situStartDate { get; set; }
         public DateTime? situEndDate { get; set; }
-        public DateTime uploadDate { get; set; }
-        public DateTime expiredDate { get; set; }
-        public DateTime uploadDateAHUOnline { get; set; }
+        public DateTime? uploadDate { get; set; }
+        public DateTime? expiredDate { get; set; }
+        public DateTime? uploadDateAHUOnline { get; set; }
         public DateTime? nibDate { get; set; }
-        public DateTime completedDate { get; set; }
+        public DateTime? completedDate { get; set; }
         public DateTime? akhirBerlakuSKUP { get; set; }
         public string statusPerusahaan { get; set; }
     }

@@ -207,10 +207,7 @@ namespace Tomori.Epartner.Core.Neraca.Query
 					break;
 					case "fileneracaid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _FileNeracaId))
-								result_where = (d=>d.FileNeracaId == _FileNeracaId);
-								else
-								result_where = (d=>d.FileNeracaId == Guid.Empty);
+							result_where = (d=>d.FileNeracaId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.FileNeracaId);

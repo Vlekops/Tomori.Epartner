@@ -16,14 +16,13 @@ namespace Tomori.Epartner.Core.Request
 		public string Attachment{ get; set; }
 		public string BidangUsaha{ get; set; }
 		public string Description{ get; set; }
-		[Required]
-		public DateTime EndDate{ get; set; }
+		public DateTime? EndDate{ get; set; }
 		public string GolonganUsaha{ get; set; }
 		[Required]
 		public int K3sId{ get; set; }
 		public string K3sName{ get; set; }
-		[Required]
-		public DateTime PublishDate{ get; set; }
+		public int? PreviousId{ get; set; }
+		public DateTime? PublishDate{ get; set; }
 		public string TenderType{ get; set; }
 		public string Title{ get; set; }
 

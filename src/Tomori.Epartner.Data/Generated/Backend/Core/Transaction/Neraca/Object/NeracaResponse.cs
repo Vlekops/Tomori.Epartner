@@ -31,7 +31,7 @@ namespace Tomori.Epartner.Core.Response
 		public long EarningBeforeTax{ get; set; }
 		public long Ebit{ get; set; }
 		public string FileNeraca{ get; set; }
-		public Guid? FileNeracaId{ get; set; }
+		public string FileNeracaId{ get; set; }
 		public long FixedAsset{ get; set; }
 		public string GolonganPerusahaan{ get; set; }
 		public long GrossProfit{ get; set; }

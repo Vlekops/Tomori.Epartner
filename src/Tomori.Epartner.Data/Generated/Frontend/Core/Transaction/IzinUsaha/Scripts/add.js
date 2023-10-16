@@ -22,6 +22,7 @@ function addIzinUsahaSave() {
             var param = {
 				akhirBerlaku:$('#Add-IzinUsaha-AkhirBerlaku').val(),
 				bidangUsaha:$('#Add-IzinUsaha-BidangUsaha').val(),
+				bidangUsahaCode:$('#Add-IzinUsaha-BidangUsahaCode').val(),
 				fileIzinUsaha:$('#Add-IzinUsaha-FileIzinUsaha').val(),
 				fileIzinUsahaId:$('#Add-IzinUsaha-FileIzinUsahaId').val(),
 				golonganUsaha:$('#Add-IzinUsaha-GolonganUsaha').val(),

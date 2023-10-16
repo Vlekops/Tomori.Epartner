@@ -21,14 +21,14 @@ namespace Tomori.Epartner.Core.Response
 		public int Id{ get; set; }
 		public string CreateBy{ get; set; }
 		public DateTime CreateDate{ get; set; }
-		public DateTime ExpiredDate{ get; set; }
+		public DateTime? ExpiredDate{ get; set; }
 		public string FileSpda{ get; set; }
-		public Guid? FileSpdaId{ get; set; }
+		public string FileSpdaId{ get; set; }
 		public string SpdaNo{ get; set; }
 		public string SpdaValidity{ get; set; }
 		public string UpdateBy{ get; set; }
 		public DateTime? UpdateDate{ get; set; }
-		public DateTime UploadDate{ get; set; }
+		public DateTime? UploadDate{ get; set; }
 		public int VendorId{ get; set; }
 
 

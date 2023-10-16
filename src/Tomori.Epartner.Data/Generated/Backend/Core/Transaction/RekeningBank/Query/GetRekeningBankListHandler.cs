@@ -135,10 +135,7 @@ namespace Tomori.Epartner.Core.RekeningBank.Query
 					break;
 					case "filesuratpernyataanid" : 
 						if(is_where){
-							if (Guid.TryParse(search, out var _FileSuratPernyataanId))
-								result_where = (d=>d.FileSuratPernyataanId == _FileSuratPernyataanId);
-								else
-								result_where = (d=>d.FileSuratPernyataanId == Guid.Empty);
+							result_where = (d=>d.FileSuratPernyataanId.Trim().ToLower().Contains(search));
 						}
 						else
 							result_order = (d => d.FileSuratPernyataanId);

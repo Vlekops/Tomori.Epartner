@@ -22,7 +22,7 @@ namespace Tomori.Epartner.Data.Model
         public string GolonganPerusahaan { get; set; }
         public string StatusAudit { get; set; }
         public string FileNeraca { get; set; }
-        public Guid? FileNeracaId { get; set; }
+        public string FileNeracaId { get; set; }
         public string PeriodeAwal { get; set; }
         public string PeriodeAkhir { get; set; }
         public long Cash { get; set; }

@@ -64,6 +64,7 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                             insert.JenisIzinUsaha = data.jenisIzinUsaha;
                             insert.Other = data.others;
                             insert.BidangUsaha = data.bidangUsaha;
+                            insert.BidangUsahaCode = data.bidangUsahaCode;
                             insert.GolonganUsaha = data.golonganUsaha;
                             insert.NoIzinUsaha = data.noIzinUsaha;
                             insert.InstansiPemberiIzin = data.instansiPemberiIzin;
@@ -78,8 +79,6 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                             insert.AkhirBerlaku = data.akhirBerlaku;
                             insert.CreateBy = "SYSTEM SYNC";
                             insert.CreateDate = DateTime.Now;
-                            insert.UpdateBy = "SYSTEM SYNC";
-                            insert.UpdateDate = DateTime.Now;
                             listInsert.Add(insert);
                         } else
                         {
@@ -88,6 +87,7 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                             update.JenisIzinUsaha = data.jenisIzinUsaha;
                             update.Other = data.others;
                             update.BidangUsaha = data.bidangUsaha;
+                            update.BidangUsahaCode = data.bidangUsahaCode;
                             update.GolonganUsaha = data.golonganUsaha;
                             update.NoIzinUsaha = data.noIzinUsaha;
                             update.InstansiPemberiIzin = data.instansiPemberiIzin;

@@ -12,8 +12,8 @@ namespace Tomori.Epartner.Core.Request
     public partial class AfiliasiRequest
     {
 		public string Deskripsi{ get; set; }
-		public Guid? FileAfiliasiId{ get; set; }
-		public int? Share{ get; set; }
+		public string FileAfiliasiId{ get; set; }
+		public decimal? Share{ get; set; }
 		public string Terafiliasi{ get; set; }
 		public string TipeAfiliasi{ get; set; }
 		[Required]
