@@ -42,22 +42,28 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<TrsRekeningBank>();
-                var listUpdate = new List<TrsRekeningBank>();
+                var listInsert = new List<VRekeningBank>();
                 var listExist = new List<GetRekeningBankResponse>();
                 var rest = await _restHelper.GetRekeningBank(request.CompletedDateFrom);
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new TrsRekeningBank();
-                        var update = new TrsRekeningBank();
-                        if (!await _context.Entity<TrsRekeningBank>().AnyAsync(a => a.Id == data.id))
+                        var insert = new VRekeningBank();
+                        Guid? IdVendor = null;
+                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
+                        if (vendor != null)
+                        {
+                            IdVendor = vendor.Id;
+                        }
+                        var rb = await _context.Entity<VRekeningBank>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        if (rb == null)
                         {
                             if (!listExist.Where(d => d.id == data.id).Any())
                             {
-                                insert.Id = data.id;
-                                insert.VendorId = data.vendorId;
+                                insert.Id = Guid.NewGuid();
+                                insert.CivdId = data.id;
+                                insert.IdVendor = IdVendor;
                                 insert.PemegangRekening = data.pemegangRekening;
                                 insert.NoRekening = data.noRekening;
                                 insert.NoRekeningFormat = data.noRekeningNoFormat;
@@ -67,6 +73,7 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                                 insert.Negara = data.negara;
                                 insert.FileSuratPernyataan = data.fileSuratPernyataan;
                                 insert.FileSuratPernyataanId = data.fileSuratPernyataanId;
+                                insert.CompletedDate = data.completedDate;
                                 insert.CreateBy = "SYSTEM SYNC";
                                 insert.CreateDate = DateTime.Now;
                                 listInsert.Add(insert);
@@ -75,27 +82,22 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                             
                         } else
                         {
-                            update.Id = data.id;
-                            update.VendorId = data.vendorId;
-                            update.PemegangRekening = data.pemegangRekening;
-                            update.NoRekening = data.noRekening;
-                            update.NoRekeningFormat = data.noRekeningNoFormat;
-                            update.JenisMataUang = data.jenisMataUang;
-                            update.NamaBank = data.namaBank;
-                            update.KantorCabang = data.kantorCabang;
-                            update.Negara = data.negara;
-                            update.FileSuratPernyataan = data.fileSuratPernyataan;
-                            update.FileSuratPernyataanId = data.fileSuratPernyataanId;
-                            update.CreateBy = "SYSTEM SYNC";
-                            update.CreateDate = DateTime.Now;
-                            update.UpdateBy = "SYSTEM SYNC";
-                            update.UpdateDate = DateTime.Now;
-                            listUpdate.Add(update);
+                            rb.PemegangRekening = data.pemegangRekening;
+                            rb.NoRekening = data.noRekening;
+                            rb.NoRekeningFormat = data.noRekeningNoFormat;
+                            rb.JenisMataUang = data.jenisMataUang;
+                            rb.NamaBank = data.namaBank;
+                            rb.KantorCabang = data.kantorCabang;
+                            rb.Negara = data.negara;
+                            rb.FileSuratPernyataan = data.fileSuratPernyataan;
+                            rb.FileSuratPernyataanId = data.fileSuratPernyataanId;
+                            rb.CompletedDate = data.completedDate;
+                            rb.UpdateBy = "SYSTEM SYNC";
+                            rb.UpdateDate = DateTime.Now;
+                            _context.Update(rb);
                         }
                     }
-
-                    if (listUpdate.Count > 0)
-                        _context.Update(listUpdate);
+;
                     if (listInsert.Count > 0)
                         _context.Add(listInsert);
 

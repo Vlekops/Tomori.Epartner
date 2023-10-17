@@ -64,29 +64,38 @@ namespace Tomori.Epartner.Core.Sync.Command
 
                 foreach ( var item in data.result )
                 {
-                    if (await _context.Entity<TrsAfiliasi>().Where(d => d.Id == item.id).AnyAsync())
+
+                    if (await _context.Entity<VAfiliasi>().Where(d => d.CivdId == item.id).AnyAsync())
                     {
-                        var dataAfiliasi = await _context.Entity<TrsAfiliasi>().Where(d => d.Id == item.id).FirstOrDefaultAsync();
+                        var dataAfiliasi = await _context.Entity<VAfiliasi>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
                         dataAfiliasi.TipeAfiliasi = item.tipeAfiliasi;
                         dataAfiliasi.Deskripsi = item.deskripsi;
                         dataAfiliasi.Share = item.share;
                         dataAfiliasi.Terafiliasi = item.terafiliasi;
                         dataAfiliasi.FileAfiliasiId = item.fileAfiliasiId;
+                        dataAfiliasi.CompletedDate = item.completedDate;
                         dataAfiliasi.UpdateBy = "SYSTEM SYNC";
                         dataAfiliasi.UpdateDate = DateTime.Now;
 
                         _context.Update(dataAfiliasi);
                     }
                     else {
-
-                        _context.Add(new TrsAfiliasi {
-                            Id = item.id,
-                            VendorId = item.vendorId,
+                        Guid? IdVendor = null;
+                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == item.vendorId).FirstOrDefaultAsync();
+                        if (vendor != null)
+                        {
+                            IdVendor = vendor.Id;
+                        }
+                        _context.Add(new VAfiliasi {
+                            Id = Guid.NewGuid(),
+                            CivdId= item.id,    
+                            IdVendor = IdVendor,
                             TipeAfiliasi = item.tipeAfiliasi,
                             Deskripsi = item.deskripsi,
                             Share = item.share,
                             Terafiliasi = item.terafiliasi,
                             FileAfiliasiId = item.fileAfiliasiId,
+                            CompletedDate= item.completedDate,
                             CreateBy = "SYSTEM SYNC",
                             CreateDate = DateTime.Now
                         });

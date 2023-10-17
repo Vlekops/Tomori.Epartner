@@ -62,9 +62,10 @@ namespace Tomori.Epartner.Core.Sync.Command
 
                 foreach ( var item in data.result )
                 {
-                    if (await _context.Entity<MstVendorBranch>().Where(d => d.Id == item.vendorBranchId).AnyAsync())
+
+                    if (await _context.Entity<VBranch>().Where(d => d.CivdId == item.vendorBranchId).AnyAsync())
                     {
-                        var update = await _context.Entity<MstVendorBranch>().Where(d => d.Id == item.vendorBranchId).FirstOrDefaultAsync();
+                        var update = await _context.Entity<VBranch>().Where(d => d.CivdId == item.vendorBranchId).FirstOrDefaultAsync();
                         update.CompanyType = item.compTypeDesc;
                         update.VendorBranchName = item.vendorBranchName;
                         update.Address = item.vendorBranchAddress;
@@ -77,16 +78,23 @@ namespace Tomori.Epartner.Core.Sync.Command
                         update.Npwp = item.vendorBranchNPWP;
                         update.Pkp = item.vendorBranchPKP;
                         update.Situ = item.vendorBranchSITU;
+                        update.CompletedDate = item.completedDate;
                         update.UpdateBy = "SYSTEM SYNC";
                         update.UpdateDate = DateTime.Now;
 
                         _context.Update(update);
                     }
                     else {
-
-                        _context.Add(new MstVendorBranch {
-                            Id = item.vendorBranchId,
-                            VendorId = item.vendorId,
+                        Guid? IdVendor = null;
+                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == item.vendorId).FirstOrDefaultAsync();
+                        if (vendor != null) {
+                            IdVendor = vendor.Id;
+                        }
+                        
+                        _context.Add(new VBranch {
+                            Id = Guid.NewGuid(),
+                            CivdId = item.vendorBranchId,
+                            IdVendor = IdVendor,
                             CompanyType = item.compTypeDesc,
                             VendorBranchName = item.vendorBranchName,
                             Address = item.vendorBranchAddress,
@@ -99,6 +107,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                             Npwp = item.vendorBranchNPWP,
                             Pkp = item.vendorBranchPKP,
                             Situ = item.vendorBranchSITU,
+                            CompletedDate = item.completedDate,
                             CreateBy = "SYSTEM SYNC",
                             CreateDate = DateTime.Now
                         });

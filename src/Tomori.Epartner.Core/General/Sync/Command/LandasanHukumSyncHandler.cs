@@ -46,22 +46,27 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<MstLandasanHukum>();
-                var listUpdate = new List<MstLandasanHukum>();
+                var listInsert = new List<VLandasanHukum>();
                 var rest = await _restHelper.GetLandasanHukum(request.CompleteDateFrom);
 
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new MstLandasanHukum();
-                        var update = new MstLandasanHukum();
-
-                        if(!await _context.Entity<MstLandasanHukum>().AnyAsync(a => a.Id == data.id))
+                        var insert = new VLandasanHukum();
+                        Guid? IdVendor = null;
+                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
+                        if (vendor != null)
+                        {
+                            IdVendor = vendor.Id;
+                        }
+                        var lh = await _context.Entity<VLandasanHukum>().Where(d => d.CivdId == data.id).FirstOrDefaultAsync();
+                        if(lh == null)
                         {
 
-                            insert.Id = data.id;
-                            insert.VendorId = data.vendorId;
+                            insert.Id = Guid.NewGuid();
+                            insert.CivdId = data.id;
+                            insert.IdVendor = IdVendor;
                             insert.JenisAkta = data.jenisAkta;
                             insert.NoAkta = data.noAkta;
                             insert.NamaNotaris = data.namaNotaris;
@@ -69,33 +74,27 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                             insert.FileLandasanHukum = data.fileLandasanHukum;
                             insert.FileLandasanHukumId = data.fileLandasanHukumId;
                             insert.TglAkta = data.tanggalAkta;
+                            insert.CompletedDate= data.completedDate;
                             insert.CreateBy = "SYSTEM SYNC";
                             insert.CreateDate = DateTime.Now;
-                            insert.UpdateBy = "SYSTEM SYNC";
-                            insert.UpdateDate = DateTime.Now;
                             listInsert.Add(insert);
                         } else
                         {
-                            update.Id = data.id;
-                            update.VendorId = data.vendorId;
-                            update.JenisAkta = data.jenisAkta;
-                            update.NoAkta = data.noAkta;
-                            update.NamaNotaris = data.namaNotaris;
-                            update.NamaSkMenteri = data.noSKMenteri;
-                            update.FileLandasanHukum = data.fileLandasanHukum;
-                            update.FileLandasanHukumId = data.fileLandasanHukumId;
-                            update.TglAkta = data.tanggalAkta;
-                            update.CreateBy = "SYSTEM SYNC";
-                            update.CreateDate = DateTime.Now;
-                            update.UpdateBy = "SYSTEM SYNC";
-                            update.UpdateDate = DateTime.Now;
-                            listUpdate.Add(update);
+                            lh.JenisAkta = data.jenisAkta;
+                            lh.NoAkta = data.noAkta;
+                            lh.NamaNotaris = data.namaNotaris;
+                            lh.NamaSkMenteri = data.noSKMenteri;
+                            lh.FileLandasanHukum = data.fileLandasanHukum;
+                            lh.FileLandasanHukumId = data.fileLandasanHukumId;
+                            lh.TglAkta = data.tanggalAkta;
+                            lh.CompletedDate = data.completedDate;
+                            lh.UpdateBy = "SYSTEM SYNC";
+                            lh.UpdateDate = DateTime.Now;
+                            _context.Update(lh);
                         }
 
                     }
 
-                    if (listUpdate.Count > 0)
-                        _context.Update(listUpdate);
                     if (listInsert.Count > 0)
                         _context.Add(listInsert);
 

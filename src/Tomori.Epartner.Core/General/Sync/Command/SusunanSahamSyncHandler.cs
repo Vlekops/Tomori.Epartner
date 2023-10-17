@@ -8,6 +8,7 @@ using Tomori.Epartner.Data;
 using Tomori.Epartner.Data.Model;
 using Vleko.DAL.Interface;
 using Vleko.Result;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Tomori.Epartner.Core.General.Sync.Command
 {
@@ -40,19 +41,25 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<TrsSusunanSaham>();
-                var listUpdate = new List<TrsSusunanSaham>();
+                var listInsert = new List<VSusunanSaham>();
                 var rest = await _restHelper.GetSusunanSaham(request.CompletedDateFrom);
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new TrsSusunanSaham();
-                        var update = new TrsSusunanSaham();
-                        if (!await _context.Entity<TrsSusunanSaham>().AnyAsync(a => a.Id == data.id))
+                        var insert = new VSusunanSaham();
+                        Guid? IdVendor = null;
+                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
+                        if (vendor != null)
                         {
-                            insert.Id = data.id;
-                            insert.VendorId = data.vendorId;
+                            IdVendor = vendor.Id;
+                        }
+                        var ss = await _context.Entity<VSusunanSaham>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        if (ss == null)
+                        {
+                            insert.Id = Guid.NewGuid();
+                            insert.CivdId= data.id;
+                            insert.IdVendor = IdVendor;
                             insert.Nama = data.nama;
                             insert.Perorangan = data.perorangan;
                             insert.WargaNegara = data.wargaNegara;
@@ -61,33 +68,30 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                             insert.Email = data.email;
                             insert.NoKtpKitas = data.noKTPKITAS;
                             insert.DocNpwp = data.docNPWP;
+                            insert.CompletedDate = data.completedDate;
                             insert.CreateBy = "SYSTEM SYNC";
                             insert.CreateDate = DateTime.Now;
-                            insert.UpdateBy = "SYSTEM SYNC";
-                            insert.UpdateDate = DateTime.Now;
                             listInsert.Add(insert);
                         } else
                         {
-                            update.Id = data.id;
-                            update.VendorId = data.vendorId;
-                            update.Nama = data.nama;
-                            update.Perorangan = data.perorangan;
-                            update.WargaNegara = data.wargaNegara;
-                            update.BadanUsaha = data.badanUsaha;
-                            update.JumlahSaham = data.jumlahSaham;
-                            update.Email = data.email;
-                            update.NoKtpKitas = data.noKTPKITAS;
-                            update.DocNpwp = data.docNPWP;
-                            update.CreateBy = "SYSTEM SYNC";
-                            update.CreateDate = DateTime.Now;
-                            update.UpdateBy = "SYSTEM SYNC";
-                            update.UpdateDate = DateTime.Now;
-                            listUpdate.Add(update);
+                            ss.Id = ss.Id;
+                            ss.CivdId = data.id;
+                            ss.IdVendor = IdVendor;
+                            ss.Nama = data.nama;
+                            ss.Perorangan = data.perorangan;
+                            ss.WargaNegara = data.wargaNegara;
+                            ss.BadanUsaha = data.badanUsaha;
+                            ss.JumlahSaham = data.jumlahSaham;
+                            ss.Email = data.email;
+                            ss.NoKtpKitas = data.noKTPKITAS;
+                            ss.DocNpwp = data.docNPWP;
+                            ss.CompletedDate = data.completedDate;
+                            ss.UpdateBy = "SYSTEM SYNC";
+                            ss.UpdateDate = DateTime.Now;
+                            _context.Update(ss);
                         }
                     }
 
-                    if (listUpdate.Count > 0)
-                        _context.Update(listUpdate);
                     if (listInsert.Count > 0)
                         _context.Add(listInsert);
 

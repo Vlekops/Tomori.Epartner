@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 using System.ComponentModel.DataAnnotations;
 using Tomori.Epartner.API.Helper;
 using Tomori.Epartner.Data;
@@ -46,8 +47,7 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<TrsIzinUsaha>();
-                var listUpdate = new List<TrsIzinUsaha>();
+                var listInsert = new List<VIzinUsaha>();
 
                 var rest = await _restHelper.GetIzinUsaha(request.K3SName);
 
@@ -55,12 +55,19 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new TrsIzinUsaha();
-                        var update = new TrsIzinUsaha();
-                        if (!await _context.Entity<TrsIzinUsaha>().AnyAsync(a => a.Id == data.id))
+                        var insert = new VIzinUsaha();
+                        Guid? IdVendor = null;
+                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
+                        if (vendor != null)
                         {
-                            insert.Id = data.id;
-                            insert.VendorId = data.vendorId;
+                            IdVendor = vendor.Id;
+                        }
+                        var iu = await _context.Entity<VIzinUsaha>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        if (iu == null)
+                        {
+                            insert.Id = Guid.NewGuid();
+                            insert.CivdId = data.id;
+                            insert.IdVendor = IdVendor;
                             insert.JenisIzinUsaha = data.jenisIzinUsaha;
                             insert.Other = data.others;
                             insert.BidangUsaha = data.bidangUsaha;
@@ -77,39 +84,35 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                             insert.KekayaanBershi = data.kekayaanBersih;
                             insert.MulaiBerlaku = data.mulaiBerlaku;
                             insert.AkhirBerlaku = data.akhirBerlaku;
+                            insert.CompletedDate= data.completedDate;
                             insert.CreateBy = "SYSTEM SYNC";
                             insert.CreateDate = DateTime.Now;
                             listInsert.Add(insert);
                         } else
                         {
-                            update.Id = data.id;
-                            update.VendorId = data.vendorId;
-                            update.JenisIzinUsaha = data.jenisIzinUsaha;
-                            update.Other = data.others;
-                            update.BidangUsaha = data.bidangUsaha;
-                            update.BidangUsahaCode = data.bidangUsahaCode;
-                            update.GolonganUsaha = data.golonganUsaha;
-                            update.NoIzinUsaha = data.noIzinUsaha;
-                            update.InstansiPemberiIzin = data.instansiPemberiIzin;
-                            update.FileIzinUsaha = data.fileIzinUsaha;
-                            update.TipeStp = data.tipeSTP;
-                            update.MerkStp = data.merkSTP;
-                            update.PeringkatInspeksi = data.peringkatInspeksi;
-                            update.FileIzinUsahaId = data.fileIzinUsahaId;
-                            update.JenisMataUang = data.jenisMataUang;
-                            update.KekayaanBershi = data.kekayaanBersih;
-                            update.MulaiBerlaku = data.mulaiBerlaku;
-                            update.AkhirBerlaku = data.akhirBerlaku;
-                            update.CreateBy = "SYSTEM SYNC";
-                            update.CreateDate = DateTime.Now;
-                            update.UpdateBy = "SYSTEM SYNC";
-                            update.UpdateDate = DateTime.Now;
-                            listUpdate.Add(update);
+                            iu.JenisIzinUsaha = data.jenisIzinUsaha;
+                            iu.Other = data.others;
+                            iu.BidangUsaha = data.bidangUsaha;
+                            iu.BidangUsahaCode = data.bidangUsahaCode;
+                            iu.GolonganUsaha = data.golonganUsaha;
+                            iu.NoIzinUsaha = data.noIzinUsaha;
+                            iu.InstansiPemberiIzin = data.instansiPemberiIzin;
+                            iu.FileIzinUsaha = data.fileIzinUsaha;
+                            iu.TipeStp = data.tipeSTP;
+                            iu.MerkStp = data.merkSTP;
+                            iu.PeringkatInspeksi = data.peringkatInspeksi;
+                            iu.FileIzinUsahaId = data.fileIzinUsahaId;
+                            iu.JenisMataUang = data.jenisMataUang;
+                            iu.KekayaanBershi = data.kekayaanBersih;
+                            iu.MulaiBerlaku = data.mulaiBerlaku;
+                            iu.AkhirBerlaku = data.akhirBerlaku;
+                            iu.CompletedDate = data.completedDate;
+                            iu.UpdateBy = "SYSTEM SYNC";
+                            iu.UpdateDate = DateTime.Now;
+                            _context.Update(iu);
                         }
                     }
 
-                    if(listUpdate.Count > 0)
-                        _context.Update(listUpdate);
                     if (listInsert.Count > 0)
                         _context.Add(listInsert);
 

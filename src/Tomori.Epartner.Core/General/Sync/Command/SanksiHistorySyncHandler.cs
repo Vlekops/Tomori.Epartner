@@ -41,22 +41,32 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<HisSanksi>();
-                var listUpdate = new List<HisSanksi>();
+                var listInsert = new List<VSanksi>();
                 var listExists = new List<GetSanksiHistoryResponse>();
                 var rest = await _restHelper.GetSanksiHistory(request.CompletedDateFrom);
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new HisSanksi();
-                        var update = new HisSanksi();
-                        if (!await _context.Entity<HisSanksi>().AnyAsync(a => a.Id == data.id))
+                        var insert = new VSanksi();
+                        Guid? IdVendor = null;
+                        if (data.vendorId.HasValue)
+                        {
+                            var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
+                            if (vendor != null)
+                            {
+                                IdVendor = vendor.Id;
+                            }
+                        }
+                       
+                        var s = await _context.Entity<VSanksi>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        if (s == null)
                         {
                             if (!listExists.Where(d => d.id == data.id).Any())
                             {
-                                insert.Id = data.id;
-                                insert.VendorId = data.vendorId;
+                                insert.Id = Guid.NewGuid();
+                                insert.CivdId = data.id;
+                                insert.IdVendor = IdVendor;
                                 insert.Sanksi = data.sanksi;
                                 insert.Keterangan = data.keterangan;
                                 insert.Percobaan = data.percobaan;
@@ -69,39 +79,30 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                                 insert.TglPelepasanSanksi = data.tanggalPelepasanSanksi;
                                 insert.CreateBy = "SYSTEM SYNC";
                                 insert.CreateDate = DateTime.Now;
-                                insert.UpdateBy = "SYSTEM SYNC";
-                                insert.UpdateDate = DateTime.Now;
                                 listInsert.Add(insert);
                                 listExists.Add(data);
                             }
                         }
                         else
                         {
-                            
-                                update.Id = data.id;
-                                update.VendorId = data.vendorId;
-                                update.Sanksi = data.sanksi;
-                                update.Keterangan = data.keterangan;
-                                update.Percobaan = data.percobaan;
-                                update.FileSuratSanksi = data.fileSuratSanksi;
-                                update.FileSuratSanksiId = data.fileSanksiId;
-                                update.FilePernyataanPerbaikan = data.filePernyataanPerbaikan;
-                                update.TglBerlakuSanksi = data.tanggalBerlakuSanksi;
-                                update.TglBerakhirSanksi = data.tanggalBerakhirSanksi;
-                                update.TglBerakhirPercobaan = data.tanggalBerakhirPercobaan;
-                                update.TglPelepasanSanksi = data.tanggalPelepasanSanksi;
-                                update.CreateBy = "SYSTEM SYNC";
-                                update.CreateDate = DateTime.Now;
-                                update.UpdateBy = "SYSTEM SYNC";
-                                update.UpdateDate = DateTime.Now;
-                                listUpdate.Add(update);
+                            s.Sanksi = data.sanksi;
+                                s.Keterangan = data.keterangan;
+                                s.Percobaan = data.percobaan;
+                                s.FileSuratSanksi = data.fileSuratSanksi;
+                                s.FileSuratSanksiId = data.fileSanksiId;
+                                s.FilePernyataanPerbaikan = data.filePernyataanPerbaikan;
+                                s.TglBerlakuSanksi = data.tanggalBerlakuSanksi;
+                                s.TglBerakhirSanksi = data.tanggalBerakhirSanksi;
+                                s.TglBerakhirPercobaan = data.tanggalBerakhirPercobaan;
+                                s.TglPelepasanSanksi = data.tanggalPelepasanSanksi;
+                                s.UpdateBy = "SYSTEM SYNC";
+                                s.UpdateDate = DateTime.Now;
+                                _context.Update(s);
                                 
                             
                         }
                     }
 
-                    if (listUpdate.Count > 0)
-                        _context.Update(listUpdate);
                     if (listInsert.Count > 0)
                         _context.Add(listInsert);
 

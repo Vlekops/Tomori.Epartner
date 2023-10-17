@@ -22,6 +22,7 @@ using AutoMapper.Features;
 using Tomori.Epartner.Data.Model;
 using DocumentFormat.OpenXml.Wordprocessing;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace Tomori.Epartner.Core.Sync.Command
 {
@@ -64,9 +65,9 @@ namespace Tomori.Epartner.Core.Sync.Command
 
                 foreach ( var item in data.result )
                 {
-                    if (await _context.Entity<TrsSusunanPengurus>().Where(d => d.Id == item.id).AnyAsync())
+                    if (await _context.Entity<VSusunanPengurus>().Where(d => d.CivdId == item.id).AnyAsync())
                     {
-                        var update = await _context.Entity<TrsSusunanPengurus>().Where(d => d.Id == item.id).FirstOrDefaultAsync();
+                        var update = await _context.Entity<VSusunanPengurus>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
                         update.TipePengurus = item.tipePengurus;
                         update.Nama = item.nama;
                         update.Jabatan = item.jabatan;
@@ -76,16 +77,23 @@ namespace Tomori.Epartner.Core.Sync.Command
                         update.FileTandaTangan = item.fileTandaTangan;
                         update.FileKtpKitasId = item.fileKTPKITASId;
                         update.FileTandaTanganId = item.fileTandaTanganId;
+                        update.CompletedDate= item.completedDate;
                         update.UpdateBy = "SYSTEM SYNC";
                         update.UpdateDate = DateTime.Now;
 
                         _context.Update(update);
                     }
                     else {
-
-                        _context.Add(new TrsSusunanPengurus {
-                            Id = item.id,
-                            VendorId = item.vendorId,
+                        Guid? IdVendor = null;
+                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == item.vendorId).FirstOrDefaultAsync();
+                        if (vendor != null)
+                        {
+                            IdVendor = vendor.Id;
+                        }
+                        _context.Add(new VSusunanPengurus {
+                            Id = Guid.NewGuid(),
+                            CivdId = item.id,
+                            IdVendor = IdVendor,
                             TipePengurus = item.tipePengurus,
                             Nama = item.nama,
                             Jabatan = item.jabatan,
@@ -95,8 +103,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                             FileTandaTangan = item.fileTandaTangan,
                             FileKtpKitasId = item.fileKTPKITASId,
                             FileTandaTanganId = item.fileTandaTanganId,
-                            UpdateBy = "SYSTEM SYNC",
-                            UpdateDate = DateTime.Now,
+                            CompletedDate= item.completedDate,
                             CreateBy = "SYSTEM SYNC",
                             CreateDate = DateTime.Now
                         });

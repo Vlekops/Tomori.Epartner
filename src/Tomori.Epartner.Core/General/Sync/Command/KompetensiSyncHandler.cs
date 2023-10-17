@@ -65,9 +65,9 @@ namespace Tomori.Epartner.Core.Sync.Command
                 var listExist = new List<GetKompetensiResponse>();
                 foreach ( var item in data.result )
                 {
-                    if (await _context.Entity<TrsKompetensi>().Where(d => d.Id == item.id).AnyAsync())
+                    if (await _context.Entity<VKompetensi>().Where(d => d.CivdId == item.id).AnyAsync())
                     {
-                        var update = await _context.Entity<TrsKompetensi>().Where(d => d.Id == item.id).FirstOrDefaultAsync();
+                        var update = await _context.Entity<VKompetensi>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
                         update.BidangSubBidangCode = item.bidangSubBidangCode;
                         update.BidangSubBidang = item.bidangSubBidang;
                         update.Deskripsi = item.deskripsi;
@@ -80,6 +80,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                         update.DocumentId = item.dokumenId;
                         update.TglKontrakPoso = item.tanggalKontrakPOSO;
                         update.TglPenyelesaian = item.tanggalPenyelesaian;
+                        update.CompletedDate= item.completedDate;
                         update.UpdateBy = "SYSTEM SYNC";
                         update.UpdateDate = DateTime.Now;
 
@@ -87,10 +88,17 @@ namespace Tomori.Epartner.Core.Sync.Command
                     }
                     else {
                         if (!listExist.Where(d => d.id == item.id).Any()) {
-                            _context.Add(new TrsKompetensi
+                            Guid? IdVendor = null;
+                            var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == item.vendorId).FirstOrDefaultAsync();
+                            if (vendor != null)
                             {
-                                Id = item.id,
-                                VendorId = item.vendorId,
+                                IdVendor = vendor.Id;
+                            }
+                            _context.Add(new VKompetensi
+                            {
+                                Id = Guid.NewGuid(),
+                                CivdId = item.id,
+                                IdVendor = IdVendor,
                                 BidangSubBidangCode = item.bidangSubBidangCode,
                                 BidangSubBidang = item.bidangSubBidang,
                                 Deskripsi = item.deskripsi,
@@ -103,6 +111,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                                 DocumentId = item.dokumenId,
                                 TglKontrakPoso = item.tanggalKontrakPOSO,
                                 TglPenyelesaian = item.tanggalPenyelesaian,
+                                CompletedDate = item.completedDate,
                                 CreateBy = "SYSTEM SYNC",
                                 CreateDate = DateTime.Now,
                             });

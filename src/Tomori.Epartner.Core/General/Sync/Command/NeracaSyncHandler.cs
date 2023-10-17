@@ -46,19 +46,25 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<TrsNeraca>();
-                var listUpdate = new List<TrsNeraca>();
+                var listInsert = new List<VNeraca>();
                 var rest = await _restHelper.GetNeraca(request.K3SName);
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new TrsNeraca();
-                        var update = new TrsNeraca();
-                        if (!await _context.Entity<TrsNeraca>().AnyAsync(a => a.Id == a.Id))
+                        var insert = new VNeraca();
+                        Guid? IdVendor = null;
+                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
+                        if (vendor != null)
                         {
-                            insert.Id = data.id;
-                            insert.VendorId = data.vendorId;
+                            IdVendor = vendor.Id;
+                        }
+                        var n = await _context.Entity<VNeraca>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        if (n == null)
+                        {
+                            insert.Id = Guid.NewGuid();
+                            insert.CivdId = data.id;
+                            insert.IdVendor = IdVendor;
                             insert.Tahun = data.tahun;
                             insert.JenisMataUang = data.jenisMataUang;
                             insert.JumlahAktiva = data.jumlahAktiva;
@@ -95,62 +101,56 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                             insert.TglSales = data.tanggalSales;
                             insert.TglAkhirSales = data.tanggalAkhirSales;
                             insert.AkhirBerlaku = data.akhirBerlaku;
+                            insert.CompletedDate= data.completedDate;
                             insert.CreateBy = "SYSTEM SYNC";
                             insert.CreateDate = DateTime.Now;
-                            insert.UpdateBy = "SYSTEM SYNC";
-                            insert.UpdateDate = DateTime.Now;
                             listInsert.Add(insert);
                         }
                         else
                         {
-                            update.Id = data.id;
-                            update.VendorId = data.vendorId;
-                            update.Tahun = data.tahun;
-                            update.JenisMataUang = data.jenisMataUang;
-                            update.JumlahAktiva = data.jumlahAktiva;
-                            update.JumlahHutang = data.jumlahUtang;
-                            update.KekayaanBersih = data.kekayaanBersih;
-                            update.ZeroControl = data.zeroControl;
-                            update.TanahBangunan = data.tanahBangunan;
-                            update.NetEkuitas = data.netEkuitas;
-                            update.JenisMataUangSales = data.jenisMataUangSales;
-                            update.Penjualan = data.penjualan;
-                            update.GolonganPerusahaan = data.golonganPerusahaan;
-                            update.StatusAudit = data.statusAudit;
-                            update.FileNeraca = data.fileNeraca;
-                            update.FileNeracaId = data.fileNeracaId;
-                            update.PeriodeAwal = data.periodeAwal;
-                            update.PeriodeAkhir = data.periodeAkhir;
-                            update.Cash = data.cash;
-                            update.AccountReceivables = data.accountReceivables;
-                            update.OtherCurrentAsset = data.otherCurrentAsset;
-                            update.CurrentAsset = data.currentAsset;
-                            update.FixedAsset = data.fixedAsset;
-                            update.CurrentLiabilities = data.currentLiabilities;
-                            update.NonCurrentLiabilities = data.nonCurrentLiabilities;
-                            update.CostOfRevenue = data.costOfRevenue;
-                            update.GrossProfit = data.grossProfit;
-                            update.OperatingExpense = data.operatingExpense;
-                            update.Ebit = data.ebit;
-                            update.InterestExpense = data.interestExpense;
-                            update.OthersExpense = data.othersExpense;
-                            update.OthersIncome = data.othersIncome;
-                            update.EarningBeforeTax = data.earningBeforeTax;
-                            update.NetProfit = data.netProfit;
-                            update.DepreciationExpense = data.depreciationExpense;
-                            update.TglSales = data.tanggalSales;
-                            update.TglAkhirSales = data.tanggalAkhirSales;
-                            update.AkhirBerlaku = data.akhirBerlaku;
-                            update.CreateBy = "SYSTEM SYNC";
-                            update.CreateDate = DateTime.Now;
-                            update.UpdateBy = "SYSTEM SYNC";
-                            update.UpdateDate = DateTime.Now;
-                            listUpdate.Add(update);
+                            n.Tahun = data.tahun;
+                            n.JenisMataUang = data.jenisMataUang;
+                            n.JumlahAktiva = data.jumlahAktiva;
+                            n.JumlahHutang = data.jumlahUtang;
+                            n.KekayaanBersih = data.kekayaanBersih;
+                            n.ZeroControl = data.zeroControl;
+                            n.TanahBangunan = data.tanahBangunan;
+                            n.NetEkuitas = data.netEkuitas;
+                            n.JenisMataUangSales = data.jenisMataUangSales;
+                            n.Penjualan = data.penjualan;
+                            n.GolonganPerusahaan = data.golonganPerusahaan;
+                            n.StatusAudit = data.statusAudit;
+                            n.FileNeraca = data.fileNeraca;
+                            n.FileNeracaId = data.fileNeracaId;
+                            n.PeriodeAwal = data.periodeAwal;
+                            n.PeriodeAkhir = data.periodeAkhir;
+                            n.Cash = data.cash;
+                            n.AccountReceivables = data.accountReceivables;
+                            n.OtherCurrentAsset = data.otherCurrentAsset;
+                            n.CurrentAsset = data.currentAsset;
+                            n.FixedAsset = data.fixedAsset;
+                            n.CurrentLiabilities = data.currentLiabilities;
+                            n.NonCurrentLiabilities = data.nonCurrentLiabilities;
+                            n.CostOfRevenue = data.costOfRevenue;
+                            n.GrossProfit = data.grossProfit;
+                            n.OperatingExpense = data.operatingExpense;
+                            n.Ebit = data.ebit;
+                            n.InterestExpense = data.interestExpense;
+                            n.OthersExpense = data.othersExpense;
+                            n.OthersIncome = data.othersIncome;
+                            n.EarningBeforeTax = data.earningBeforeTax;
+                            n.NetProfit = data.netProfit;
+                            n.DepreciationExpense = data.depreciationExpense;
+                            n.TglSales = data.tanggalSales;
+                            n.TglAkhirSales = data.tanggalAkhirSales;
+                            n.AkhirBerlaku = data.akhirBerlaku;
+                            n.CompletedDate = data.completedDate;
+                            n.UpdateBy = "SYSTEM SYNC";
+                            n.UpdateDate = DateTime.Now;
+                            _context.Update(n);
                         }
                     }
                     
-                    if (listUpdate.Count > 0)
-                        _context.Update(listUpdate);
                     if (listInsert.Count > 0)
                         _context.Add(listInsert);
 

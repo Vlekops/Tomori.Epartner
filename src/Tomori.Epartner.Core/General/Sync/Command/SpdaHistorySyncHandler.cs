@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.Bibliography;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using System.ComponentModel.DataAnnotations;
 using Tomori.Epartner.API.Helper;
 using Tomori.Epartner.Core.Response;
@@ -41,27 +43,33 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<HisSpda>();
-                var listUpdate = new List<HisSpda>();
+                var listInsert = new List<VSpda>();
                 var listExists = new List<GetSpdaHistoryResponse>();
                 var rest = await _restHelper.GetSpdaHistory(request.K3sname);
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new HisSpda();
-                        var update = new HisSpda();
-                        if (!await _context.Entity<HisSpda>().AnyAsync(a => a.Id == data.id))
+                        var insert = new VSpda();
+                        var update = new VSpda();
+                        Guid? IdVendor = null;
+                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
+                        if (vendor != null)
+                        {
+                            IdVendor = vendor.Id;
+                        }
+                        var s = await _context.Entity<VSpda>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        if (s == null)
                         {
                             if (!listExists.Where(d => d.id == data.id).Any())
                             {
-                                insert.Id = data.id;
-                                insert.VendorId = data.vendorId;
+                                insert.Id = Guid.NewGuid();
+                                insert.CivdId = data.id;
+                                insert.IdVendor = IdVendor;
                                 insert.SpdaValidity = data.spdaValidity;
                                 insert.SpdaNo = data.spdaNo;
                                 insert.FileSpda = data.fileSPDA;
                                 insert.FileSpdaId = data.fileSPDAId;
-                                insert.UpdateDate = data.uploadDate;
                                 insert.ExpiredDate = data.expiredDate;
                                 insert.CreateBy = "SYSTEM SYNC";
                                 insert.CreateDate = DateTime.Now;
@@ -71,27 +79,18 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                         }
                         else
                         {
-
-                            update.Id = data.id;
-                            update.VendorId = data.vendorId;
-                            update.SpdaNo = data.spdaNo;
-                            update.SpdaValidity = data.spdaValidity;
-                            update.FileSpda = data.fileSPDA;
-                            update.FileSpdaId = data.fileSPDAId;
-                            update.UpdateDate = data.uploadDate;
-                            update.ExpiredDate = data.expiredDate;
-                            update.CreateBy = "SYSTEM SYNC";
-                            update.CreateDate = DateTime.Now;
-                            update.UpdateBy = "SYSTEM SYNC";
-                            update.UpdateDate = DateTime.Now;
-                            listUpdate.Add(update);
-                                
-                            
+                            s.SpdaNo = data.spdaNo;
+                            s.SpdaValidity = data.spdaValidity;
+                            s.FileSpda = data.fileSPDA;
+                            s.FileSpdaId = data.fileSPDAId;
+                            s.UpdateDate = data.uploadDate;
+                            s.ExpiredDate = data.expiredDate;
+                            s.UpdateBy = "SYSTEM SYNC";
+                            s.UpdateDate = DateTime.Now;
+                            _context.Update(s);
                         }
                     }
 
-                    if (listUpdate.Count > 0)
-                        _context.Update(listUpdate);
                     if (listInsert.Count > 0)
                         _context.Add(listInsert);
 
