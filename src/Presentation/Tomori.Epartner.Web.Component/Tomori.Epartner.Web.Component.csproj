@@ -19,6 +19,10 @@
 		<PackageReference Include="Vleko.Result" Version="1.0.0.1" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Services\MasterVendor\" />
+	</ItemGroup>
+
 	<PropertyGroup>
 		<PublishTrimmed>false</PublishTrimmed>
 	</PropertyGroup>

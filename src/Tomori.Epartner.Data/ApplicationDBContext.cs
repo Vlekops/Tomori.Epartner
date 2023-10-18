@@ -384,7 +384,10 @@ namespace Tomori.Epartner.Data
                     .HasColumnName("ID")
                     .HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.Active).HasColumnName("ACTIVE");
+                entity.Property(e => e.Active)
+                    .IsRequired()
+                    .HasColumnName("ACTIVE")
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Answer)
                     .IsRequired()

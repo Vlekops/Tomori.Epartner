@@ -69,21 +69,21 @@ namespace Tomori.Epartner.Data.CodeGenerator
                 CodeTemplate.GenerateAPICQRS(setting.PrefixNamespace, model, _options, setting.Exclude);
 
                 //FRONTEND
-                CodeTemplate.GenerateViewIndex(setting.PrefixNamespace, model, _options, setting.Exclude);
-                CodeTemplate.GenerateViewAdd(setting.PrefixNamespace, model, _options, setting.Exclude);
-                CodeTemplate.GenerateViewEdit(setting.PrefixNamespace, model, _options, setting.Exclude);
-                CodeTemplate.GenerateViewDetail(setting.PrefixNamespace, model, _options, setting.Exclude);
-                CodeTemplate.GenerateScriptIndex(setting.PrefixNamespace, model, _options, setting.Exclude);
-                CodeTemplate.GenerateScriptAdd(setting.PrefixNamespace, model, _options, setting.Exclude);
-                CodeTemplate.GenerateScriptEdit(setting.PrefixNamespace, model, _options, setting.Exclude);
-                CodeTemplate.GenerateScriptDelete(setting.PrefixNamespace, model, _options, setting.Exclude);
-                CodeTemplate.GenerateScriptDetail(setting.PrefixNamespace, model, _options, setting.Exclude);
+                //CodeTemplate.GenerateViewIndex(setting.PrefixNamespace, model, _options, setting.Exclude);
+                //CodeTemplate.GenerateViewAdd(setting.PrefixNamespace, model, _options, setting.Exclude);
+                //CodeTemplate.GenerateViewEdit(setting.PrefixNamespace, model, _options, setting.Exclude);
+                //CodeTemplate.GenerateViewDetail(setting.PrefixNamespace, model, _options, setting.Exclude);
+                //CodeTemplate.GenerateScriptIndex(setting.PrefixNamespace, model, _options, setting.Exclude);
+                //CodeTemplate.GenerateScriptAdd(setting.PrefixNamespace, model, _options, setting.Exclude);
+                //CodeTemplate.GenerateScriptEdit(setting.PrefixNamespace, model, _options, setting.Exclude);
+                //CodeTemplate.GenerateScriptDelete(setting.PrefixNamespace, model, _options, setting.Exclude);
+                //CodeTemplate.GenerateScriptDetail(setting.PrefixNamespace, model, _options, setting.Exclude);
 
                 //INFRASTRUCTURE
-                //CodeTemplate.GenerateInfrastructureInterface(setting.PrefixNamespace, model, _options, setting.Exclude);
-                //CodeTemplate.GenerateInfrastructureRequest(setting.PrefixNamespace, model, _options, setting.Exclude);
-                //CodeTemplate.GenerateInfrastructureResponse(setting.PrefixNamespace, model, _options, setting.Exclude);
-                //CodeTemplate.GenerateInfrastructureService(setting.PrefixNamespace, model, _options, setting.Exclude);
+                CodeTemplate.GenerateInfrastructureInterface(setting.PrefixNamespace, model, _options, setting.Exclude);
+                CodeTemplate.GenerateInfrastructureRequest(setting.PrefixNamespace, model, _options, setting.Exclude);
+                CodeTemplate.GenerateInfrastructureResponse(setting.PrefixNamespace, model, _options, setting.Exclude);
+                CodeTemplate.GenerateInfrastructureService(setting.PrefixNamespace, model, _options, setting.Exclude);
             }
             GenerateOnModelCreating(model);
         }
