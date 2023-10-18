@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Page";
+}
+
+@section Styles
+    {
+    <style>
+        .reset-icon-size .mud-treeview-item-icon .mud-icon-size-medium {
+            font-size: initial !important;
+        }
+    </style>
+}
+
+<component type="typeof(Tomori.Epartner.Web.Component.Pages.FiturUmum.Page)" render-mode="WebAssemblyPrerendered" param-Token="@ViewBag.Token" param-Permission="@ViewBag.Permission" />

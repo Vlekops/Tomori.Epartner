@@ -1,0 +1,69 @@
+﻿<section>
+    <div class="card shadow-sm">
+        <div class="card-header">
+
+            <MudItem md="3">
+                <div class="card-toolbar">
+                    <MudSelect Margin="Margin.Dense" T="string" Label="Category" Variant="Variant.Outlined" @bind-Value="_selectedCategory" SelectedValuesChanged="@(_ => _Table.ReloadServerData())" Clearable="true">
+                        @foreach (var item in _Category)
+                        {
+                            <MudSelectItem Value="@item" />
+                        }
+                    </MudSelect>
+                </div>
+            </MudItem>
+
+            <div class="card-toolbar">
+                @if (StaticMethod.CheckPermission(PermissionEnum.ADD, Permission))
+                {
+                    <MudItem md="6">
+                        <MudButton Variant="Variant.Filled" Size="Size.Medium" Color="Color.Info" Class="my-2" StartIcon="@Icons.Material.Filled.Add" OnClick="AddData">Tambah</MudButton>
+                    </MudItem>
+                }
+            </div>
+
+        </div>
+
+        <div class="card-body position-relative">
+            <MudDataGrid @ref="_Table" T="TableRowWrapper<ReportDetailResponse>" ServerData="GetDataTable"
+                         SortMode="SortMode.Single" ColumnResizeMode="ResizeMode.Column"
+                         Striped="true" Hover="true" Dense="true">
+                <Columns>
+                    <PropertyColumn Property="_ => _.No" Title="No" Sortable="false" />
+                    <PropertyColumn Property="_ => _.Data.Modul" Title="Modul" />
+                    <PropertyColumn Property="_ => _.Data.Name" Title="Name" />
+                    <PropertyColumn Property="_ => _.Data.Description" Title="Description" />
+                    <TemplateColumn HeaderClass="text-center" CellClass="text-center" Title="Aksi" Sortable="false">
+                        <CellTemplate>
+                            <MudMenu Dense="true" Size="Size.Medium" Variant="Variant.Filled" Icon="@Icons.Material.Filled.MoreHoriz" DisableElevation>
+
+                                @if (StaticMethod.CheckPermission(PermissionEnum.EDIT, Permission))
+                                {
+                                    <MudMenuItem IconSize="Size.Small" Icon="@Icons.Material.Filled.Edit" IconColor="Color.Info" OnClick="@(_ => EditData(context.Item.Data))">Ubah</MudMenuItem>
+                                    <MudMenuItem IconSize="Size.Small" Icon="@Icons.Material.Filled.PlaylistAdd" IconColor="Color.Info" OnClick="@(_ => RoleData(context.Item.Data))">Role</MudMenuItem>
+                                }
+                                @if (StaticMethod.CheckPermission(PermissionEnum.DELETE, Permission))
+                                {
+                                    <MudMenuItem IconSize="Size.Small" Icon="@Icons.Material.Filled.DeleteForever" IconColor="Color.Error" OnClick="@(_ => DeleteData(context.Item.Data))">Hapus</MudMenuItem>
+                                }
+                            </MudMenu>
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+
+                <NoRecordsContent>
+                    <MudText Align="Align.Center">Data Tidak Ada!</MudText>
+                </NoRecordsContent>
+
+                <PagerContent>
+                    <MudDataGridPager PageSizeOptions="StaticMethod.GetPageSize()" />
+                </PagerContent>
+            </MudDataGrid>
+
+            <MudOverlay @bind-Visible="_TableIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+            </MudOverlay>
+        </div>
+    </div>
+
+</section>

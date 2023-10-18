@@ -38,13 +38,13 @@ namespace Tomori.Epartner.Core.Sync.Command
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IUnitOfWork<ApplicationDBContext> _context;
-        private readonly IRestAPIHelper _restHelper;
+        private readonly ICIVDAPIHelper _restHelper;
         public AnnouncementSyncHandler(
             ILogger<AnnouncementSyncHandler> logger,
             IMapper mapper,
             IMediator mediator,
             IUnitOfWork<ApplicationDBContext> context,
-            IRestAPIHelper restAPIHelper
+            ICIVDAPIHelper restAPIHelper
             )
         {
             _logger = logger;
@@ -62,9 +62,9 @@ namespace Tomori.Epartner.Core.Sync.Command
 
                 foreach (var item in data.result)
                 {
-                    if (await _context.Entity<Announcement>().Where(d => d.CivdId == item.id).AnyAsync())
+                    if (await _context.Entity<Data.Model.Announcement>().Where(d => d.CivdId == item.id).AnyAsync())
                     {
-                        var update = await _context.Entity<Announcement>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
+                        var update = await _context.Entity<Data.Model.Announcement>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
                         update.K3sId = item.k3sId;
                         update.K3sName = item.k3sName;
                         update.Title = item.title;
@@ -86,7 +86,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                     else
                     {
 
-                        _context.Add(new Announcement
+                        _context.Add(new Data.Model.Announcement
                         {
                             Id = Guid.NewGuid(),
                             CivdId = item.id,

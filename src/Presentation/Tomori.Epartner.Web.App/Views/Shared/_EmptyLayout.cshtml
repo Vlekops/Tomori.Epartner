@@ -1,0 +1,80 @@
+﻿@namespace Tomori.Epartner.Web.App.Views.Shared
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    TokenModel token = ViewBag.Token;
+    List<BreadcrumbModel> breadcrumbs = ViewBag.Breadcrumb != null ? ViewBag.Breadcrumb : new List<BreadcrumbModel> { new BreadcrumbModel("Home", "/"), new BreadcrumbModel("-", "#", true) };
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="~/" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EPartner - @ViewData["Title"]</title>
+
+    <!--begin::Fonts(mandatory for all pages)-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <!--end::Fonts-->
+    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+    <link href="~/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/Custom.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    <!--end::Global Stylesheets Bundle-->
+
+    <link href="~/Tomori.Epartner.Web.App.styles.css" rel="stylesheet" asp-append-version="true" />
+    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" asp-append-version="true" />
+
+    @await RenderSectionAsync("Styles", required: false)
+
+    <component type="typeof(HeadOutlet)" render-mode="WebAssemblyPrerendered" />
+</head>
+<body id="kt_app_body"
+      data-kt-app-layout="light-sidebar"
+      data-kt-app-header-fixed="true"
+      data-kt-app-sidebar-enabled="true"
+      data-kt-app-sidebar-fixed="true"
+      data-kt-app-sidebar-hoverable="true"
+      data-kt-app-sidebar-push-header="true"
+      data-kt-app-sidebar-push-toolbar="true"
+      data-kt-app-sidebar-push-footer="true"
+      data-kt-app-toolbar-enabled="true"
+      class="app-default">
+
+    <component type="typeof(UtilityComponent)" render-mode="WebAssemblyPrerendered" param-Token="@ViewBag.Token" />
+    <component type="typeof(MudThemeProvider)" render-mode="WebAssemblyPrerendered" />
+    <component type="typeof(MudDialogProvider)" render-mode="WebAssemblyPrerendered" param-FullWidth="true" param-Position="DialogPosition.Center" param-DisableBackdropClick="true" param-CloseButton="true" />
+    <component type="typeof(MudSnackbarProvider)" render-mode="WebAssemblyPrerendered" />
+
+    <script>
+        var defaultThemeMode = "light"; var themeMode; if (document.documentElement) { if (document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if (localStorage.getItem("data-bs-theme") !== null) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }
+    </script>
+
+    <!--begin::App-->
+    @RenderBody()
+    <!--end::App-->
+
+    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+    <script>
+        var hostUrl = "";
+        const idleMinute = @ViewBag.IdleTime;
+    </script>
+    <script src="~/plugins/global/plugins.bundle.js"></script>
+    <script src="~/js/scripts.bundle.js"></script>
+    <!--end::Global Javascript Bundle-->
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>*@
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <persist-component-state />
+
+    <script src="_framework/blazor.webassembly.js" asp-append-version="true"></script>
+    <script src="_content/MudBlazor/MudBlazor.min.js" asp-append-version="true"></script>
+    <script src="~/js/Utilities.js" asp-append-version="true"></script>
+
+</body>
+</html>

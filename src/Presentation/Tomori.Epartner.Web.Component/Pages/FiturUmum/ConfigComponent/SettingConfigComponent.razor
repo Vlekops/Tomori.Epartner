@@ -1,0 +1,94 @@
+﻿<section class="position-relative">
+    <MudForm @ref="_Form" @bind-IsValid="@_FormIsValid" Class="position-relative">
+        <MudOverlay @bind-Visible="_FormIsLoading" LightBackground="true" Absolute="true">
+            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+        </MudOverlay>
+
+        <section class="mb-5">
+            <MudGrid Spacing="2">
+                <MudItem lg="6" xs="6">
+                    <MudText Class="fw-semibold text-muted flex-1 padding-top-sm-11px">Default Password</MudText>
+                </MudItem>
+                <MudItem lg="6" xs="6">
+                    <MudText Class="fw-semibold text-muted flex-1 padding-top-sm-11px">Idle Time in Minutes</MudText>
+                </MudItem>
+                <MudItem lg="6" xs="6">
+                    <MudTextField @bind-Value="_DefaultPassword" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="200" Clearable />
+                </MudItem>
+                <MudItem lg="6" xs="6">
+                    <MudNumericField @bind-Value="_IdleTimeMinutes" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" Clearable />
+                </MudItem>
+
+                <MudItem lg="6" xs="6">
+                    <MudText Class="fw-semibold text-muted flex-1">Max Login Retry</MudText>
+                </MudItem>
+                <MudItem lg="6" xs="6">
+                    <MudText Class="fw-semibold text-muted flex-1">Password Expired in Days</MudText>
+                </MudItem>
+                <MudItem lg="6" xs="6">                    
+                    <MudNumericField @bind-Value="_MaxLoginRetry" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" Clearable />
+                </MudItem>
+                <MudItem lg="6" xs="6">
+                    <MudNumericField @bind-Value="_PasswordExpiredDays" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" Clearable />
+                </MudItem>
+
+                <MudItem lg="6" xs="6">
+                    <MudText Class="fw-semibold text-muted flex-1">Password Minimum Length</MudText>
+                </MudItem>
+                <MudItem lg="6" xs="6">
+                    <MudText Class="fw-semibold text-muted flex-1">Password Minimum Have One Number?</MudText>
+                </MudItem>
+                <MudItem lg="6" xs="6">                   
+                    <MudNumericField @bind-Value="_MinimumPasswordLength" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" Clearable />
+                </MudItem>
+                <MudItem lg="6" xs="6">                    
+                    <MudSwitch @bind-Checked="@_MinOneNumber" Color="Color.Primary" UnCheckedColor="Color.Error" />
+                </MudItem>
+
+                <MudItem lg="6" xs="6">
+                    <MudText Class="fw-semibold text-muted flex-1">Password Minimum Have Special Character?</MudText>
+                </MudItem>
+                <MudItem lg="6" xs="6">
+                    <MudText Class="fw-semibold text-muted flex-1">Password Minimum Have One Uper Lower Case?</MudText>
+                </MudItem>
+                <MudItem lg="6" xs="6">                    
+                    <MudSwitch @bind-Checked="@_MinSpecialCharacter" Color="Color.Primary" UnCheckedColor="Color.Error" />
+                </MudItem>
+                <MudItem lg="6" xs="6">                    
+                    <MudSwitch @bind-Checked="@_MinOneUpperLowerCaseLetter" Color="Color.Primary" UnCheckedColor="Color.Error" />
+                </MudItem>
+
+                <MudItem lg="6" xs="6">
+                    <MudText Class="fw-semibold text-muted flex-1">Reset Password At Login?</MudText>
+                </MudItem>
+                <MudItem lg="6" xs="6">
+                    <MudText Class="fw-semibold text-muted flex-1">Minimum Same Password</MudText>
+                </MudItem>
+                <MudItem lg="6" xs="6">                    
+                    <MudSwitch @bind-Checked="@_ResetPasswordAtLogin" Color="Color.Primary" UnCheckedColor="Color.Error" />
+                </MudItem>
+                <MudItem lg="6" xs="6">                    
+                    <MudNumericField @bind-Value="_MinimumSamePassword" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" Clearable />
+                </MudItem>
+
+                <MudItem lg="6" xs="6">
+                    <MudText Class="fw-semibold text-muted flex-1">Expire User Session in Minutes</MudText>
+                </MudItem>
+                <MudItem lg="6" xs="6">
+                    <MudText Class="fw-semibold text-muted flex-1">User Expired in Days</MudText>
+                </MudItem>
+                <MudItem lg="6" xs="6">                    
+                    <MudNumericField @bind-Value="_ExpireSessionTime" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" Clearable />
+                </MudItem>
+                <MudItem lg="6" xs="6">                    
+                    <MudNumericField @bind-Value="_UserExpiredDays" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" Clearable />
+                </MudItem>
+            </MudGrid>
+        </section>
+
+        @if (!_FormIsLoading)
+        {
+            <MudButton StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="Save">Save</MudButton>
+        }
+    </MudForm>
+</section>

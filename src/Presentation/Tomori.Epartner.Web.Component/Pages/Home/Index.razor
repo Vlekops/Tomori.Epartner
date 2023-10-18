@@ -1,0 +1,14 @@
+﻿@using Tomori.Epartner.Web.Component.Pages.Home.TaskToDo
+<section>
+    <MudTabs Class="box-shadow-custom border-custom p-7_5 pb-0 bg-white" TabHeaderClass="mb-5" TabPanelClass="text-transform-initital">
+        <CascadingValue Value="this">
+            <MudTabPanel Text="Pending Task">
+                <PendingTask Token="@Token" />
+            </MudTabPanel>
+
+            <MudTabPanel Text="History Task">
+                <HistoryTask Token="@Token" />
+            </MudTabPanel>
+        </CascadingValue>
+    </MudTabs>
+</section>

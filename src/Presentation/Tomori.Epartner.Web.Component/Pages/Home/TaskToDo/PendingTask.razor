@@ -1,0 +1,51 @@
+﻿<section class="position-relative">
+    <div class="d-flex flex-md-row flex-column gap-4 mb-5">
+        <div class="d-flex flex-0">
+            <div>
+                <MudText Typo="Typo.h6">Pending Task</MudText>
+                <MudText Class="text-muted">Total @_TotalData Dokumen Pending</MudText>
+            </div>
+        </div>
+
+        <div class="d-flex flex-auto align-end">
+            <MudTextField @bind-Value="_FilterSearch" Placeholder="No Dokumen, Subject, Description, Requester" Immediate="true" OnKeyDown="FilterSearchKeyPress" Variant="Variant.Outlined" Margin="Margin.Dense" Clearable OnClearButtonClick="@(_ => _Table.ReloadServerData())" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" />
+         </div>
+     </div>
+
+     <div class="position-relative">
+         <MudDataGrid @ref="_Table" T="TableRowWrapper<WorkflowResponse>" ServerData="ListData"
+                      SortMode="SortMode.Single" ColumnResizeMode="ResizeMode.Column"
+                      Striped="true" Hover="true" Dense="true" Elevation="0" HeaderClass="text-muted text-transform-uppercase">
+             <Columns>
+                 <PropertyColumn Property="_ => _.No" Title="No" Sortable="false" />
+                 <PropertyColumn Property="_ => _.Data.DocumentNo" Title="No Dokumen" />
+                 <PropertyColumn Property="_ => _.Data.Subject" Title="Subject" />
+                 <PropertyColumn Property="_ => _.Data.Description" Title="Description" />
+                 <PropertyColumn Property="_ => _.Data.CreateDate" Title="Mulai Pada" Format="dd MMMM yyyy HH:mm:ss" />
+                 <PropertyColumn Property="_ => _.Data.FullnameRequester" Title="Requester" />
+                 <TemplateColumn HeaderClass="text-center" CellClass="text-center" Title="Approval Selanjutnya" Sortable="false">
+                     <CellTemplate>
+                         @(context.Item.Data.NextApprover.Count > 0 ? $"Diproses Oleh {string.Join(" / ", context.Item.Data.NextApprover)}" : "-")
+                     </CellTemplate>
+                 </TemplateColumn>
+                 <TemplateColumn HeaderClass="text-center" CellClass="text-center" Title="Aksi" Sortable="false">
+                     <CellTemplate>
+                         <MudButton Color="Color.Primary" Href="@(context.Item.Data.NavigationUrl.Replace("code", context.Item.Data.Code))" Variant="Variant.Filled" Size="Size.Small" DisableElevation="true">Detail</MudButton>
+                     </CellTemplate>
+                 </TemplateColumn>
+             </Columns>
+
+             <NoRecordsContent>
+                 <MudText Align="Align.Center">Data Tidak Ada!</MudText>
+             </NoRecordsContent>
+
+             <PagerContent>
+                 <MudDataGridPager PageSizeOptions="StaticMethod.GetPageSize()" />
+             </PagerContent>
+         </MudDataGrid>
+
+         <MudOverlay @bind-Visible="_TableIsLoading" LightBackground="true" Absolute="true">
+             <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+         </MudOverlay>
+     </div>
+ </section>

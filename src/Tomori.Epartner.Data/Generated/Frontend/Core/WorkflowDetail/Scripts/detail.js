@@ -10,7 +10,7 @@ function detailWorkflowDetailDialog(el) {
     $('.clear').val('');
     $('#md-WorkflowDetail-detail').modal('show');
 
-				$('#Detail-WorkflowDetail-AutoApproveExpired').val(data.autoApproveExpired);
+				$('#Detail-WorkflowDetail-AutoApprovedExpired').val(data.autoApprovedExpired);
 				$('#Detail-WorkflowDetail-CanAdhoc').prop('checked', data.canAdhoc);
 				$('#Detail-WorkflowDetail-Email').val(data.email);
 				$('#Detail-WorkflowDetail-FullName').val(data.fullName);

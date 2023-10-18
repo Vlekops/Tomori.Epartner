@@ -22,7 +22,7 @@ namespace Tomori.Epartner.Core.Response
 		public string CreateBy{ get; set; }
 		public DateTime CreateDate{ get; set; }
 		public string Email{ get; set; }
-		public string FullName{ get; set; }
+		public string Fullname{ get; set; }
 		public int GroupNo{ get; set; }
 		public Guid IdUser{ get; set; }
 		public Guid IdWorkflow{ get; set; }

@@ -1,0 +1,54 @@
+﻿<MudDialog Class="mud-dialog-custom">
+    <DialogContent>
+        <MudForm @ref="_Form" @bind-IsValid="@_FormIsValid" Class="position-relative">
+            <MudOverlay @bind-Visible="_FormIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+            </MudOverlay>
+
+            <MudGrid Spacing="1">
+
+                <MudItem lg="12" xs="12" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Username" />
+                </MudItem>
+                
+                <MudItem lg="12" xs="12">
+                    <MudTextField Placeholder="Username" @bind-Value="_Username" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" Clearable />
+                </MudItem>
+
+                <MudItem lg="12" xs="12" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Fullname" />
+                </MudItem>
+
+                <MudItem lg="12" xs="12">
+                    <MudTextField Placeholder="Fullname" @bind-Value="_Fullname" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" Clearable />
+                </MudItem>
+
+                <MudItem lg="6" xs="6" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Email" />
+                </MudItem>
+
+                <MudItem lg="6" xs="6" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Phone Number" />
+                </MudItem>
+
+                <MudItem lg="6" xs="6">
+                    <MudTextField Placeholder="Email" @bind-Value="_Mail" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" Clearable />
+                </MudItem>
+
+                <MudItem lg="6" xs="6">
+                    <MudTextField Placeholder="Phone Number" @bind-Value="_PhoneNumber" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" Clearable />
+                </MudItem>
+
+            </MudGrid>
+
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        @if (!_FormIsLoading)
+        {
+            <MudButton StartIcon="@Icons.Material.Filled.Cancel" Variant="Variant.Filled" Color="Color.Error" Size="Size.Small" OnClick="@(_ => _MudDialog.Cancel())">Cancel</MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="Save">Save</MudButton>
+        }
+    </DialogActions>
+</MudDialog>

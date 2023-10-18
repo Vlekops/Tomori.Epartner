@@ -44,7 +44,7 @@ function getListWorkflowConfigDetail(page) {
                         $(element.tbody).append(`
                             <tr>
                                 <td class="text-nowrap text-center">${count}</td>
-								<td class="text-nowrap">${item.autoApproveExpired}</td>
+								<td class="text-nowrap">${item.autoApprovedExpired}</td>
 								<td class="text-nowrap">${item.canAdhoc}</td>
 								<td class="text-nowrap">${item.idUser}</td>
 								<td class="text-nowrap">${item.idWorkflowConfig}</td>

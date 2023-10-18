@@ -11,7 +11,7 @@ namespace Tomori.Epartner.Core.Request
 {
     public partial class WorkflowConfigDetailRequest
     {
-		public DateTime? AutoApproveExpired{ get; set; }
+		public DateTime? AutoApprovedExpired{ get; set; }
 		[Required]
 		public bool CanAdhoc{ get; set; }
 		[Required]

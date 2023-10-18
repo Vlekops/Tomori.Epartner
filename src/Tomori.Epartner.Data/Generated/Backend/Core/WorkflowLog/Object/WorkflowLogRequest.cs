@@ -13,7 +13,7 @@ namespace Tomori.Epartner.Core.Request
     {
 		public string Email{ get; set; }
 		[Required]
-		public string FullName{ get; set; }
+		public string Fullname{ get; set; }
 		[Required]
 		public int GroupNo{ get; set; }
 		[Required]

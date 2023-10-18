@@ -1,0 +1,51 @@
+﻿@model List<Tomori.Epartner.Web.App.Models.MenuWrapperModel>
+@{
+    
+}
+@foreach (var item in Model.OrderBy(d => d.Sort))
+{
+    <div class="menu-item pt-5">
+        <div class="menu-content">
+            <span class="menu-heading fw-bold text-uppercase fs-7">@item.Section</span>
+        </div>
+    </div>
+    @foreach (var menu in item.Menus.OrderBy(d => d.Sort))
+    {
+        if (menu.Items.Any())
+        {
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion @(menu.Items.Any(d=>d.Code == ViewBag.CurrentMenu)?"show":"")">
+                <span class="menu-link">
+                    <span class="menu-icon">
+                        <i class="@menu.Icon"></i>
+                    </span>
+                    <span class="menu-title">@menu.Name</span>
+                    <span class="menu-arrow"></span>
+                </span>
+                <div class="menu-sub menu-sub-accordion">
+                    @foreach (var child in menu.Items.OrderBy(d => d.Sort))
+                    {
+                        <div class="menu-item">
+                            <a class="menu-link @(child.Code == ViewBag.CurrentMenu?"active":"")" href="@child.Navigation">
+                                <span class="menu-icon">
+                                    <i class="@child.Icon"></i>
+                                </span>
+                                <span class="menu-title">@child.Name</span>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="menu-item">
+                <a class="menu-link @(menu.Code == ViewBag.CurrentMenu?"active":"")" href="@menu.Navigation">
+                    <span class="menu-icon">
+                        <i class="@menu.Icon"></i>
+                    </span>
+                    <span class="menu-title">@menu.Name</span>
+                </a>
+            </div>
+        }
+    }
+}

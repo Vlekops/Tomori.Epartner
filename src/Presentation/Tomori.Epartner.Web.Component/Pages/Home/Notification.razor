@@ -1,0 +1,49 @@
+﻿<section>
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h3 class="card-title"></h3>
+            <div class="card-toolbar">
+            </div>
+        </div>
+
+        <div class="card-body position-relative p-0">
+            <MudTable @ref="_Table"
+                      ServerData="@(new Func<TableState, Task<TableData<TableRowWrapper<NotificationResponse>>>>(ListData))"
+                      CustomHeader="true" Hover="true">
+
+                <HeaderContent>
+                    <MudTHeadRow class="bg-table-header text-nowrap">
+                        <MudTh>No</MudTh>
+                        <MudTh>Subject</MudTh>
+                        <MudTh>Description</MudTh>
+                        <MudTh>Mulai Pada</MudTh>
+                        <MudTh>Aksi</MudTh>
+                    </MudTHeadRow>
+                </HeaderContent>
+
+                <RowTemplate>
+                    <MudTd DataLabel="No">@context.No</MudTd>
+                    <MudTd DataLabel="Subject" class="text-nowrap">@context.Data.Subject</MudTd>
+                    <MudTd DataLabel="Description" class="text-nowrap">@context.Data.Description</MudTd>
+                    <MudTd DataLabel="CreateDate" class="text-right">@context.Data.CreateDate.ToString("dd MMMM yyyy HH:mm:ss")</MudTd>
+                    <MudTd DataLabel="Aksi" Class="text-nowrap">
+                        <MudButton Color="Color.Primary" Href="@(context.Data.Navigation)" Variant="Variant.Filled" Size="Size.Small" FullWidth>Detail</MudButton>
+                    </MudTd>
+                </RowTemplate>
+                <NoRecordsContent>
+                    <MudText Align="Align.Center">Data tidak ditemukan!</MudText>
+                </NoRecordsContent>
+                
+                <PagerContent>
+                    <MudTablePager PageSizeOptions="StaticMethod.GetPageSize()" />
+                </PagerContent>
+            </MudTable>
+
+            <MudOverlay @bind-Visible="_TableIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+            </MudOverlay>
+
+        </div>
+    </div>
+
+</section>

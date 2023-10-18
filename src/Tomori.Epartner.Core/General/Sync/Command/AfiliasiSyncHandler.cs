@@ -39,14 +39,14 @@ namespace Tomori.Epartner.Core.Sync.Command
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IUnitOfWork<ApplicationDBContext> _context;
-        private readonly IRestAPIHelper _restHelper;
+        private readonly ICIVDAPIHelper _restHelper;
 
         public AfiliasiSyncHandler(
             ILogger<AfiliasiSyncHandler> logger,
             IMapper mapper,
             IMediator mediator,
             IUnitOfWork<ApplicationDBContext> context,
-            IRestAPIHelper restAPIHelper
+            ICIVDAPIHelper restAPIHelper
             )
         {
             _logger = logger;
@@ -65,9 +65,9 @@ namespace Tomori.Epartner.Core.Sync.Command
                 foreach ( var item in data.result )
                 {
 
-                    if (await _context.Entity<VAfiliasi>().Where(d => d.CivdId == item.id).AnyAsync())
+                    if (await _context.Entity<Data.Model.VendorAfiliasi>().Where(d => d.CivdId == item.id).AnyAsync())
                     {
-                        var dataAfiliasi = await _context.Entity<VAfiliasi>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
+                        var dataAfiliasi = await _context.Entity<Data.Model.VendorAfiliasi>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
                         dataAfiliasi.TipeAfiliasi = item.tipeAfiliasi;
                         dataAfiliasi.Deskripsi = item.deskripsi;
                         dataAfiliasi.Share = item.share;
@@ -81,12 +81,13 @@ namespace Tomori.Epartner.Core.Sync.Command
                     }
                     else {
                         Guid? IdVendor = null;
-                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == item.vendorId).FirstOrDefaultAsync();
+                        var vendor = await _context.Entity<Data.Model.Vendor>().Where(d => d.VendorId == item.vendorId).FirstOrDefaultAsync();
                         if (vendor != null)
                         {
                             IdVendor = vendor.Id;
                         }
-                        _context.Add(new VAfiliasi {
+                        _context.Add(new Data.Model.VendorAfiliasi
+                        {
                             Id = Guid.NewGuid(),
                             CivdId= item.id,    
                             IdVendor = IdVendor,

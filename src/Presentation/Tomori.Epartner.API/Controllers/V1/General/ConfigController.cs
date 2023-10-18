@@ -31,6 +31,11 @@ namespace Tomori.Epartner.API.Controllers
         {
             return Wrapper(await _mediator.Send(new GetSettingConfigRequest()));
         }
+        [HttpGet(template: "integration")]
+        public async Task<IActionResult> GetIntegration()
+        {
+            return Wrapper(await _mediator.Send(new GetIntegrationConfigRequest()));
+        }
 
         [HttpGet(template: "list")]
         public async Task<IActionResult> List(ConfigCategory? category, int? start, int? length)
@@ -66,6 +71,13 @@ namespace Tomori.Epartner.API.Controllers
         public async Task<IActionResult> SaveEmail([FromBody] EmailConfig request)
         {
             var save_request = _mapper.Map<SaveConfigMailRequest>(request);
+            save_request.Token = Token.User;
+            return Wrapper(await _mediator.Send(save_request), request);
+        }
+        [HttpPost(template: "save_integration")]
+        public async Task<IActionResult> SaveIntegration([FromBody] IntegrationConfig request)
+        {
+            var save_request = _mapper.Map<SaveConfigIntegrationRequest>(request);
             save_request.Token = Token.User;
             return Wrapper(await _mediator.Send(save_request), request);
         }

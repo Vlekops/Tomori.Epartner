@@ -25,14 +25,14 @@ namespace Tomori.Epartner.Core.General.Sync.Command
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IUnitOfWork<ApplicationDBContext> _context;
-        private readonly IRestAPIHelper _restHelper;
+        private readonly ICIVDAPIHelper _restHelper;
 
         public LandasanHukumSyncHandler(
             ILogger<LandasanHukumSyncHandler> logger, 
             IMapper mapper, 
             IMediator mediator, 
-            IUnitOfWork<ApplicationDBContext> context, 
-            IRestAPIHelper restHelper)
+            IUnitOfWork<ApplicationDBContext> context,
+            ICIVDAPIHelper restHelper)
         {
             _logger = logger;
             _mapper = mapper;
@@ -46,21 +46,21 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<VLandasanHukum>();
+                var listInsert = new List<Data.Model.VendorLandasanHukum>();
                 var rest = await _restHelper.GetLandasanHukum(request.CompleteDateFrom);
 
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new VLandasanHukum();
+                        var insert = new Data.Model.VendorLandasanHukum();
                         Guid? IdVendor = null;
-                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
+                        var vendor = await _context.Entity<Data.Model.Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
                         if (vendor != null)
                         {
                             IdVendor = vendor.Id;
                         }
-                        var lh = await _context.Entity<VLandasanHukum>().Where(d => d.CivdId == data.id).FirstOrDefaultAsync();
+                        var lh = await _context.Entity<Data.Model.VendorLandasanHukum>().Where(d => d.CivdId == data.id).FirstOrDefaultAsync();
                         if(lh == null)
                         {
 

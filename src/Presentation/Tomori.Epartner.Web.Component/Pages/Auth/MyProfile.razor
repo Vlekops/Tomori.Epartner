@@ -1,0 +1,77 @@
+﻿<section>
+    <MudPaper Elevation="0" Class="pt-7_5 px-7_5 border-custom border-bottom-0">
+        <div class="d-flex flex-wrap flex-sm-nowrap">
+            <div class="me-7 mb-1">
+                <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+                    <MudImage Src="media/avatars/300-1.jpg" Alt="Profile Picture" />
+                    <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
+                </div>
+            </div>
+            <div class="flex-grow-1">
+                <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex align-items-center mb-2">
+							<MudLink Href="#"><MudText Class="text-gray-700 text-hover-primary fs-3 fw-bold me-1">Max Smith</MudText></MudLink>
+                            <MudIcon Icon="@Icons.Material.Filled.Verified" Color="Color.Info" aria-label="Verified" Size="Size.Small"></MudIcon>                            
+                        </div>
+                        <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
+                            <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5">
+								<MudIcon Icon="@Icons.Material.Filled.Person" aria-label="Person" Size="Size.Small" Class="text-gray-400 text-hover-primary"></MudIcon><MudText Class="text-gray-400 text-hover-primary">Developer</MudText>
+                            </a>
+                            <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5">
+								<MudIcon Icon="@Icons.Material.Filled.MyLocation" aria-label="MyLocation" Size="Size.Small" Class="text-gray-400 text-hover-primary"></MudIcon><MudText Class="text-gray-400 text-hover-primary">DeveloperSF, Bay Area</MudText>
+                            </a>
+							<a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5">
+								<MudIcon Icon="@Icons.Material.Filled.Mail" aria-label="Mail" Size="Size.Small" Class="text-gray-400 text-hover-primary"></MudIcon><MudText Class="text-gray-400 text-hover-primary">Developermax@kt.com</MudText>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+				<div class="d-flex flex-wrap flex-stack">
+					<div class="d-flex flex-column flex-grow-1 pe-8">
+						<div class="d-flex flex-wrap">
+							<div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+								<div class="d-flex align-items-center">
+									<MudIcon Icon="@Icons.Material.Filled.ArrowUpward" aria-label="ArrowUpward" Size="Size.Small" Class="fs-3 text-success me-2"></MudIcon>
+									<MudText Class="fs-2 fw-bold">$400</MudText>
+								</div>
+								<MudText Class="fw-semibold fs-6 text-gray-400">Earnings</MudText>
+							</div>
+							<div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+								<div class="d-flex align-items-center">
+									<MudIcon Icon="@Icons.Material.Filled.ArrowDownward" aria-label="ArrowDownward" Size="Size.Small" Class="fs-3 text-danger me-2"></MudIcon>
+									<MudText Class="fs-2 fw-bold">10</MudText>
+								</div>
+								<MudText Class="fw-semibold fs-6 text-gray-400">Projects</MudText>
+							</div>
+							<div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+								<div class="d-flex align-items-center">
+									<MudIcon Icon="@Icons.Material.Filled.ArrowUpward" aria-label="ArrowUpward" Size="Size.Small" Class="fs-3 text-success me-2"></MudIcon>
+									<MudText Class="fs-2 fw-bold">%85</MudText>
+								</div>
+								<MudText Class="fw-semibold fs-6 text-gray-400">Success Rate</MudText>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
+						<div class="d-flex justify-content-between w-100 mt-auto mb-2">
+							<MudText Class="fw-semibold fs-6 text-gray-400">Profile Compleation</MudText>
+							<MudText Class="fw-bold fs-6">50%</MudText>
+						</div>						
+						<MudProgressLinear Color="Color.Success" Striped="true" Rounded="true" Size="Size.Medium" Value="50" />
+					</div>
+				</div>
+            </div>
+        </div>
+    </MudPaper>
+
+    <MudTabs TabHeaderClass="px-7_5 box-shadow-custom border-custom border-top-0 mb-5" PanelClass="box-shadow-custom border-custom bg-white p-7_5" TabPanelClass="text-transform-initital">
+        <MudTabPanel Text="Overview">
+			<Tomori.Epartner.Web.Component.Pages.Auth.OverviewProfile />
+        </MudTabPanel>
+
+        <MudTabPanel Text="Settings">
+        </MudTabPanel>
+    </MudTabs>
+</section>

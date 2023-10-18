@@ -98,7 +98,7 @@ namespace Tomori.Epartner.Core.Identity.User.Command
 					}	
 					#endregion
 
-					var send_mail = await _mail.SendMail("DPLK - System Notification", to, cc, "Change Password Request", body, null);
+					var send_mail = await _mail.SendMail("EPartner - System Notification", to, cc, "Change Password Request", body, null);
 
 					var save = await _context.UpdateSave(user);
 					if (save.Success)

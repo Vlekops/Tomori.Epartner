@@ -27,9 +27,9 @@ namespace Tomori.Epartner.Core.General.Sync.Command
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IUnitOfWork<ApplicationDBContext> _context;
-        private readonly IRestAPIHelper _restHelper;
+        private readonly ICIVDAPIHelper _restHelper;
 
-        public SpdaHistorySyncHandler(ILogger<SpdaHistorySyncHandler> logger, IMapper mapper, IMediator mediator, IUnitOfWork<ApplicationDBContext> context, IRestAPIHelper restHelper)
+        public SpdaHistorySyncHandler(ILogger<SpdaHistorySyncHandler> logger, IMapper mapper, IMediator mediator, IUnitOfWork<ApplicationDBContext> context, ICIVDAPIHelper restHelper)
         {
             _logger = logger;
             _mapper = mapper;
@@ -43,22 +43,22 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<VSpda>();
+                var listInsert = new List<Data.Model.VendorSpda>();
                 var listExists = new List<GetSpdaHistoryResponse>();
                 var rest = await _restHelper.GetSpdaHistory(request.K3sname);
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new VSpda();
-                        var update = new VSpda();
+                        var insert = new Data.Model.VendorSpda();
+                        var update = new Data.Model.VendorSpda();
                         Guid? IdVendor = null;
-                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
+                        var vendor = await _context.Entity<Data.Model.Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
                         if (vendor != null)
                         {
                             IdVendor = vendor.Id;
                         }
-                        var s = await _context.Entity<VSpda>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        var s = await _context.Entity<Data.Model.VendorSpda>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
                         if (s == null)
                         {
                             if (!listExists.Where(d => d.id == data.id).Any())

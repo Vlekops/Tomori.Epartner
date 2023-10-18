@@ -148,10 +148,10 @@ namespace Tomori.Epartner.Core.Workflow.Query
                     case "fullname":
                         if (is_where)
                         {
-                            result_where = (d => d.FullName.Trim().ToLower().Contains(search));
+                            result_where = (d => d.Fullname.Trim().ToLower().Contains(search));
                         }
                         else
-                            result_order = (d => d.FullName);
+                            result_order = (d => d.Fullname);
                         break;
                     case "groupno":
                         if (is_where)

@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Document Template";
+}
+
+@section Styles{
+    <link href="/lib/quill-text-editor/snow.css" rel="stylesheet">
+}
+
+@section Scripts{
+    <script src="/lib/quill-text-editor/quill.js"></script>
+    <script src="_content/Blazored.TextEditor/quill-blot-formatter.min.js"></script>
+    <script src="_content/Blazored.TextEditor/Blazored-BlazorQuill.js"></script>
+}
+
+<component type="typeof(Tomori.Epartner.Web.Component.Pages.FiturUmum.DocumentTemplate)" render-mode="WebAssemblyPrerendered" param-Token="@ViewBag.Token" param-Permission="@ViewBag.Permission" />

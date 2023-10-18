@@ -1,0 +1,12 @@
+﻿global using Microsoft.AspNetCore.Components;
+global using Microsoft.JSInterop;
+global using Tomori.Epartner.Web.Component.Models;
+global using MudBlazor;
+global using Vleko.Result;
+global using Microsoft.AspNetCore.Components.Web;
+global using Tomori.Epartner.Web.Component.Helpers;
+global using Tomori.Epartner.Web.Component.Services;
+global using Tomori.Epartner.Web.Component.Shared.Component;
+global using Newtonsoft.Json;
+global using AutoMapper;
+global using System.ComponentModel.DataAnnotations;

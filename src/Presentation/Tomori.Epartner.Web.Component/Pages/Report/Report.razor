@@ -1,0 +1,78 @@
+﻿<section>
+    <div class="card shadow-sm">
+        <div class="card-header">
+
+            <MudItem md="3">
+                <div class="card-toolbar">
+                    <MudSelect Margin="Margin.Dense" T="string" Label="Category" Variant="Variant.Outlined" @bind-Value="_SelectedCategory" SelectedValuesChanged="@(_ => _Table.ReloadServerData())" Clearable="true">
+                        @foreach (var item in _Category)
+                        {
+                            <MudSelectItem Value="@item" />
+                        }
+                    </MudSelect>
+                </div>
+            </MudItem>
+        </div>
+
+        <div class="card-body position-relative">
+
+            <MudTable @ref="_Table"
+                      ServerData="@(new Func<TableState, Task<TableData<TableRowWrapper<ReportResponse>>>>(ListData))"
+                      CustomHeader="true" Hover="true">
+                <HeaderContent>
+                    <MudTHeadRow class="bg-table-header text-nowrap">
+                        <MudTh>No</MudTh>
+                        <MudTh>Modul</MudTh>
+                        <MudTh>Name</MudTh>
+                        <MudTh>Description</MudTh>
+                        <MudTh>Download</MudTh>
+                    </MudTHeadRow>
+                </HeaderContent>
+
+                <RowTemplate>
+                    <MudTd DataLabel="No">@context.No</MudTd>
+                    <MudTd DataLabel="Modul" class="text-nowrap">@context.Data.Modul</MudTd>
+                    <MudTd DataLabel="Name" class="text-nowrap">@context.Data.Name</MudTd>
+                    <MudTd DataLabel="Description" class="text-right">@context.Data.Description</MudTd>
+                    <MudTd DataLabel="Download" Class="text-nowrap">
+                        <MudButton Disabled="@_ButtonXLSLoading" OnClick="@(_ => Download(context.Data,false))" Variant="Variant.Filled" Color="Color.Primary">
+                            @if (_ButtonXLSLoading)
+                            {
+                                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                                <MudText Class="ms-2">Processing</MudText>
+                            }
+                            else
+                            {
+                                <MudText>Excel</MudText>
+                            }
+                        </MudButton>
+                        <MudButton Disabled="@_ButtonCSVLoading" OnClick="@(_ => Download(context.Data,true))" Variant="Variant.Filled" Color="Color.Info">
+                            @if (_ButtonCSVLoading)
+                            {
+                                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                                <MudText Class="ms-2">Processing</MudText>
+                            }
+                            else
+                            {
+                                <MudText>CSV</MudText>
+                            }
+                        </MudButton>
+                    </MudTd>
+                </RowTemplate>
+                <NoRecordsContent>
+                    <MudText Align="Align.Center">Data tidak ditemukan!</MudText>
+                </NoRecordsContent>
+
+            </MudTable>
+
+
+            <MudOverlay @bind-Visible="_TableIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+            </MudOverlay>
+
+
+
+        </div>
+    </div>
+
+</section>

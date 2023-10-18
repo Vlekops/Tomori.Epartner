@@ -1,0 +1,81 @@
+﻿@model Vleko.Result.ListResponse<Tomori.Epartner.Web.Component.Services.NotificationResponse>
+@{
+}
+<div class="app-navbar-item ms-1 ms-md-3">
+    <!--begin::Menu- wrapper-->
+    <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary  position-relative me-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" id="kt_menu_item_wow">
+        <i class="ki-duotone ki-notification fs-1 fs-lg-1 ">
+            <i class="path1"></i>
+            <i class="path2"></i>
+            <i class="path3"></i>
+        </i>
+        @if (Model.Count > 0)
+        {
+            <span class="position-absolute top-50 start-100 translate-middle  badge badge-circle badge-primary">@Model.Count</span>
+        }
+    </div>
+
+    <!--begin::Menu-->
+    <div class="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px" data-kt-menu="true" id="kt_menu_notifications">
+        <div class="tab-content">
+            <!--begin::Items-->
+            @if (Model.Succeeded && Model.Filtered > 0)
+            {
+                <div class="scroll-y mh-325px my-5 px-8">
+                    <!--begin::Item-->
+                    @foreach (var item in Model.List)
+                    {
+                        <div class="d-flex flex-stack py-4">
+                            <!--begin::Section-->
+                            <div class="d-flex align-items-center">
+                                <!--begin::Title-->
+                                <div class="mb-0 me-2">
+                                    <a href="/home/notificationclick?id=@item.Id&url=@item.Navigation" class="fs-7 text-gray-800 text-hover-primary fw-semibold">@item.Subject</a>
+                                    <div class="text-gray-400 fs-7">@item.Description</div>
+                                </div>
+                                <!--end::Title-->
+                            </div>
+                            <!--end::Section-->
+                            <!--begin::Label-->
+                            <span class="badge badge-light fs-8">
+                                @{
+                                    TimeSpan total_time = DateTime.Now.Subtract(item.CreateDate);
+                                    string msg = "";
+                                    if ((int)Math.Abs(total_time.Days) > 7)
+                                        msg = item.CreateDate.ToString("dd MMM");
+                                    else if ((int)Math.Abs(total_time.Days) > 0)
+                                        msg = $"{(int)Math.Abs(total_time.Days)} days";
+
+                                    else if ((int)Math.Abs(total_time.TotalHours) > 0)
+                                        msg = $"{(int)Math.Abs(total_time.TotalHours)} hrs";
+                                    else
+                                        msg = $"{(int)Math.Abs(total_time.TotalMinutes)} min";
+                                }
+                                @msg
+                            </span>
+                            <!--end::Label-->
+                        </div>
+                    }
+                    <!--end::Item-->
+                </div>
+            }
+            <!--end::Items-->
+            <!--begin::View more-->
+            <div class="py-3 text-center fs-8">
+                Your Notification is Empty!
+            </div>
+            <div class="py-3 text-center border-top">
+                <a href="/home/notification" class="btn btn-color-gray-600 btn-active-color-primary">
+                    View All
+                    <i class="ki-duotone ki-arrow-right fs-5">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </i>
+                </a>
+            </div>
+            <!--end::View more-->
+        </div>
+    </div>
+    <!--end::Menu-->
+    <!--end::Menu wrapper-->
+</div>

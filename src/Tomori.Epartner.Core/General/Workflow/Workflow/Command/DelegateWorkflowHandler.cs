@@ -103,7 +103,7 @@ namespace Tomori.Epartner.Core.Workflow.Command
                     IsReviewer = request.Tipe == DelegateTipeEnum.Reviewer ? true : false,
                     IsAdhoc = request.Tipe == DelegateTipeEnum.Adhoc || request.Tipe == DelegateTipeEnum.Delegate ? true : false,
                     CanAdhoc = false,
-                    AutoApproveExpired = current_workflow_detail.AutoApproveExpired,
+                    AutoApprovedExpired = current_workflow_detail.AutoApprovedExpired,
                     CreateBy = request.Token.Username,
                     CreateDate = DateTime.Now
                 });

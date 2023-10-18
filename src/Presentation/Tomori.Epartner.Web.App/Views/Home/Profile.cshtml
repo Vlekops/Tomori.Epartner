@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Account Profile";
+}
+<component type="typeof(Tomori.Epartner.Web.Component.Pages.Home.Profile)" render-mode="WebAssemblyPrerendered" param-Token="@ViewBag.Token" />
+@section Scripts{
+    <script>
+       
+        function ScrollLoader(){
+            $("#card-activity").off("scroll");
+            $("#card-activity").on("scroll",function () {
+            if ($(this).scrollTop() + $(this).innerHeight() >= ($(this)[0].scrollHeight - 10)) {
+                _profile.invokeMethodAsync('ReceiveDataPagination', 5);
+            }
+        });
+        }
+
+        
+    </script>
+}

@@ -11,7 +11,7 @@ function detailWorkflowLogDialog(el) {
     $('#md-WorkflowLog-detail').modal('show');
 
 				$('#Detail-WorkflowLog-Email').val(data.email);
-				$('#Detail-WorkflowLog-FullName').val(data.fullName);
+				$('#Detail-WorkflowLog-Fullname').val(data.fullname);
 				$('#Detail-WorkflowLog-GroupNo').val(data.groupNo);
 				$('#Detail-WorkflowLog-IdUser').val(data.idUser);
 				$('#Detail-WorkflowLog-IdWorkflow').val(data.idWorkflow);

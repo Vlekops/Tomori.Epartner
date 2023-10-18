@@ -1,0 +1,86 @@
+﻿<MudDialog Class="mud-dialog-custom">
+    <DialogContent>
+        <MudForm @ref="_Form" @bind-IsValid="@_FormIsValid" Class="position-relative">
+            <MudOverlay @bind-Visible="_FormIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+            </MudOverlay>
+
+            <MudGrid Spacing="1">
+                <MudSelect lg="8" xs="8" T="FilterSelect" Label="Permission" Placeholder="Permssion" @bind-Value="_ItemSelected" ToStringFunc="@(_ => _.Value)"
+                           Variant="Variant.Outlined" Dense="true" Margin="Margin.Dense" AnchorOrigin="Origin.BottomCenter"
+                           Required="true" RequiredError="Permssion is required!" OnlyValidateIfDirty="true">
+                    @foreach (var item in _ListItems)
+                    {
+                        <MudSelectItem Value="@item" />
+                    }
+                </MudSelect>
+                @if (_ItemSelected?.Key == ".other")
+                {
+                   <MudItem lg="8" xs="8">
+                        <MudTextField Label="Permission" @bind-Value="_Name" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" Counter="50" MaxLength="50" Clearable />
+                    </MudItem>                  
+                }
+ 
+                <MudItem lg="4" xs="4">
+                    <MudSwitch @bind-Checked="@_Active" Label="Status Aktif" Color="Color.Primary" UnCheckedColor="Color.Error" />
+                </MudItem>
+
+                <MudItem lg="12" xs="12" Class="d-flex justify-end">
+                    <MudButton StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="@(_IsAdd ? Color.Primary : Color.Success)" Size="Size.Small" OnClick="Save">@(_IsAdd ? "Save" : "Update")</MudButton>
+                    <MudButton StartIcon="@Icons.Material.Filled.Clear" Variant="Variant.Filled" Color="Color.Error" Size="Size.Small" Class="ml-1" OnClick="ResetForm">Reset</MudButton>
+                </MudItem>
+            </MudGrid>
+        </MudForm>
+
+        <MudDivider Class="my-3"/>
+
+        <div class="d-flex justify-end mb-3">
+            <MudButton Variant="Variant.Filled" Size="Size.Small" Color="Color.Info" StartIcon="@Icons.Material.Filled.Refresh" OnClick="@(_ => _Table.ReloadServerData())">Refresh Data</MudButton>
+        </div>
+
+        <div class="position-relative">
+            <MudTable @ref="_Table"
+                      ServerData="@(new Func<TableState, Task<TableData<TableRowWrapper<PagePermissionResponse>>>>(GetDataTable))"
+                      Dense="true"
+                      Hover="true">
+
+                <HeaderContent>
+                    <MudTh>No</MudTh>
+                    <MudTh><MudTableSortLabel T="TableRowWrapper<PagePermissionResponse>" SortLabel="name" InitialDirection="SortDirection.Ascending">Name</MudTableSortLabel></MudTh>
+                    <MudTh Class="text-center"><MudTableSortLabel T="TableRowWrapper<PagePermissionResponse>" SortLabel="active">Status</MudTableSortLabel></MudTh>
+                    <MudTh Class="text-center">Aksi</MudTh>
+                </HeaderContent>
+
+                <RowTemplate>
+                    <MudTd DataLabel="No">@context.No</MudTd>
+                        <MudTd DataLabel="Name">@(_ListItems.Where(d => d.Key == context.Data.Name).Select(d=>d.Value).FirstOrDefault()??context.Data.Name)</MudTd>
+                    <MudTd DataLabel="Status" Class="text-center">
+                        <MudChip Color="@(context.Data.Active ? Color.Success : Color.Error)" Size="Size.Small" Class="ma-0">@(context.Data.Active ? "Active" : "Not Active")</MudChip>
+                    </MudTd>
+                    <MudTd DataLabel="Aksi" Class="text-center">
+                        <MudTooltip Text="Edit Data Mode">
+                            <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small" Color="Color.Info" OnClick="@(_ => EditDataMode(context.Data))" />
+                        </MudTooltip>
+
+                        <MudTooltip Text="Delete Data">
+                            <MudIconButton Icon="@Icons.Material.Filled.Delete" Size="Size.Small" Color="Color.Error" OnClick="@(_ => DeleteData(context.Data))" />
+                        </MudTooltip>
+                    </MudTd>
+                </RowTemplate>
+
+                <NoRecordsContent>
+                    <MudText Align="Align.Center">Data Tidak Ada!</MudText>
+                </NoRecordsContent>
+
+                <PagerContent>
+                    <MudTablePager PageSizeOptions="StaticMethod.GetPageSize()" />
+                </PagerContent>
+            </MudTable>
+
+            <MudOverlay @bind-Visible="_TableIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+            </MudOverlay>
+        </div>
+
+    </DialogContent>
+</MudDialog>

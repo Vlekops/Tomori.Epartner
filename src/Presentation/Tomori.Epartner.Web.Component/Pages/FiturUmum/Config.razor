@@ -1,0 +1,23 @@
+﻿@using Tomori.Epartner.Web.Component.Pages.FiturUmum.ConfigComponent
+<section>
+    <MudTabs Elevation="0" Rounded="true" ApplyEffectsToContainer="true" TabHeaderClass="pt-5 px-5" PanelClass="mt-5">
+        <CascadingValue Value="this">
+            <MudCard>
+                <MudCardContent>
+                    <MudTabPanel Text="Company">
+                        <CompanyConfigComponent Token="@Token" />
+                    </MudTabPanel>
+                    <MudTabPanel Text="Email">
+                        <EmailConfigComponent Token="@Token" />
+                    </MudTabPanel>
+                    <MudTabPanel Text="Setting">
+                        <SettingConfigComponent Token="@Token" />
+                    </MudTabPanel>
+                    <MudTabPanel Text="Integration">
+                        <IntegrationConfigComponent Token="@Token" />
+                    </MudTabPanel>
+                </MudCardContent>
+            </MudCard>
+        </CascadingValue>
+    </MudTabs>
+</section>

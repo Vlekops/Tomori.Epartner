@@ -54,6 +54,7 @@ namespace Tomori.Epartner.Core.Config.Query
                 var setting = await getData(ConfigCategory.SETTING);
                 var company = await getData(ConfigCategory.COMPANY);
                 var email = await getData(ConfigCategory.EMAIL);
+                var integration = await getData(ConfigCategory.INTEGRATION);
 
                 if (setting != null && setting.Count() > 0)
                     result.List.AddRange(setting);
@@ -61,6 +62,9 @@ namespace Tomori.Epartner.Core.Config.Query
                     result.List.AddRange(company);
                 if (email != null && email.Count() > 0)
                     result.List.AddRange(email);
+                if (integration != null && integration.Count() > 0)
+                    result.List.AddRange(integration);
+
 
                 if (result.List.Count() == 0)
                 {

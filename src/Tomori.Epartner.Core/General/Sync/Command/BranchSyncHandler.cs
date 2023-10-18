@@ -38,13 +38,13 @@ namespace Tomori.Epartner.Core.Sync.Command
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IUnitOfWork<ApplicationDBContext> _context;
-        private readonly IRestAPIHelper _restHelper;
+        private readonly ICIVDAPIHelper _restHelper;
         public BranchSyncHandler(
             ILogger<BranchSyncHandler> logger,
             IMapper mapper,
             IMediator mediator,
             IUnitOfWork<ApplicationDBContext> context,
-            IRestAPIHelper restAPIHelper
+            ICIVDAPIHelper restAPIHelper
             )
         {
             _logger = logger;
@@ -63,9 +63,9 @@ namespace Tomori.Epartner.Core.Sync.Command
                 foreach ( var item in data.result )
                 {
 
-                    if (await _context.Entity<VBranch>().Where(d => d.CivdId == item.vendorBranchId).AnyAsync())
+                    if (await _context.Entity<Data.Model.VendorBranch>().Where(d => d.CivdId == item.vendorBranchId).AnyAsync())
                     {
-                        var update = await _context.Entity<VBranch>().Where(d => d.CivdId == item.vendorBranchId).FirstOrDefaultAsync();
+                        var update = await _context.Entity<Data.Model.VendorBranch>().Where(d => d.CivdId == item.vendorBranchId).FirstOrDefaultAsync();
                         update.CompanyType = item.compTypeDesc;
                         update.VendorBranchName = item.vendorBranchName;
                         update.Address = item.vendorBranchAddress;
@@ -86,12 +86,13 @@ namespace Tomori.Epartner.Core.Sync.Command
                     }
                     else {
                         Guid? IdVendor = null;
-                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == item.vendorId).FirstOrDefaultAsync();
+                        var vendor = await _context.Entity<Data.Model.Vendor>().Where(d => d.VendorId == item.vendorId).FirstOrDefaultAsync();
                         if (vendor != null) {
                             IdVendor = vendor.Id;
                         }
                         
-                        _context.Add(new VBranch {
+                        _context.Add(new Data.Model.VendorBranch
+                        {
                             Id = Guid.NewGuid(),
                             CivdId = item.vendorBranchId,
                             IdVendor = IdVendor,

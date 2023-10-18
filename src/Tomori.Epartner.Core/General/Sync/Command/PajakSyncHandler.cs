@@ -29,9 +29,9 @@ namespace Tomori.Epartner.Core.General.Sync.Command
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IUnitOfWork<ApplicationDBContext> _context;
-        private readonly IRestAPIHelper _restHelper;
+        private readonly ICIVDAPIHelper _restHelper;
 
-        public PajakSyncHandler(ILogger<PajakSyncHandler> logger, IMapper mapper, IMediator mediator, IUnitOfWork<ApplicationDBContext> context, IRestAPIHelper restHelper)
+        public PajakSyncHandler(ILogger<PajakSyncHandler> logger, IMapper mapper, IMediator mediator, IUnitOfWork<ApplicationDBContext> context, ICIVDAPIHelper restHelper)
         {
             _logger = logger;
             _mapper = mapper;
@@ -45,20 +45,20 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<VPajak>();
+                var listInsert = new List<Data.Model.VendorPajak>();
                 var rest = await _restHelper.GetPajak(request.CompleteDateForm);
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new VPajak();
+                        var insert = new Data.Model.VendorPajak();
                         Guid? IdVendor = null;
-                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
+                        var vendor = await _context.Entity<Data.Model.Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
                         if (vendor != null)
                         {
                             IdVendor = vendor.Id;
                         }
-                        var p = await _context.Entity<VPajak>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        var p = await _context.Entity<Data.Model.VendorPajak>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
                         if (p == null)
                         {
                             insert.Id = Guid.NewGuid();

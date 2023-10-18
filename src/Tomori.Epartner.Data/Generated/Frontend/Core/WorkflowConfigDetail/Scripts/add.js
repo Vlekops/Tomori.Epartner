@@ -20,7 +20,7 @@ function addWorkflowConfigDetailSave() {
     ConfirmMessage('Apakah Anda Yakin?', function (isConfirm) {
         if (isConfirm) {
             var param = {
-				autoApproveExpired:$('#Add-WorkflowConfigDetail-AutoApproveExpired').val(),
+				autoApprovedExpired:$('#Add-WorkflowConfigDetail-AutoApprovedExpired').val(),
 				canAdhoc:$('#Add-WorkflowConfigDetail-CanAdhoc').is(":checked"),
 				idUser:$('#Add-WorkflowConfigDetail-IdUser').val(),
 				idWorkflowConfig:$('#Add-WorkflowConfigDetail-IdWorkflowConfig').val(),

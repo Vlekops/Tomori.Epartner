@@ -25,9 +25,9 @@ namespace Tomori.Epartner.Core.General.Sync.Command
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IUnitOfWork<ApplicationDBContext> _context;
-        private readonly IRestAPIHelper _restHelper;
+        private readonly ICIVDAPIHelper _restHelper;
 
-        public SusunanSahamSyncHandler(ILogger<SusunanSahamSyncHandler> logger, IMapper mapper, IMediator mediator, IUnitOfWork<ApplicationDBContext> context, IRestAPIHelper restHelper)
+        public SusunanSahamSyncHandler(ILogger<SusunanSahamSyncHandler> logger, IMapper mapper, IMediator mediator, IUnitOfWork<ApplicationDBContext> context, ICIVDAPIHelper restHelper)
         {
             _logger = logger;
             _mapper = mapper;
@@ -41,20 +41,20 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<VSusunanSaham>();
+                var listInsert = new List<Data.Model.VendorSusunanSaham>();
                 var rest = await _restHelper.GetSusunanSaham(request.CompletedDateFrom);
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new VSusunanSaham();
+                        var insert = new Data.Model.VendorSusunanSaham();
                         Guid? IdVendor = null;
-                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
+                        var vendor = await _context.Entity<Data.Model.Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
                         if (vendor != null)
                         {
                             IdVendor = vendor.Id;
                         }
-                        var ss = await _context.Entity<VSusunanSaham>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        var ss = await _context.Entity<Data.Model.VendorSusunanSaham>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
                         if (ss == null)
                         {
                             insert.Id = Guid.NewGuid();
