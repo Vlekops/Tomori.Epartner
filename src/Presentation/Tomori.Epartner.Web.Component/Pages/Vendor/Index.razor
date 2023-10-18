@@ -1,0 +1,45 @@
+﻿<section>
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h3 class="card-title"></h3>
+            <div class="card-toolbar">
+                <MudButton Variant="Variant.Filled" Size="Size.Medium" Color="Color.Info" Class="my-2" StartIcon="@Icons.Material.Filled.Add" OnClick="Synchronize">Synchronize</MudButton>
+            </div>
+        </div>
+
+        <div class="card-body position-relative p-0">
+            <MudDataGrid @ref="_Table" T="TableRowWrapper<VendorResponse>" ServerData="GetDataTable"
+                         SortMode="SortMode.Single" ColumnResizeMode="ResizeMode.Column"
+                         Striped="true" Hover="true" Dense="true">
+                <Columns>
+                    <PropertyColumn Property="_ => _.No" Title="No" Sortable="false" />
+                    <PropertyColumn Property="_ => _.Data.RegId" Title="Username" />
+                    <PropertyColumn Property="_ => _.Data.VendorName" Title="Name" />
+                    <PropertyColumn Property="_ => _.Data.VendorEmail1" Title="Mail" />
+                    <PropertyColumn Property="_ => _.Data.JenisUsaha" Title="Type" />
+                    <PropertyColumn Property="_ => _.Data.Sanksi" Title="Sanksi" />
+                    <TemplateColumn HeaderClass="text-center" CellClass="text-center" Title="Aksi" Sortable="false">
+                        <CellTemplate>
+                            <MudMenu Dense="true" Size="Size.Medium" Variant="Variant.Filled" Icon="@Icons.Material.Filled.MoreHoriz" DisableElevation>
+                                    <MudMenuItem IconSize="Size.Small" Icon="@Icons.Material.Filled.Info" IconColor="Color.Info" OnClick="@(_ => Detail(context.Item.Data.Id))">Detail</MudMenuItem>
+                            </MudMenu>
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+
+                <NoRecordsContent>
+                    <MudText Align="Align.Center">Data Tidak Ada!</MudText>
+                </NoRecordsContent>
+
+                <PagerContent>
+                    <MudDataGridPager PageSizeOptions="StaticMethod.GetPageSize()" />
+                </PagerContent>
+            </MudDataGrid>
+
+            <MudOverlay @bind-Visible="_TableIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+            </MudOverlay>
+        </div>
+    </div>
+
+</section>

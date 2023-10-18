@@ -1,0 +1,17 @@
+﻿@using Tomori.Epartner.Web.Component.Pages.Vendor.Component
+<section>
+    <MudTabs Elevation="0" Rounded="true" ApplyEffectsToContainer="true" TabHeaderClass="pt-5 px-5" PanelClass="mt-5">
+        <CascadingValue Value="this">
+            <MudCard>
+                <MudCardContent>
+                    <MudTabPanel Text="General Info">
+                        <VendorComponent Token="@Token" VendorId="@IdVendor" />
+                    </MudTabPanel>
+                    <MudTabPanel Text="Rekening Bank">
+                        <VendorBankComponent Token="@Token" VendorId="@IdVendor" />
+                    </MudTabPanel>
+                </MudCardContent>
+            </MudCard>
+        </CascadingValue>
+    </MudTabs>
+</section>

@@ -121,6 +121,7 @@ namespace Tomori.Epartner.Web.Component.Services
         Task<StatusResponse> Add(VendorRequest request, string baseUrl, string token);
         Task<StatusResponse> Edit(Guid id, VendorRequest request, string baseUrl, string token);
         Task<StatusResponse> Delete(Guid id, string baseUrl, string token);
+        Task<StatusResponse> Sync(DateTime date, string baseUrl, string token);
 
     }
     public class VendorService : IVendorService
@@ -158,7 +159,11 @@ namespace Tomori.Epartner.Web.Component.Services
         {
             return _request.Response(await _request.DoRequest<StatusResponse>(HttpMethod.Delete, token, $"{baseUrl}/v1/Vendor/delete/{id}", null));
         }
-        
+
+        public async Task<StatusResponse> Sync(DateTime date, string baseUrl, string token)
+        {
+            return _request.Response(await _request.DoRequest<StatusResponse>(HttpMethod.Post, token, $"{baseUrl}/v1/Sync/sync_vendor", null));
+        }
     }
 }
 

@@ -18,11 +18,6 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Vleko.Result" Version="1.0.0.1" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Services\MasterVendor\" />
-	</ItemGroup>
-
 	<PropertyGroup>
 		<PublishTrimmed>false</PublishTrimmed>
 	</PropertyGroup>
