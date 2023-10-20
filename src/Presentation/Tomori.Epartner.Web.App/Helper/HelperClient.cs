@@ -56,7 +56,7 @@ namespace Tomori.Epartner.Web.App.Helper
                         Section = item
                     };
 
-                    var objs = DataMenu.Where(_ => _.Section == item).ToList();
+                    var objs = DataMenu.Where(_ => _.Active).Where(_ => _.Section == item).ToList();
 
                     if (objs.Any())
                         section.Menus = SetMenuItem(objs);
