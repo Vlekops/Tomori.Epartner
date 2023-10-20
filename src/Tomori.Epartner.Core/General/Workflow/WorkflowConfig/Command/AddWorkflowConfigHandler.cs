@@ -67,7 +67,7 @@ namespace Tomori.Epartner.Core.WorkflowConfig.Command
                 var add = await _context.AddSave(data);
                 if (add.Success)
                 {
-                    //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = add.log }));
+                    ////_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = add.log }));
                     result.OK();
                 }
                 else

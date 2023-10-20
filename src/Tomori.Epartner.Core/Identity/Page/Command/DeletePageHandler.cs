@@ -60,7 +60,7 @@ namespace Tomori.Epartner.Core.Identity.Page.Command
                     {
                         _cache.Remove(CacheKey.PAGE);
                         _cache.Remove(CacheKey.PAGE_PERMISSION);
-                        //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = delete.log }));
+                        ////_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = delete.log }));
                         result.OK();
                     }
                     else

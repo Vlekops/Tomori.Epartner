@@ -73,7 +73,7 @@ namespace Tomori.Epartner.Core.PdfTemplate.Command
                 if (add.Success)
                 {
                     _cache.Remove($"{CacheKey.PDF_TEMPLATE}_{data.Code}");
-                    //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = add.log }));
+                    ////_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = add.log }));
                     result.OK();
                 }
                 else

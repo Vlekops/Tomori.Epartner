@@ -12,7 +12,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Tomori.Epartner.Data;
 using Vleko.Result;
-using Tomori.Epartner.Core.Log.Command;
 
 namespace Tomori.Epartner.Core.VendorPengalaman.Command
 {
@@ -53,7 +52,7 @@ namespace Tomori.Epartner.Core.VendorPengalaman.Command
                     var delete = await _context.DeleteSave(item);
                     if (delete.Success)  
                     {
-                        _ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = delete.log }));
+                        //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = delete.log }));
                         result.OK();
                     }
                     else

@@ -88,7 +88,7 @@ namespace Tomori.Epartner.Core.Notification.Command
                                             request.Description, null
                                         ));
                     }
-                    //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = add.log }));
+                    ////_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = add.log }));
                     result.Data = data.Id;
                     result.OK();
 

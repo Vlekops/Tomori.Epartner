@@ -59,7 +59,7 @@ namespace Tomori.Epartner.Core.Identity.PagePermission.Command
                     if (delete.Success)
                     {
                         _cache.Remove($"{CacheKey.PAGE_PERMISSION}_{item.IdPage}");
-                        //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = delete.log }));
+                        ////_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = delete.log }));
                         result.OK();
                     }
                     else

@@ -53,7 +53,7 @@ namespace Tomori.Epartner.Core.WorkflowConfigDetail.Command
                     var delete = await _context.DeleteSave(item);
                     if (delete.Success)  
                     {
-                        //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = delete.log }));
+                        ////_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = delete.log }));
                         result.OK();
                     }
                     else
