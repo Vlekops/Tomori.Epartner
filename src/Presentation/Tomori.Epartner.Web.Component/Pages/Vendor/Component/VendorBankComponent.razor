@@ -1,0 +1,18 @@
+﻿<section class="position-relative">
+    <MudOverlay @bind-Visible="_FormIsLoading" LightBackground="true" Absolute="true">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </MudOverlay>
+
+    <section class="mb-5">
+        <MudGrid>
+            <MudItem lg="6" sm="12" xs="12" Class="d-flex flex-md-row flex-column">
+                <MudText Class="fw-semibold text-muted colon-mark flex-1 mr-1">K3S</MudText>
+                <MudText Class="fw-semibold flex-1">@_Data??.NamaBank</MudText>
+            </MudItem>
+            <MudItem lg="6" sm="12" xs="12" Class="d-flex flex-md-row flex-column">
+                <MudText Class="fw-semibold text-muted colon-mark flex-1 mr-1">No Rekening</MudText>
+                <MudText Class="fw-semibold flex-1">@_Data??.NoRekening</MudText>
+            </MudItem>
+        </MudGrid>
+    </section>
+</section>

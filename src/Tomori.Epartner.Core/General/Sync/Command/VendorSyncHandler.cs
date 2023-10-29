@@ -22,6 +22,7 @@ using AutoMapper.Features;
 using Tomori.Epartner.Data.Model;
 using DocumentFormat.OpenXml.Wordprocessing;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Tomori.Epartner.Core.Config.Query;
 
 namespace Tomori.Epartner.Core.Sync.Command
 {
@@ -39,19 +40,22 @@ namespace Tomori.Epartner.Core.Sync.Command
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
+        private readonly IGeneralHelper _helper;
         private readonly IUnitOfWork<ApplicationDBContext> _context;
-        private readonly IRestAPIHelper _restHelper;
+        private readonly ICIVDAPIHelper _restHelper;
         public VendorSyncHandler(
             ILogger<VendorSyncHandler> logger,
             IMapper mapper,
             IMediator mediator,
+            IGeneralHelper helper,
             IUnitOfWork<ApplicationDBContext> context,
-            IRestAPIHelper restAPI
+            ICIVDAPIHelper restAPI
             )
         {
             _logger = logger;
             _mapper = mapper;
             _mediator = mediator;
+            _helper = helper;
             _context = context;
             _restHelper= restAPI;
         }
@@ -61,12 +65,13 @@ namespace Tomori.Epartner.Core.Sync.Command
             try
             {
                 var data = await _restHelper.GetListVendor(request.CompletedDateForm);
-
+                var config = await _mediator.Send(new GetSettingConfigRequest());
+                string _hash_default_password = _helper.PasswordEncrypt(config.Data.DefaultPassword);
                 foreach ( var item in data.result )
                 {
-                    if (await _context.Entity<Vendor>().Where(d => d.CivdId == item.id).AnyAsync())
+                    if (await _context.Entity<Data.Model.Vendor>().Where(d => d.CivdId == item.id).AnyAsync())
                     {
-                        var update = await _context.Entity<Vendor>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
+                        var update = await _context.Entity<Data.Model.Vendor>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
                         update.RegId = item.regId;
                         update.LinkPid = item.linkPID;
                         update.K3sname = item.k3sName;
@@ -121,7 +126,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                     }
                     else {
 
-                        _context.Add(new Vendor
+                        _context.Add(new Data.Model.Vendor
                         {
                             Id = Guid.NewGuid(),
                             CivdId = item.id,
@@ -175,6 +180,23 @@ namespace Tomori.Epartner.Core.Sync.Command
                             StatusPerusahaan = item.statusPerusahaan,
                             CreateBy = "SYSTEM SYNC",
                             CreateDate = DateTime.Now,
+                        });
+                        _context.Add(new Tomori.Epartner.Data.Model.User()
+                        {
+                            AccessFailedCount = 0,
+                            Active = true,
+                            CreateBy = "SYSTEM SYNC",
+                            CreateDate = DateTime.Now,
+                            Username = item.regId.ToString(),
+                            Password = _hash_default_password,
+                            LastChangePassword = DateTime.Now,
+                            Fullname = item.name,
+                            Mail = item.vendorEmail1,
+                            Id = Guid.NewGuid(),
+                            PhoneNumber = item.phoneNumber,
+                            IsLockout = false,
+                            ExpiredPassword = config.Data.PasswordExpiredDays > 0 ? DateTime.Now.AddDays(config.Data.PasswordExpiredDays) : null,
+                            ExpiredUser = config.Data.UserExpiredDays > 0 ? DateTime.Now.AddDays(config.Data.UserExpiredDays) : null,
                         });
                     }
                 }

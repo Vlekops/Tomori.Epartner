@@ -66,7 +66,7 @@ namespace Tomori.Epartner.Core.Identity.RolePermission.Command
                 {
                     _cache.Remove(CacheKey.ROLE_PERMISSION);
                     _cache.Remove($"{CacheKey.USER_ROLE_PERMISSION}_{idRole}");
-                    //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = add.log }));
+                    ////_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = add.log }));
                     result.OK();
                 }
                 else

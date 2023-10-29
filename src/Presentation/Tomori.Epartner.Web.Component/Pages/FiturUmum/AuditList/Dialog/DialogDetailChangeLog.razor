@@ -1,0 +1,28 @@
+﻿<MudDialog>
+    <DialogContent>
+        <div class="card card--raised">
+            <div class="card-body p-0">
+                <div class="position-relative">
+                    <MudDataGrid @ref="_TableDetail" T="TableRowWrapper<ChangeLogPropertyResponse>" ServerData="GetListDataDetail"
+                                 SortMode="SortMode.Single" ColumnResizeMode="ResizeMode.Column"
+                                 Striped="true" Hover="true" Dense="true">
+                        <Columns>
+                            <PropertyColumn Property="_ => _.Data.Id" Title="Id" Sortable="false" />
+                            <PropertyColumn Property="_ => _.Data.NewValue" Title="NewValue" Sortable="false" />
+                            <PropertyColumn Property="_ => _.Data.OldValue" Title="OldValue" Sortable="false" />
+                            <PropertyColumn Property="_ => _.Data.Property" Title="Property" Sortable="false" />
+                        </Columns>
+
+                        <NoRecordsContent>
+                            <MudText Align="Align.Center">Data Tidak Ada!</MudText>
+                        </NoRecordsContent>
+                    </MudDataGrid>
+
+                    <MudOverlay @bind-Visible="_TableDetailIsLoading" LightBackground="true" Absolute="true">
+                        <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+                    </MudOverlay>
+                </div>
+            </div>
+        </div>
+    </DialogContent>
+</MudDialog>

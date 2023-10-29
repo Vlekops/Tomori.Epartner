@@ -1,0 +1,42 @@
+﻿@{
+    Layout = null;
+}
+
+<html lang="en">
+<!--<![endif]--><!-- BEGIN HEAD -->
+<head>
+    <title>EPartner - @ViewData["Title"]</title>
+
+    <!--begin::Fonts(mandatory for all pages)-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <!--end::Fonts-->
+    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+    <link href="~/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/Custom.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    <!--end::Global Stylesheets Bundle-->
+
+    <link href="~/Tomori.Epartner.Web.App.styles.css" rel="stylesheet" asp-append-version="true" />
+    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" asp-append-version="true" />
+
+</head>
+<!-- END HEAD -->
+
+<body>
+    <div class="row">
+        <div class="col-md-12  text-center">
+            <div class="number font-red h1"> 403 </div>
+            <div class="details">
+                <h3>Oops! You're don't have access.</h3>
+                <p>
+                    We cannot allow you to access this page.
+                    <br>
+                    <a href="/" class="btn btn-danger mt-3"> Return home </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

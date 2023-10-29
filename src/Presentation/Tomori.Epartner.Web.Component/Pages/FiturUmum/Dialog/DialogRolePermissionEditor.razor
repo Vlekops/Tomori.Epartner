@@ -1,0 +1,56 @@
+﻿<MudDialog Class="mud-dialog-custom">
+    <DialogContent>
+        <MudOverlay @bind-Visible="_DialogIsLoading" LightBackground="true" Absolute="true">
+            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+        </MudOverlay>
+
+        <MudGrid Spacing="1">
+            <MudItem lg="12" xs="12">
+                <MudAutocomplete T="PageResponse" Label="Page" Value="_PageSelected"
+                                 SearchFunc="SearchPage" ToStringFunc="@(_ => _ == null ? null : $"{_.Section} - {_.Name} | {_.Code}")"
+                                 ValueChanged="PageChanged"
+                                 MaxItems="10" ShowProgressIndicator="true" ResetValueOnEmptyText="true"
+                                 Variant="Variant.Outlined" Margin="Margin.Dense" Dense="true" Placeholder="Pilih atau Cari Data" Clearable Disabled="@(DataEdit != null)">
+                    <MoreItemsTemplate>
+                        <MudText Align="Align.Center" Class="px-4 py-1 font-size-10pt">
+                            Hanya 10 data pertama yang ditampilkan. Harap lakukan pencarian jika data yang diharapkan tidak tampil.
+                        </MudText>
+                    </MoreItemsTemplate>
+                </MudAutocomplete>
+
+                <MudOverlay @bind-Visible="_PageIsLoading" LightBackground="true" Absolute="true">
+                    <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+                </MudOverlay>
+            </MudItem>
+
+            <MudItem lg="12" xs="12">
+                <MudDataGrid @ref="_Table" T="TableRowWrapper<PagePermissionResponse>" ServerData="GetDataTable"
+                             SortMode="SortMode.None" ColumnResizeMode="ResizeMode.Column" @bind-SelectedItems="_TableItemSelected"
+                             Striped="true" Hover="true" Dense="true" MultiSelection="true" Elevation="0">
+                    <Columns>
+                        <SelectColumn />
+                        <PropertyColumn Property="_ => _.No" Title="No" />
+                        <PropertyColumn Property="_ => _.Data.Name" Title="Nama Permission" />
+                    </Columns>
+
+                    <NoRecordsContent>
+                        <MudText Align="Align.Center">Data Tidak Ada!</MudText>
+                    </NoRecordsContent>
+                </MudDataGrid>
+
+                <MudOverlay @bind-Visible="_TableIsLoading" LightBackground="true" Absolute="true">
+                    <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+                </MudOverlay>
+            </MudItem>
+
+        </MudGrid>
+    </DialogContent>
+
+    <DialogActions>
+        @if (!_DialogIsLoading)
+        {
+            <MudButton StartIcon="@Icons.Material.Filled.Cancel" Variant="Variant.Filled" Color="Color.Error" Size="Size.Small" OnClick="@(_ => _MudDialog.Cancel())">Cancel</MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="Save">Save</MudButton>
+        }
+    </DialogActions>
+</MudDialog>

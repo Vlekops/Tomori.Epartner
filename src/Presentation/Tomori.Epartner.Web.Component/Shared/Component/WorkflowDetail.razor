@@ -1,0 +1,84 @@
+﻿@if (_Data.Approval != null && _IsProcess)
+{
+    <div class="d-sm-inline-flex d-flex flex-sm-row flex-column gap-2 border-custom p-5 mb-4 bg-white fixed-top fixed-sm-top" style="top: 75px !important; right: 30px !important; left: initial !important; z-index: 99 !important">
+        @ButtonAdditionalContent
+        
+        @if (!_Data.Approval.IsReviewer)
+        {
+            @if (_Data.Approval.CanAdhoc)
+            {
+                <MudButton Variant="Variant.Filled" Color="Color.Warning" OnClick="@(_=>Delegate(false))" DisableElevation="true">Ad-hoc</MudButton>
+            }
+
+            @if (!_Data.Approval.IsAdhoc)
+            {
+                <MudButton Variant="Variant.Filled" Color="Color.Info" OnClick="@(_=>Delegate(true))" DisableElevation="true">Delegate</MudButton>
+            }
+
+            <MudButton Variant="Variant.Filled" Color="Color.Error" OnClick="@(_=>Approval(false))" DisableElevation="true">Reject</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="@(_=>Approval(true))" DisableElevation="true">Approve</MudButton>
+        }
+        else
+        {
+            <MudButton Variant="Variant.Filled" Color="Color.Info" OnClick="@(_=>Review())" DisableElevation="true">Review</MudButton>
+        }
+    </div>
+}
+
+
+<CascadingValue Value="this">
+    <section>
+        @ChildContent
+    </section>
+</CascadingValue>
+
+
+<MudExpansionPanels Elevation="0" MultiExpansion="true" Class="mt-5">
+    <MudExpansionPanel Class="border-custom rounded-1" IsInitiallyExpanded="true">
+        <TitleContent>
+            <div class="d-flex align-center gap-2">
+                <MudIcon Icon="@IconsExtension.UserLine" Color="Color.Dark" Size="Size.Small" />
+                <MudText Class="fw-semibold" Inline="true">Workflow Approval</MudText>
+            </div>
+        </TitleContent>
+        <ChildContent>
+            @if (_Data.Workflow != null)
+            {
+                @foreach (var _ in _Data.Workflow)
+                {
+                    @if (_.WorkflowCode.EndsWith("UPD"))
+                    {
+                        <MudDivider Class="my-3" />
+                    }
+
+                    <MudText Class="fw-semibold">@(SetTitle(_))</MudText>
+
+                    <MudSimpleTable Dense="true" Hover="true" Striped="true" Elevation="0">
+                        <thead class="text-muted text-transform-uppercase">
+                            <tr>
+                                <th style="width: 40%;">Participant</th>
+                                <th style="width: 10%;">Step</th>
+                                <th style="width: 15%;">Approved At</th>
+                                <th style="width: 25%;">Notes</th>
+                                <th style="width: 10%;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var __ in _.Detail)
+                            {
+                                <tr style="@(SetMark(__))">
+                                    <td>@__.FullName</td>
+                                    <td>@__.StepName</td>
+                                    <td>@(__.Status != WorkflowStatusEnum.Waiting ? __.CreateDate.ToString("dd MMMM yyyy HH:mm:ss") : string.Empty )</td>
+                                    <td>@(__.Status != WorkflowStatusEnum.Waiting ? __.Notes : string.Empty)</td>
+                                    <td>@__.StatusDescription</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </MudSimpleTable>
+
+                }
+            }
+        </ChildContent>
+    </MudExpansionPanel>
+</MudExpansionPanels>

@@ -145,6 +145,7 @@ namespace Tomori.Epartner.Core.Workflow.Query
                         else
                             result_order = (d => d.Email);
                         break;
+<<<<<<< HEAD
                     //case "fullname":
                     //    if (is_where)
                     //    {
@@ -153,6 +154,16 @@ namespace Tomori.Epartner.Core.Workflow.Query
                     //    else
                     //        result_order = (d => d.FullName);
                     //    break;
+=======
+                    case "fullname":
+                        if (is_where)
+                        {
+                            result_where = (d => d.Fullname.Trim().ToLower().Contains(search));
+                        }
+                        else
+                            result_order = (d => d.Fullname);
+                        break;
+>>>>>>> 5d5d61fd98f85493183e29a5767ce20080f32c00
                     case "groupno":
                         if (is_where)
                         {

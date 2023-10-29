@@ -32,12 +32,12 @@ namespace Tomori.Epartner.Core.Repository.Query
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork<ApplicationDBContext> _context;
-        private readonly IRestAPIHelper _api;
+        private readonly ICIVDAPIHelper _api;
         public GetRepositoryListHandler(
             ILogger<GetRepositoryListHandler> logger,
             IMapper mapper,
             IUnitOfWork<ApplicationDBContext> context,
-            IRestAPIHelper api)
+            ICIVDAPIHelper api)
         {
             _logger = logger;
             _mapper = mapper;

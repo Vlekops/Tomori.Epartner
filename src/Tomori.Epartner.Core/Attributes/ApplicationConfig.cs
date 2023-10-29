@@ -7,7 +7,6 @@
         public string SecretKey { get; set; }
         public string AppUrl { get; set; }
         public string ApiUrl { get; set; }
-        public string AppUrlDev { get; set; } //TODO : HAPUS AJA KALO GA KEPAKE
     }
     public class SettingConfig
     {
@@ -30,6 +29,11 @@
         public int SmtpPort { get; set; }
         public string SenderMail { get; set; }
         public string Password { get; set; }
+    }
+    public class IntegrationConfig
+    {
+        public string Civd { get; set; }
+        public string Sap { get; set; }
     }
     public class CompanyConfig
     {

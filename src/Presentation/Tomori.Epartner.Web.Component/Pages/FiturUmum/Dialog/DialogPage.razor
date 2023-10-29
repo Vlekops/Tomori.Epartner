@@ -1,0 +1,103 @@
+﻿<MudDialog Class="mud-dialog-custom">
+    <DialogContent>
+        <MudForm @ref="_Form" @bind-IsValid="@_FormIsValid" Class="position-relative">
+            <MudOverlay @bind-Visible="_FormIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+            </MudOverlay>
+
+            <MudGrid Spacing="1">
+
+                <MudItem lg="12" xs="12" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Parent" />
+                </MudItem>
+
+                <MudItem lg="12" xs="12">
+                    <MudAutocomplete T="PageResponse" Value="_PageParentSelected"
+                                     SearchFunc="SearchParentPage" ToStringFunc="@(_ => _ == null ? null : $"{_.Section} - {_.Name}")"
+                                     ValueChanged="PageParentChanged"
+                                     MaxItems="10" ShowProgressIndicator="true" ResetValueOnEmptyText="true"
+                                     Variant="Variant.Outlined" Margin="Margin.Dense" Dense="true" Placeholder="Pilih atau Cari Data" Clearable>
+                        <MoreItemsTemplate>
+                            <MudText Align="Align.Center" Class="px-4 py-1 font-size-10pt">
+                                Hanya 10 data pertama yang ditampilkan. Harap lakukan pencarian jika data yang diharapkan tidak tampil.
+                            </MudText>
+                        </MoreItemsTemplate>
+                    </MudAutocomplete>
+
+                    <MudOverlay @bind-Visible="_PageParentIsLoading" LightBackground="true" Absolute="true">
+                        <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+                    </MudOverlay>
+                </MudItem>
+
+                <MudItem lg="12" xs="12" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Section" />
+                </MudItem>
+
+                <MudItem lg="12" xs="12">
+                    <MudTextField @ref="_SectionElement" Placeholder="Section" @bind-Value="_Section" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="15" Clearable Disabled="@(_PageParentSelected != null)" />
+                </MudItem>
+
+                <MudItem lg="12" xs="12" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Code" />
+                </MudItem>
+
+                <MudItem lg="12" xs="12">
+                    <MudTextField Placeholder="Code" @bind-Value="_Code" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="50" Clearable />
+                </MudItem>
+
+                <MudItem lg="12" xs="12" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Name" />
+                </MudItem>
+
+                <MudItem lg="12" xs="12">
+                    <MudTextField Placeholder="Name" @bind-Value="_Name" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="100" Clearable />
+                </MudItem>
+
+                <MudItem lg="12" xs="12" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Navigation" />
+                </MudItem>
+
+                <MudItem lg="12" xs="12">
+                    <MudTextField Placeholder="Navigation" @bind-Value="_Navigation" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="150" Clearable />
+                </MudItem>
+
+                <MudItem lg="12" xs="12" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Icon" />
+                </MudItem>
+
+                <MudItem lg="12" xs="12">
+                    <MudTextField Placeholder="Icon" @bind-Value="_Icon" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="50" Clearable />
+                </MudItem>
+
+                <MudItem lg="12" xs="12" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Sort" />
+                </MudItem>
+
+                <MudItem lg="12" xs="12">
+                    <MudNumericField Placeholder="Sort" @bind-Value="_Sort" Format="N0" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" HideSpinButtons="true" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="2" Clearable />
+                </MudItem>
+
+                <MudItem lg="12" xs="12" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Description" />
+                </MudItem>
+
+                <MudItem lg="12" xs="12">
+                    <MudTextField Placeholder="Description" @bind-Value="_Description" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense"  MaxLength="150" Lines="4" Clearable />
+                </MudItem>
+
+                <MudItem lg="12" xs="12">
+                    <MudSwitch @bind-Checked="@_Active" Label="Status Aktif" Color="Color.Primary" UnCheckedColor="Color.Error" />
+                </MudItem>
+            </MudGrid>
+
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        @if (!_FormIsLoading)
+        {
+            <MudButton StartIcon="@Icons.Material.Filled.Cancel" Variant="Variant.Filled" Color="Color.Error" Size="Size.Small" OnClick="@(_ => _MudDialog.Cancel())">Cancel</MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="Save">Save</MudButton>
+        }
+    </DialogActions>
+</MudDialog>

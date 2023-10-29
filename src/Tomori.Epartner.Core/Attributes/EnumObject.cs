@@ -8,7 +8,8 @@
     {
         SETTING,
         COMPANY,
-        EMAIL
+        EMAIL,
+        INTEGRATION
     }
     public enum StatusApproval
     {
@@ -44,42 +45,4 @@
         Delegasi = 8,
     }
 
-    public enum ParticipantKelengkapanDokumen
-    {
-        Participant_Formulir_Pendaftaran,
-        Participant_Salinan_KTP,
-        Participant_Salinan_Kartu_Keluarga,
-        Participant_Buku_Tabungan,
-        Participant_Salinan_Nomor_NPWP
-    }
-
-    public enum GroupParticipantKelengkapanDokumen
-    {
-        GroupParticipant_Formulir_Pendaftaran,
-        GroupParticipant_Salinan_Akta_Pendirian,
-        GroupParticipant_Salinan_Surat_Izin_Usaha,
-        GroupParticipant_Salinan_AD_ART_Perusahaan,
-        GroupParticipant_Salinan_Nomor_NPWP,
-        GroupParticipant_Salinan_Nomor_Identitas,
-    }
-
-    public enum PaymentType
-    {
-        None,
-        Individu,
-        Group
-    }
-
-    public enum ParticipantTypeEnum
-    {
-        None,
-        Individu,
-        Group
-    }
-
-    public enum ParticipantTransferTypeEnum
-    {
-        In,
-        Out
-    }
 }

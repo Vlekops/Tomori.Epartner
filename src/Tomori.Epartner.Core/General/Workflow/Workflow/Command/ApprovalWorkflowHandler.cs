@@ -99,7 +99,11 @@ namespace Tomori.Epartner.Core.Workflow.Command
                     StepNo = current_workflow_detail.StepNo,
                     StepName = current_workflow_detail.StepName,
                     IdUser = current_workflow_detail.IdUser,
+<<<<<<< HEAD
                     //FullName = current_workflow_detail.FullName,
+=======
+                    Fullname = current_workflow_detail.FullName,
+>>>>>>> 5d5d61fd98f85493183e29a5767ce20080f32c00
                     Email = current_workflow_detail.Email,
                     IsReviewer = current_workflow_detail.IsReviewer,
                     IsAdhoc = current_workflow_detail.IsAdhoc,
@@ -147,7 +151,11 @@ namespace Tomori.Epartner.Core.Workflow.Command
                                 StepNo = d.StepNo,
                                 StepName = d.StepName,
                                 IdUser = d.IdUser,
+<<<<<<< HEAD
                                 //FullName = d.FullName,
+=======
+                                Fullname = d.FullName,
+>>>>>>> 5d5d61fd98f85493183e29a5767ce20080f32c00
                                 Email = d.Email,
                                 IsReviewer = d.IsReviewer,
                                 IsAdhoc = d.IsAdhoc,

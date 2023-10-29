@@ -1,0 +1,58 @@
+﻿<section>
+    <div class="card shadow-sm">
+        <div class="card-header">
+
+            <MudItem md="6">
+                <div class="card-toolbar">
+                    <MudGrid Spacing="1">
+                        <MudItem lg="4" xs="4">
+                            <MudAutocomplete @ref="_UserElement" Label="User"
+                                             T="UserResponse" ValueChanged="FilterByUser"
+                                             SearchFunc="@SearchUser" item
+                                             ToStringFunc="@(_ => _ == null ? null : $"{_.Username} - {_.Fullname}")" MaxItems="10" ShowProgressIndicator="true" ResetValueOnEmptyText="true" Variant="Variant.Outlined" Margin="Margin.Dense" Dense="true" OnlyValidateIfDirty="true" Clearable>
+                                <MoreItemsTemplate>
+                                    <MudText Align="Align.Center" Class="px-4 py-1 font-size-10pt">
+                                        Hanya 10 data pertama yang ditampilkan. Harap lakukan pencarian jika data yang diharapkan tidak tampil.
+                                    </MudText>
+                                </MoreItemsTemplate>
+                            </MudAutocomplete>
+                        </MudItem>
+                        <MudItem lg="5" xs="5">
+                            <MudTextField T="DateTime" Label="Date" Format="yyyy-MM-dd" InputType="InputType.Date" @bind-Value="_picker" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" OnlyValidateIfDirty="true" Clearable />
+                        </MudItem>
+                    </MudGrid>
+                </div>
+            </MudItem>
+
+        </div>
+
+        <div class="card-body position-relative">
+            <MudDataGrid @ref="_Table" T="TableRowWrapper<ApiLogResponse>" ServerData="GetDataTable"
+                         SortMode="SortMode.Single" ColumnResizeMode="ResizeMode.Column"
+                         Striped="true" Hover="true" Dense="true">
+                <Columns>
+                    <PropertyColumn Property="_ => _.No" Title="No" Sortable="false" />
+                    <PropertyColumn Property="_ => _.Data.Id" Title="Id" />
+                    <PropertyColumn Property="_ => _.Data.IdUser" Title="IdUser" />
+                    <PropertyColumn Property="_ => _.Data.Endpoint" Title="Endpoint" />
+                    <PropertyColumn Property="_ => _.Data.Request" Title="Request" />
+                    <PropertyColumn Property="_ => _.Data.Response" Title="Response" />
+                    <PropertyColumn Property="_ => _.Data.CreateDate" Title="CreateDate" />
+                </Columns>
+
+                <NoRecordsContent>
+                    <MudText Align="Align.Center">Data Tidak Ada!</MudText>
+                </NoRecordsContent>
+
+                <PagerContent>
+                    <MudDataGridPager PageSizeOptions="StaticMethod.GetPageSize()" />
+                </PagerContent>
+            </MudDataGrid>
+
+            <MudOverlay @bind-Visible="_TableIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+            </MudOverlay>
+        </div>
+    </div>
+
+</section>

@@ -52,8 +52,7 @@ namespace Tomori.Epartner.API.Controllers
             }));
         }
 
-        [AllowAnonymous]
-        [HttpGet(template: "sync_vendor")]
+        [HttpPost(template: "sync_vendor")]
         public async Task<IActionResult> SyncVendor(DateTime CompletedDateForm)
         {
             return Wrapper(await _mediator.Send(new VendorSyncRequest()

@@ -1,0 +1,55 @@
+﻿<MudDialog Class="mud-dialog-custom">
+    <DialogContent>
+        <MudForm @ref="_Form" @bind-IsValid="@_FormIsValid" Class="position-relative">
+            <MudOverlay @bind-Visible="_FormIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+            </MudOverlay>
+            <MudGrid Spacing="1">
+                <MudItem lg="4" sm="12" xs="12">
+                    <SignMandatory Text="Code" />
+                    <MudTextField Placeholder="Code" @bind-Value="_Item.Kode" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" Clearable />
+                </MudItem>
+                <MudItem lg="8" sm="12" xs="12">
+                    <SignMandatory Text="File" />
+                    <MudOverlay @bind-Visible="_Item.IsLoading" LightBackground="true" Absolute="true">
+                        <MudProgressCircular Color="Color.Primary" Size="Size.Small" Indeterminate="true" />
+                    </MudOverlay>
+                    @if (_Item.IsUploaded)
+                    {
+                        <div class="d-flex flex-column align-start gap-1">
+                            <MudText>@_Item.Filename</MudText>
+                            <div class="d-flex gap-1">
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Download" DisableElevation="true" OnClick="@(__ => DownloadFile())">Download</MudButton>
+                                <MudButton Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.Delete" DisableElevation="true" OnClick="@(__ => DeleteFile())">Hapus</MudButton>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <MudFileUpload T="IBrowserFile" OnFilesChanged="@(__ => UploadFile(__))" Class="mt-0">
+                            <ButtonTemplate>
+                                <MudButton HtmlTag="label" Variant="Variant.Filled" Color="Color.Surface" StartIcon="@IconsExtension.Upload2Line" DisableElevation="true" for="@context" Class="text-white" Style="background-color: #6C757D !important;">
+                                    Upload
+                                </MudButton>
+                            </ButtonTemplate>
+                        </MudFileUpload>
+                    }
+                </MudItem>
+                <MudItem lg="12" sm="12" xs="12">
+                    <SignMandatory Text="Description" />
+                    <MudTextField Placeholder="Description" @bind-Value="_Item.Title" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" Clearable />
+                </MudItem>
+
+            </MudGrid>
+
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        @if (!_FormIsLoading)
+        {
+            <MudButton StartIcon="@Icons.Material.Filled.Cancel" Variant="Variant.Filled" Color="Color.Error" Size="Size.Small" OnClick="@(_ => _MudDialog.Cancel())">Cancel</MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="Save">Save</MudButton>
+        }
+    </DialogActions>
+</MudDialog>

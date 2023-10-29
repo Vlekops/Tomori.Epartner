@@ -1,0 +1,68 @@
+﻿<MudDialog Class="mud-dialog-custom">
+    <DialogContent>
+        <MudForm @ref="_Form" @bind-IsValid="@_FormIsValid" Class="position-relative">
+            <MudOverlay @bind-Visible="_FormIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+            </MudOverlay>
+            <MudGrid Spacing="1">
+
+                <MudItem lg="12" xs="12" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="User" />
+                </MudItem>
+
+                <MudItem lg="12" xs="12">
+                    <MudAutocomplete @ref="_UserElement"
+                                     Placeholder="User"
+                                     T="UserResponse" @bind-Value="_UserSelected"
+                                     SearchFunc="@SearchUser"
+                                     ToStringFunc="@(_ => _ == null ? null : $"{_.Username} - {_.Fullname}")"
+                                     MaxItems="10" ShowProgressIndicator="true" ResetValueOnEmptyText="true"
+                                     Variant="Variant.Outlined" Margin="Margin.Dense" Dense="true"
+                                     Required="true" RequiredError="User is required!" OnlyValidateIfDirty="true" Clearable>
+                        <MoreItemsTemplate>
+                            <MudText Align="Align.Center" Class="px-4 py-1 font-size-10pt">
+                                Hanya 10 data pertama yang ditampilkan. Harap lakukan pencarian jika data yang diharapkan tidak tampil.
+                            </MudText>
+                        </MoreItemsTemplate>
+                    </MudAutocomplete>
+
+                    <MudOverlay @bind-Visible="_UserIsLoading" LightBackground="true" Absolute="true">
+                        <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+                    </MudOverlay>
+                </MudItem>
+
+                <MudItem lg="3" xs="3" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Step No" />
+                </MudItem>
+
+                <MudItem lg="9" xs="9" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Step Name" />
+                </MudItem>
+
+                <MudItem lg="3" xs="3">
+                    <MudTextField Placeholder="Step No" @bind-Value="_StepNo" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="50" Clearable />
+                </MudItem>
+
+                <MudItem lg="9" xs="9">
+                    <MudTextField Placeholder="Step Name" @bind-Value="_StepName" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="100" Clearable />
+                </MudItem>
+
+                <MudItem lg="6" xs="6">
+                    <MudSwitch @bind-Checked="@_IsReviewer" Label="Reviewer Only" Color="Color.Primary" UnCheckedColor="Color.Error" />
+                </MudItem>
+                <MudItem lg="6" xs="6">
+                    <MudSwitch @bind-Checked="@_CanAdhoc" Label="Can Adhoc" Color="Color.Primary" UnCheckedColor="Color.Error" />
+                </MudItem>
+            </MudGrid>
+
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        @if (!_FormIsLoading)
+        {
+            <MudButton StartIcon="@Icons.Material.Filled.Cancel" Variant="Variant.Filled" Color="Color.Error" Size="Size.Small" OnClick="@(_ => _MudDialog.Cancel())">Cancel</MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="Save">Save</MudButton>
+        }
+    </DialogActions>
+</MudDialog>

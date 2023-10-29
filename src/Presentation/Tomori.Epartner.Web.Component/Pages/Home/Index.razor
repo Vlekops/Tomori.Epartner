@@ -1,0 +1,36 @@
+﻿<section>
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h3 class="card-title">Announcement</h3>
+        </div>
+
+        <div class="card-body position-relative p-0">
+            <MudDataGrid @ref="_Table" T="TableRowWrapper<AnnouncementResponse>" ServerData="GetDataTable"
+                         SortMode="SortMode.Single" ColumnResizeMode="ResizeMode.Column"
+                         Striped="true" Hover="true" Dense="true">
+                <Columns>
+                    <PropertyColumn Property="_ => _.No" Title="No" Sortable="false" />
+                    <PropertyColumn Property="_ => _.Data.K3sName" Title="K3S" />
+                    <PropertyColumn Property="_ => _.Data.TenderType" Title="Type" />
+                    <PropertyColumn Property="_ => _.Data.BidangUsaha" Title="Bidang Usaha" />
+                    <PropertyColumn Property="_ => _.Data.GolonganUsaha" Title="Golongan" />
+                    <PropertyColumn Property="_ => _.Data.Title" Title="Title" />
+                    <PropertyColumn Property="_ => _.Data.Description" Title="Description" />
+                </Columns>
+
+                <NoRecordsContent>
+                    <MudText Align="Align.Center">Data Tidak Ada!</MudText>
+                </NoRecordsContent>
+
+                <PagerContent>
+                    <MudDataGridPager PageSizeOptions="StaticMethod.GetPageSize()" />
+                </PagerContent>
+            </MudDataGrid>
+
+            <MudOverlay @bind-Visible="_TableIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+            </MudOverlay>
+        </div>
+    </div>
+
+</section>

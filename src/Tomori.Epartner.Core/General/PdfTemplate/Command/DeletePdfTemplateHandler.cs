@@ -59,7 +59,7 @@ namespace Tomori.Epartner.Core.PdfTemplate.Command
                     if (delete.Success)
                     {
                         _cache.Remove($"{CacheKey.PDF_TEMPLATE}_{item.Code}");
-                        //_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = delete.log }));
+                        ////_ = Task.Run(() => _mediator.Send(new AddChangeLogRequest() { IdUser = request.Token.Id, ChangeLog = delete.log }));
                         result.OK();
                     }
                     else

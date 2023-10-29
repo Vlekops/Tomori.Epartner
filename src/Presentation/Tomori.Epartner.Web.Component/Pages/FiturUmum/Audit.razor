@@ -1,0 +1,19 @@
+﻿<section>
+    <MudTabs TabHeaderClass="px-7_5 box-shadow-custom border-custom border-top-0 mb-5" PanelClass="box-shadow-custom border-custom bg-white p-7_5" TabPanelClass="text-transform-initital">
+        <MudTabPanel Text="API" ID="@(0)">
+            <Tomori.Epartner.Web.Component.Pages.FiturUmum.AuditList.ApiList Token="Token"  />
+        </MudTabPanel>
+        <MudTabPanel Text="Change" ID="@(1)">
+            <Tomori.Epartner.Web.Component.Pages.FiturUmum.AuditList.ChangeList Token="Token" />
+        </MudTabPanel>
+        <MudTabPanel Text="Mail" ID="@(2)">
+            <Tomori.Epartner.Web.Component.Pages.FiturUmum.AuditList.MailList Token="Token" />
+        </MudTabPanel>
+        <MudTabPanel Text="Activity" ID="@(3)">
+            <Tomori.Epartner.Web.Component.Pages.FiturUmum.AuditList.ActivityList Token="Token" />
+        </MudTabPanel>
+        <MudTabPanel Text="Add Activity" ID="@(4)">
+            <Tomori.Epartner.Web.Component.Pages.FiturUmum.AuditList.AddActivity Token="Token" />
+        </MudTabPanel>
+    </MudTabs>
+</section>

@@ -1,0 +1,37 @@
+﻿
+<MudForm @ref="_LoginForm" @bind-IsValid="@_LoginFormIsValid" Class="position-relative">
+    <MudOverlay @bind-Visible="_LoginFormIsLoading" LightBackground="true" Absolute="true">
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+    </MudOverlay>
+    <div class="text-center mb-11">
+        <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
+        <!--end::Title-->
+        <!--begin::Subtitle-->
+        <div class="text-gray-500 fw-semibold fs-6">JOB TOMORI - EPARTNER</div>
+        <!--end::Subtitle=-->
+    </div>
+    <MudGrid>
+        <MudItem xs="12">
+            <MudTextField Label="Username" @bind-Value="_Username" Immediate="true" OnKeyDown="OnKeyPress" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="Username is required!" OnlyValidateIfDirty="true" Clearable />
+        </MudItem>
+
+        <MudItem xs="12">
+            <MudTextField Label="Password" @bind-Value="_Password" Immediate="true" OnKeyDown="OnKeyPress" Variant="Variant.Outlined" Margin="Margin.Dense" InputType="@_PasswordInput" Adornment="Adornment.End" AdornmentIcon="@_PasswordInputIcon" OnAdornmentClick="ShowHidePassword" AdornmentAriaLabel="Show Password" Required="true" RequiredError="Password is required!" OnlyValidateIfDirty="true" Clearable />
+        </MudItem>
+
+
+        <MudItem xs="12" Class="fw-semibold text-right">
+            <a href="/Account/ForgotPassword" class="link-primary">Forgot Password ?</a>
+        </MudItem>
+
+        <MudItem xs="12">
+            <MudButton Variant="Variant.Filled" FullWidth="true" Size="Size.Medium" Color="Color.Info" OnClick="DoLogin" DisableElevation="true">Login</MudButton>
+        </MudItem>
+    </MudGrid>
+
+
+    @if (!string.IsNullOrEmpty(_Message))
+    {
+        <MudAlert Severity="Severity.Error" Variant="Variant.Filled" Class="mt-3">@_Message</MudAlert>
+    }
+</MudForm>

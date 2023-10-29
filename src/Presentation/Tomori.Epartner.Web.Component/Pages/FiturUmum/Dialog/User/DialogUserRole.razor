@@ -1,0 +1,51 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudForm @ref="_Form" @bind-IsValid="_FormIsValid" Class="position-relative">
+            <MudOverlay @bind-Visible="_FormIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+            </MudOverlay>
+            <div class="card card--raised">
+                <div class="card-body p-0">
+                    <div class="position-relative">
+                        <MudTable @ref="_Table" T="TableRowWrapper<UserRoleResponse>" Items="@_DataTable" MultiSelection="true" @bind-SelectedItems="SelectedItems" Hover="true" Dense="true"
+                                  ServerData="@(new Func<TableState, Task<TableData<TableRowWrapper<UserRoleResponse>>>>(GetDataTable))">
+                            <HeaderContent>
+                                <MudTh>No</MudTh>
+                                <MudTh>Name</MudTh>
+                                <MudTh>Create By</MudTh>
+                                <MudTh>Create Date</MudTh>
+                            </HeaderContent>
+
+                            <RowTemplate>
+                                <MudTd DataLabel="No">@context.No</MudTd>
+                                <MudTd DataLabel="RoleName">@context.Data.RoleName</MudTd>
+                                <MudTd DataLabel="CreateBy">@context.Data.CreateBy</MudTd>
+                                <MudTd DataLabel="CreateDate">@(context.Data.CreateDate.HasValue ? context.Data.CreateDate.Value.ToString("dd/MM/yyyy HH:mm:ss") : "-")</MudTd>
+                                </RowTemplate>
+
+                                <NoRecordsContent>
+                                    <MudText Align="Align.Center">Data Tidak Ada!</MudText>
+                                </NoRecordsContent>
+
+                                <PagerContent>
+                                    <MudTablePager PageSizeOptions="StaticMethod.GetPageSize()" />
+                                </PagerContent>
+                            </MudTable>
+
+                            <MudOverlay @bind-Visible="_TableIsLoading" LightBackground="true" Absolute="true">
+                                <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+                            </MudOverlay>
+                        </div>
+                    </div>
+                </div>
+            </MudForm>
+        </DialogContent>
+
+        <DialogActions>
+            @if (!_FormIsLoading)
+        {
+            <MudButton StartIcon="@Icons.Material.Filled.Cancel" Variant="Variant.Filled" Color="Color.Error" Size="Size.Small" OnClick="@(_ => _MudDialog.Cancel())">Cancel</MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="Save">Save</MudButton>
+        }
+    </DialogActions>
+</MudDialog>

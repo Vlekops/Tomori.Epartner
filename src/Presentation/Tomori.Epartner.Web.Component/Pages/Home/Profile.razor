@@ -1,0 +1,190 @@
+﻿<section>
+
+  <MudGrid>
+        <MudItem xs="6" Style="max-height:686px;">
+    <div class="card">
+      <div class="card-header" style="min-height: 70px !important;">
+        <div class="card-title m-0">
+          <MudText Class="fw-bold m-0">Profile Details</MudText>
+        </div>
+      </div>
+      <div class="card-body">
+        <MudForm @ref="_Form" @bind-IsValid="@_FormIsValid" Class="position-relative">
+          <MudOverlay @bind-Visible="_FormIsLoading" LightBackground="true" Absolute="true">
+            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+          </MudOverlay>
+          <MudGrid Spacing="2" Class="d-flex align-items-center">
+            <MudItem lg="4" xs="4"> Avatar </MudItem>
+            <MudItem lg="8" xs="8">
+              <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url(media/avatars/300-1.jpg)">
+                <div class="image-input-wrapper w-125px h-125px" style="background-image: url(media/avatars/300-1.jpg)"></div>
+                <label class="btn btn-icon btn-circle btn-active-color-primary w-30px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                  <MudFileUpload T="IBrowserFile" Accept=".png, .jpg">
+                    <ButtonTemplate>
+                      <MudFab HtmlTag="label" StartIcon="@Icons.Material.Outlined.Edit" for="@context" Class="w-30px h-25px bg-body shadow" />
+                    </ButtonTemplate>
+                  </MudFileUpload>
+                </label>
+                <span class="btn btn-icon btn-circle btn-active-color-primary w-30px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                  <MudFab HtmlTag="label" StartIcon="@Icons.Material.Outlined.Close" Class="w-30px h-25px bg-body shadow" />
+                </span>
+              </div>
+            </MudItem>
+            <MudItem lg="2" xs="2"> Password <div class="fw-semibold">************</div>
+            </MudItem>
+            <MudItem lg="10" xs="10" Class="d-flex justify-end">
+              <MudButton Variant="Variant.Filled">Reset Password</MudButton>
+            </MudItem>
+            <MudItem lg="4" xs="4"> Full Name </MudItem>
+            <MudItem lg="8" xs="8">
+              <MudTextField T="string" Placeholder="Fullname" @bind-Value="Fullname" Immediate="true" Variant="Variant.Outlined" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="50" Clearable Class="form-control form-control-lg form-control-solid" />
+            </MudItem>
+            <MudItem lg="4" xs="4"> Mail </MudItem>
+            <MudItem lg="8" xs="8">
+              <MudTextField T="string" Placeholder="Company" @bind-Value="Mail" Immediate="true" Variant="Variant.Outlined" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="50" Clearable Class="form-control form-control-lg form-control-solid" />
+            </MudItem>
+            <MudItem lg="4" xs="4"> Phone Number </MudItem>
+            <MudItem lg="8" xs="8">
+              <MudTextField T="string" Placeholder="Contact Phone" @bind-Value="PhoneNumber" Immediate="true" Variant="Variant.Outlined" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="50" Clearable Class="form-control form-control-lg form-control-solid" />
+            </MudItem>
+          </MudGrid>
+          <div class="card-footer d-flex justify-end">
+            <MudButton Variant="Variant.Filled">Discard</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Info" Class="ml-4">Save Changes</MudButton>
+          </div>
+        </MudForm>
+      </div>
+    </div>
+  </MudItem>
+  <MudItem xs="6" Style="max-height:686px;">
+    <div class="card">
+                <div class="card-header" style="min-height: 70px !important;">
+                    <div class="card-title m-0">
+                        <p class="mud-typography mud-typography-body1 fw-bold m-0">Log Activity</p>
+                    </div>
+                </div>
+                <div class="card-body" id="card-activity" style="height:595.2px;overflow: auto;">
+
+                    <MudOverlay @bind-Visible="_ActivityLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+            </MudOverlay>
+
+        <!--begin::Tab Content-->
+        <div class="tab-content">
+          <!--begin::Tab panel-->
+          <div id="kt_activity_today" class="card-body p-0 tab-pane fade show active" role="tabpanel" aria-labelledby="kt_activity_today_tab">
+            <!--begin::Timeline-->
+            <div class="timeline">
+              <!--begin::Timeline item-->
+                                @foreach (var item in _ActivityListGrouped)
+                                {
+                                    <!--begin::Timeline item-->
+                                    <div class="timeline-item">
+                                        <!--begin::Timeline line-->
+                                        <div class="timeline-line w-40px"></div>
+                                        <!--end::Timeline line-->
+                                        <!--begin::Timeline icon-->
+                                        <div class="timeline-icon symbol symbol-circle symbol-40px me-4">
+                                            <div class="symbol-label bg-light">
+                                                <i class="ki-duotone ki-message-text-2 fs-2 text-gray-500">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                    <span class="path3"></span>
+                                                </i>
+                                            </div>
+                                        </div>
+                                        <!--end::Timeline icon-->
+                                        <!--begin::Timeline content-->
+                                        <div class="timeline-content mb-10 mt-n1">
+                                            <!--begin::Timeline heading-->
+                                            <div class="pe-3 mb-5">
+                                                <!--begin::Title-->
+                                                <div class="fs-5 fw-semibold mb-2">@(item.DateAccess.ToString("dd MMM, yyyy")) :</div>
+                                                <!--end::Title-->
+                                                <!--begin::Description-->
+                                                <div class="d-flex align-items-center mt-1 fs-6">
+                                                    <!--begin::Info-->
+                                                    <div class="text-muted me-2 fs-7">Accessed at @(item.DateAccess.ToString("HH:MM"))</div>
+                                                    <!--end::Info-->
+                                                </div>
+                                                <!--end::Description-->
+                                            </div>
+                                            <!--end::Timeline heading-->
+                                            <!--begin::Timeline details-->
+                                            <div class="overflow-auto pb-5">
+                                                @foreach(var item_child in item.PageName){
+                                                    <!--begin::Record-->
+                                                    <div class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-750px px-7 py-3 mb-3">
+                                                        <!--begin::Title-->
+                                                        <a href="#" class="fs-5 text-dark text-hover-primary fw-semibold w-375px min-w-200px">@item_child</a>
+                                                        <!--end::Title-->
+                                                        <!--begin::Label-->
+                                                        <div class="min-w-175px">
+                                                            <span class="badge badge-light text-muted">Web Page Access</span>
+                                                        </div>
+                                                        <!--end::Label-->
+                                                    </div>
+                                                    <!--end::Record-->
+                                                }
+                                            </div>
+                                            <!--end::Timeline details-->
+                                        </div>
+                                        <!--end::Timeline content-->
+                                    </div>
+                                    <!--end::Timeline item-->
+                                }
+
+              <!--end::Timeline item-->
+            </div>
+            <!--end::Timeline-->
+          </div>
+          <!--end::Tab panel-->
+        </div>
+        <!--end::Tab Content-->
+      </div>
+    </div>
+  </MudItem>
+  </MudGrid>
+
+  <div class="card pt-4 mt-8">
+    <div class="card-header border-0 mb-4">
+      <div class="card-title">
+        <MudText Class="fw-bold">Logs</MudText>
+      </div>
+      <div class="card-toolbar">
+        <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.CloudDownload" Color="Color.Info">Download Report</MudButton>
+      </div>
+    </div>
+    <div class="card-body">
+      <MudGrid Spacing="2" Class="d-flex justify-center">
+        <MudItem lg="2" xs="2">
+          <MudText Class="badge badge-light-danger">500 ERR</MudText>
+        </MudItem>
+        <MudItem lg="7" xs="7">
+          <MudText Class="mt-1">POST /v1/invoice/in_1479_3494/invalid</MudText>
+        </MudItem>
+        <MudItem lg="3" xs="3">
+          <MudText Class="pe-0 text-end mt-1">15 Apr 2023, 5:30 pm</MudText>
+        </MudItem>
+        <MudItem lg="2" xs="2">
+          <MudText Class="badge badge-light-success">200 OK</MudText>
+        </MudItem>
+        <MudItem lg="7" xs="7">
+          <MudText Class="mt-1">POST /v1/invoices/in_9784_9546/payment</MudText>
+        </MudItem>
+        <MudItem lg="3" xs="3">
+          <MudText Class="pe-0 text-end mt-1">15 Apr 2023, 5:30 pm</MudText>
+        </MudItem>
+        <MudItem lg="2" xs="2">
+          <MudText Class="badge badge-light-warning">404 WRN</MudText>
+        </MudItem>
+        <MudItem lg="7" xs="7">
+          <MudText Class="mt-1">POST /v1/customer/c_641ac43911a27/not_found</MudText>
+        </MudItem>
+        <MudItem lg="3" xs="3">
+          <MudText Class="pe-0 text-end mt-1">15 Apr 2023, 5:30 pm</MudText>
+        </MudItem>
+      </MudGrid>
+    </div>
+  </div>
+</section>

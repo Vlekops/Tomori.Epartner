@@ -26,9 +26,9 @@ namespace Tomori.Epartner.Core.General.Sync.Command
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IUnitOfWork<ApplicationDBContext> _context;
-        private readonly IRestAPIHelper _restHelper;
+        private readonly ICIVDAPIHelper _restHelper;
 
-        public RekeningBankSyncHandler(ILogger<RekeningBankSyncHandler> logger, IMapper mapper, IMediator mediator, IUnitOfWork<ApplicationDBContext> context, IRestAPIHelper restHelper)
+        public RekeningBankSyncHandler(ILogger<RekeningBankSyncHandler> logger, IMapper mapper, IMediator mediator, IUnitOfWork<ApplicationDBContext> context, ICIVDAPIHelper restHelper)
         {
             _logger = logger;
             _mapper = mapper;
@@ -42,21 +42,33 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
+<<<<<<< HEAD
                 var listInsert = new List<VendorRekeningBank>();
+=======
+                var listInsert = new List<Data.Model.VendorRekeningBank>();
+>>>>>>> 5d5d61fd98f85493183e29a5767ce20080f32c00
                 var listExist = new List<GetRekeningBankResponse>();
                 var rest = await _restHelper.GetRekeningBank(request.CompletedDateFrom);
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
+<<<<<<< HEAD
                         var insert = new VendorRekeningBank();
+=======
+                        var insert = new Data.Model.VendorRekeningBank();
+>>>>>>> 5d5d61fd98f85493183e29a5767ce20080f32c00
                         Guid? IdVendor = null;
-                        var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
+                        var vendor = await _context.Entity<Data.Model.Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
                         if (vendor != null)
                         {
                             IdVendor = vendor.Id;
                         }
+<<<<<<< HEAD
                         var rb = await _context.Entity<VendorRekeningBank>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+=======
+                        var rb = await _context.Entity<Data.Model.VendorRekeningBank>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+>>>>>>> 5d5d61fd98f85493183e29a5767ce20080f32c00
                         if (rb == null)
                         {
                             if (!listExist.Where(d => d.id == data.id).Any())

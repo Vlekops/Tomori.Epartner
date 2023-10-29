@@ -1,0 +1,76 @@
+﻿<section>
+    <div class="card shadow-sm">
+        <div class="card-header justify-end">
+            <div class="d-flex align-center gap-2">
+                @if (StaticMethod.CheckPermission(PermissionEnum.ADD, Permission))
+                {
+                    <MudButton Variant="Variant.Filled" Size="Size.Medium" Color="Color.Info" Class="my-2" StartIcon="@Icons.Material.Filled.Add" OnClick="AddData" DisableElevation="true">Add Data</MudButton>
+                }
+
+                <MudButton Variant="Variant.Filled" Size="Size.Medium" Color="Color.Info" StartIcon="@Icons.Material.Filled.Refresh" OnClick="@(_ => GetPageWrapper())" DisableElevation="true">Refresh Data</MudButton>
+            </div>
+        </div>
+
+        <div class="card-body position-relative py-3">
+            @foreach (var _ in _WrapperItems)
+            {
+                <h5 class="card-title mt-3">@_.Section</h5>
+
+                <MudTreeView T="PageViewModel" Items="_.Items" Hover="true" Context="item">
+                    <ItemTemplate Context="item">
+                        <MudTreeViewItem Value="@item" Items="@item.Items" Icon="@item.Icon" Class="reset-icon-size" Expanded="@item.IsExpanded" ExpandedChanged="@(_ => DoExpand(_, item))">
+                            <BodyContent>
+                                @if (!item.IsDummy)
+                                {
+                                    <div style="display: grid; grid-template-columns: 1fr auto; align-items: center; width: 100%">
+                                        <div style="justify-self: start;">
+                                            <div class="position-relative">
+                                                <MudText>@item.Name</MudText>
+
+                                                <MudOverlay @bind-Visible="item.IsLoading" LightBackground="true" Absolute="true">
+                                                    <MudProgressCircular Color="Color.Primary" Size="Size.Small" Indeterminate="true" />
+                                                </MudOverlay>
+                                            </div>
+                                        </div>
+
+                                        <div style="justify-self: end;">
+                                            @if (!item.IsLoading)
+                                            {
+                                                @if (StaticMethod.CheckPermission(PermissionEnum.EDIT, Permission))
+                                                {
+                                                    @if (item.Navigation != "#")
+                                                    {
+                                                        <MudTooltip Text="Permission">
+                                                            <MudIconButton Icon="@Icons.Material.Filled.PlaylistAdd" Size="Size.Small" Color="Color.Success" OnClick="@(_ => AddPermission(item))" />
+                                                        </MudTooltip>
+                                                    }
+
+                                                    <MudTooltip Text="Edit Data">
+                                                        <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="Size.Small" Color="Color.Info" OnClick="@(_ => EditData(item))" />
+                                                    </MudTooltip>
+                                                }
+
+                                                @if (StaticMethod.CheckPermission(PermissionEnum.DELETE, Permission))
+                                                {
+                                                    <MudTooltip Text="Delete Data">
+                                                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Size="Size.Small" Color="Color.Error" OnClick="@(_ => DeleteData(item))" />
+                                                    </MudTooltip>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </BodyContent>
+                        </MudTreeViewItem>
+                    </ItemTemplate>
+                </MudTreeView>
+
+                <MudDivider Class="opacity-50" />
+            }
+
+            <MudOverlay @bind-Visible="_TreeIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+            </MudOverlay>
+        </div>
+    </div>
+</section>

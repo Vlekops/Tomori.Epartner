@@ -20,7 +20,7 @@ namespace Tomori.Epartner.Core
             services.AddTransient<IGeneralHelper, GeneralHelper>();
             services.AddTransient<IEmailHelper, EmailHelper>();
             services.AddTransient<ITokenHelper, TokenHelper>();
-            services.AddTransient<IRestAPIHelper, RestAPIHelper>();
+            services.AddTransient<ICIVDAPIHelper, CIVDAPIHelper>();
             return services;
         }
     }

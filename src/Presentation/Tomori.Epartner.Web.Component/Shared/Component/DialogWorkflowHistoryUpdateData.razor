@@ -1,0 +1,82 @@
+﻿<MudDialog Class="mud-dialog-custom" ContentStyle="padding-bottom: 20px !important;">
+    <DialogContent>
+        <section class="position-relative">
+            <MudDataGrid @ref="_Table" T="TableRowWrapper<WorkflowUpdateDataHistoryResponse>" ServerData="GetDataTable"
+                         SortMode="SortMode.None" ColumnResizeMode="ResizeMode.None"
+                         Dense="true" HeaderClass="d-none" Elevation="0">
+                <Columns>
+                    <HierarchyColumn IconSize="Size.Small"/>
+                    <TemplateColumn>
+                        <CellTemplate>
+                            <div>
+                                <MudText Class="fw-semibold">@context.Item.Data.CreateDate.ToString("dd MMMM yyyy")</MudText>
+                                <MudText Class="opacity-75"><small>Tanggal Perubahan</small></MudText>
+                            </div>
+                        </CellTemplate>
+                    </TemplateColumn>
+                    <TemplateColumn>
+                        <CellTemplate>
+                            <div>
+                                <MudText Class="fw-semibold">@(GetCountPerubahanData(context.Item.Data.Data)) Data</MudText>
+                                <MudText Class="opacity-75"><small>Jumlah Perubahan Data</small></MudText>
+                            </div>
+                        </CellTemplate>
+                    </TemplateColumn>
+                    <TemplateColumn>
+                        <CellTemplate>
+                            <div>
+                                <MudText Class="fw-semibold">@(GetStatus(context.Item.Data.Status))</MudText>
+                                <MudText Class="opacity-75"><small>Status</small></MudText>
+                            </div>
+                        </CellTemplate>
+                    </TemplateColumn>
+                    <TemplateColumn>
+                        <CellTemplate>
+                            <div>
+                                <MudButton Variant="Variant.Text" Class="fw-semibold" Color="Color.Info" StartIcon="@Icons.Material.Outlined.FileDownload" DisableElevation="true" OnClick="@(_ => DownloadFile(context.Item.Data.DokumenPendukungId))">@context.Item.Data.DokumenPendukungName</MudButton>
+                                <MudText Class="opacity-75"><small>Dokumen Pendukung</small></MudText>
+                            </div>
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+
+                <ChildRowContent>
+                    <MudSimpleTable Dense="true" Elevation="0">
+                        <thead class="text-muted">
+                            <tr>
+                                <th>NAMA DATA</th>
+                                <th>DATA AWAL</th>
+                                <th>PERUBAHAN DATA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in (JsonConvert.DeserializeObject<List<CompareDataWrapper>>(context.Item.Data.Data)))
+                            {
+                                @foreach (var _item in item.Items)
+                                {
+                                    <tr>
+                                        <td>@(GetField(item.Section, _item.Field))</td>
+                                        <td>@(!string.IsNullOrEmpty(_item.BeforeValueText) ? _item.BeforeValueText : GetValue(_item.Type, _item.BeforeValue))</td>
+                                        <td>@(!string.IsNullOrEmpty(_item.AfterValueText) ? _item.AfterValueText : GetValue(_item.Type, _item.AfterValue))</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </MudSimpleTable>
+                </ChildRowContent>
+
+                <PagerContent>
+                    <MudDataGridPager PageSizeOptions="StaticMethod.GetPageSize()" />
+                </PagerContent>
+
+                <NoRecordsContent>
+                    <MudText Align="Align.Center">Data Tidak Ada!</MudText>
+                </NoRecordsContent>
+            </MudDataGrid>
+
+            <MudOverlay @bind-Visible="_TableIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+            </MudOverlay>
+        </section>
+    </DialogContent>
+</MudDialog>

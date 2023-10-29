@@ -1,0 +1,77 @@
+﻿<MudDialog Class="mud-dialog-custom">
+    <DialogContent>
+        <div class="d-flex justify-end">
+            <MudButton Variant="Variant.Filled" Size="Size.Small" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" OnClick="AddData">Add Data</MudButton>
+        </div>
+
+        <MudDivider Class="my-3"/>
+
+        <MudGrid>
+            <MudItem lg="9" sm="12">
+                <MudTextField @bind-Value="_FilterSearch" Label="Filter" Placeholder="Page Section, Page Name" Immediate="true" OnKeyDown="FilterSearchKeyPress" Variant="Variant.Outlined" Margin="Margin.Dense" Clearable OnClearButtonClick="@(_ => _Table.ReloadServerData())" />
+            </MudItem>
+
+            <MudItem lg="3" sm="12" Class="d-flex align-items-center">
+                <MudButton Variant="Variant.Filled" Size="Size.Small" Color="Color.Info" StartIcon="@Icons.Material.Filled.Refresh" OnClick="@(_ => _Table.ReloadServerData())">Refresh Data</MudButton>
+            </MudItem>
+        </MudGrid>
+
+        <div class="position-relative">
+            <MudDataGrid @ref="_Table" T="TableRowWrapper<PageByRoleResponse>" ServerData="GetDataTable"
+                         SortMode="SortMode.Single" ColumnResizeMode="ResizeMode.Column"
+                         Striped="true" Hover="true" Dense="true">
+                <Columns>
+                    <HierarchyColumn IconSize="Size.Small" ButtonDisabledFunc="_ => !_.Data.Permissions.Any()"/>
+                    <PropertyColumn Property="_ => _.No" Title="No" Sortable="false" />
+                    <PropertyColumn Property="_ => _.Data.Section" Title="Section" />
+                    <PropertyColumn Property="_ => _.Data.Code" Title="Code" />
+                    <PropertyColumn Property="_ => _.Data.Name" Title="Name" />
+                    <TemplateColumn HeaderClass="text-center" CellClass="text-center" Title="Aksi" Sortable="false">
+                        <CellTemplate>
+                            <MudMenu Dense="true" Size="Size.Small" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.MoreHoriz" EndIcon="@Icons.Material.Filled.KeyboardArrowDown" Color="Color.Primary">
+                                <MudMenuItem IconSize="Size.Small" Icon="@Icons.Material.Filled.Edit" IconColor="Color.Info" OnClick="@(_ => EditData(context.Item.Data))">Ubah</MudMenuItem>
+                                <MudMenuItem IconSize="Size.Small" Icon="@Icons.Material.Filled.DeleteForever" IconColor="Color.Error" OnClick="@(_ => DeleteData(context.Item.Data))">Hapus</MudMenuItem>
+                            </MudMenu>
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+
+                <ChildRowContent>
+                    <MudList Dense="true">
+                        @foreach (var permission in context.Item.Data.Permissions)
+                        {
+                            <MudListItem>
+                                <ChildContent>
+                                    <div style="display: grid; grid-template-columns: 1fr auto; align-items: center; width: 100%">
+                                        <div style="justify-self: start;">
+                                            <MudText>@permission.Permission.Name</MudText>
+                                        </div>
+
+                                        <div style="justify-self: end;">
+                                            <MudTooltip Text="Delete Data">
+                                                <MudIconButton Icon="@Icons.Material.Filled.Delete" Size="Size.Small" Color="Color.Error" OnClick="@(_ => DeletePermission(context.Item.Data.Permissions, permission))" />
+                                            </MudTooltip>
+                                        </div>
+                                    </div>
+                                </ChildContent>
+                            </MudListItem>
+                        }
+                    </MudList>
+                </ChildRowContent>
+
+                <PagerContent>
+                    <MudDataGridPager PageSizeOptions="StaticMethod.GetPageSize()" />
+                </PagerContent>
+
+                <NoRecordsContent>
+                    <MudText Align="Align.Center">Data Tidak Ada!</MudText>
+                </NoRecordsContent>
+            </MudDataGrid>
+
+            <MudOverlay @bind-Visible="_TableIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+            </MudOverlay>
+        </div>
+
+    </DialogContent>
+</MudDialog>

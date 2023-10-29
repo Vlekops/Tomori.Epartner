@@ -1,0 +1,30 @@
+﻿<section class="position-relative">
+    <MudForm @ref="_Form" @bind-IsValid="@_FormIsValid" Class="position-relative">
+        <MudOverlay @bind-Visible="_FormIsLoading" LightBackground="true" Absolute="true">
+            <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+        </MudOverlay>
+
+        <section class="mb-5">
+            <MudGrid Spacing="2">
+                <MudItem lg="6" xs="6">
+                    <MudText Class="fw-semibold text-muted padding-top-sm-11px">CIVD EndPoint</MudText>
+                </MudItem>
+                <MudItem lg="6" xs="6">
+                    <MudText Class="fw-semibold text-muted padding-top-sm-11px">SAP EndPoint</MudText>
+                </MudItem>
+                <MudItem lg="6" xs="6">                    
+                    <MudTextField @bind-Value="_CIVD" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="200" Clearable />
+                </MudItem>
+                <MudItem lg="6" xs="6">
+                    <MudTextField @bind-Value="_SAP" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="200" Clearable />
+                </MudItem>
+
+            </MudGrid>
+        </section>
+
+        @if (!_FormIsLoading)
+        {
+            <MudButton StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="Save">Save</MudButton>
+        }
+    </MudForm>
+</section>

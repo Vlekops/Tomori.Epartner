@@ -1,0 +1,60 @@
+﻿<MudDialog Class="mud-dialog-custom">
+    <DialogContent>
+        <MudForm @ref="_Form" @bind-IsValid="@_FormIsValid" Class="position-relative">
+            <MudOverlay @bind-Visible="_FormIsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+            </MudOverlay>
+
+            <MudGrid Spacing="1">
+
+                <MudItem lg="4" xs="4" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Code" />
+                </MudItem>
+
+                <MudItem lg="8" xs="8" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Name" />
+                </MudItem>
+
+                <MudItem lg="4" xs="4">
+                    <MudTextField Placeholder="Code" @bind-Value="_Code" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="50" Clearable />
+                </MudItem>
+
+                <MudItem lg="8" xs="8">
+                    <MudTextField Placeholder="Name" @bind-Value="_Name" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="100" Clearable />
+                </MudItem>
+
+                <MudItem lg="12" xs="12" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Callback URL" />
+                </MudItem>
+
+                <MudItem lg="12" xs="12">
+                    <MudTextField Placeholder="Callback URL" @bind-Value="_CallbackUrl" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="100" Clearable />
+                </MudItem>
+
+                <MudItem lg="12" xs="12" Class="padding-top-14px d-flex justify-md-start">
+                    <SignMandatory Text="Navigation URL" />
+                </MudItem>
+
+                <MudItem lg="12" xs="12">
+                    <MudTextField Placeholder="Navigation URL" @bind-Value="_NavigationUrl" Immediate="true" Variant="Variant.Outlined" Margin="Margin.Dense" Required="true" RequiredError="This Field is required!" OnlyValidateIfDirty="true" MaxLength="100" Clearable />
+                </MudItem>
+
+                <MudItem lg="6" xs="6">
+                    <MudSwitch @bind-Checked="@_Active" Label="Status Aktif" Color="Color.Primary" UnCheckedColor="Color.Error" />
+                 </MudItem>
+                 <MudItem lg="6" xs="6">
+                     <MudSwitch @bind-Checked="@_IsSequence" Label="Sequence ?" Color="Color.Primary" UnCheckedColor="Color.Error" />
+                 </MudItem>
+            </MudGrid>
+
+        </MudForm>
+    </DialogContent>
+
+    <DialogActions>
+        @if (!_FormIsLoading)
+        {
+            <MudButton StartIcon="@Icons.Material.Filled.Cancel" Variant="Variant.Filled" Color="Color.Error" Size="Size.Small" OnClick="@(_ => _MudDialog.Cancel())">Cancel</MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.Save" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" OnClick="Save">Save</MudButton>
+        }
+    </DialogActions>
+</MudDialog>

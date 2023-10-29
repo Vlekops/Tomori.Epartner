@@ -116,7 +116,11 @@ namespace Tomori.Epartner.Core.Workflow.Query
                                     StepName = requester.StepName,
                                     IdUser = requester.IdUser,
                                     Email = requester.Email,
+<<<<<<< HEAD
                                     //FullName = requester.FullName,
+=======
+                                    FullName = requester.Fullname,
+>>>>>>> 5d5d61fd98f85493183e29a5767ce20080f32c00
                                     IsAdhoc = requester.IsAdhoc,
                                     IsReviewer = requester.IsReviewer,
                                     Notes = requester.Notes,

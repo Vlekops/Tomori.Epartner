@@ -41,13 +41,13 @@ namespace Tomori.Epartner.Core.Sync.Command
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IUnitOfWork<ApplicationDBContext> _context;
-        private readonly IRestAPIHelper _restHelper;
+        private readonly ICIVDAPIHelper _restHelper;
         public PengalamanSyncHandler(
             ILogger<PengalamanSyncHandler> logger,
             IMapper mapper,
             IMediator mediator,
             IUnitOfWork<ApplicationDBContext> context,
-            IRestAPIHelper restAPIHelper
+            ICIVDAPIHelper restAPIHelper
             )
         {
             _logger = logger;
@@ -67,9 +67,15 @@ namespace Tomori.Epartner.Core.Sync.Command
 
                 foreach ( var item in data.result)
                 {
+<<<<<<< HEAD
                     if (await _context.Entity<VendorPengalaman>().Where(d => d.CivdId == item.id).AnyAsync())
                     {
                         var update = await _context.Entity<VendorPengalaman>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
+=======
+                    if (await _context.Entity<Data.Model.VendorPengalaman>().Where(d => d.CivdId == item.id).AnyAsync())
+                    {
+                        var update = await _context.Entity<Data.Model.VendorPengalaman>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
+>>>>>>> 5d5d61fd98f85493183e29a5767ce20080f32c00
                         update.NamaPaketPekerjaan = item.namaPaketPekerjaan;
                         update.BidangSubBidangCode = item.bidangSubbidangCode;
                         update.BidangSubBidang = item.bidangSubbidang;
@@ -96,12 +102,16 @@ namespace Tomori.Epartner.Core.Sync.Command
                         if (!listExist.Where(d => d.id == item.id).Any())
                         {
                             Guid? IdVendor = null;
-                            var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == item.vendorId).FirstOrDefaultAsync();
+                            var vendor = await _context.Entity<Data.Model.Vendor>().Where(d => d.VendorId == item.vendorId).FirstOrDefaultAsync();
                             if (vendor != null)
                             {
                                 IdVendor = vendor.Id;
                             }
+<<<<<<< HEAD
                             _context.Add(new VendorPengalaman
+=======
+                            _context.Add(new Data.Model.VendorPengalaman
+>>>>>>> 5d5d61fd98f85493183e29a5767ce20080f32c00
                             {
                                 Id = Guid.NewGuid(),
                                 CivdId = item.id,

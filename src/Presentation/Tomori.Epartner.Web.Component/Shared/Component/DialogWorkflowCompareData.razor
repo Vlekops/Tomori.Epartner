@@ -1,0 +1,37 @@
+﻿<MudDialog Class="mud-dialog-custom" ContentStyle="padding-bottom: 20px !important;">
+    <DialogContent>
+        <section class="position-relative">
+            <MudOverlay @bind-Visible="_IsLoading" LightBackground="true" Absolute="true">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Medium" Indeterminate="true" />
+            </MudOverlay>
+
+            <MudSimpleTable Dense="true" Striped="true" Elevation="0">
+                <thead class="text-muted">
+                    <tr>
+                        <th>NAMA DATA</th>
+                        <th>DATA AWAL</th>
+                        <th>PERUBAHAN DATA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!_Items.Any())
+                    {
+                        <tr><td colspan="3" class="text-center">No Data.</td></tr>
+                    }
+
+                    @foreach (var item in _Items)
+                    {
+                        @foreach (var _item in item.Items)
+                        {
+                            <tr>
+                                <td>@(GetField(item.Section, _item.Field))</td>
+                                <td>@(!string.IsNullOrEmpty(_item.BeforeValueText) ? _item.BeforeValueText : GetValue(_item.Type, _item.BeforeValue))</td>
+                                <td>@(!string.IsNullOrEmpty(_item.AfterValueText) ? _item.AfterValueText : GetValue(_item.Type, _item.AfterValue))</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </MudSimpleTable>
+        </section>
+    </DialogContent>
+</MudDialog>
