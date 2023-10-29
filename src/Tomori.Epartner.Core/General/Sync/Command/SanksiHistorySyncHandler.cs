@@ -41,14 +41,14 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<VSanksi>();
+                var listInsert = new List<VendorSanksi>();
                 var listExists = new List<GetSanksiHistoryResponse>();
                 var rest = await _restHelper.GetSanksiHistory(request.CompletedDateFrom);
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new VSanksi();
+                        var insert = new VendorSanksi();
                         Guid? IdVendor = null;
                         if (data.vendorId.HasValue)
                         {
@@ -59,7 +59,7 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                             }
                         }
                        
-                        var s = await _context.Entity<VSanksi>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        var s = await _context.Entity<VendorSanksi>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
                         if (s == null)
                         {
                             if (!listExists.Where(d => d.id == data.id).Any())

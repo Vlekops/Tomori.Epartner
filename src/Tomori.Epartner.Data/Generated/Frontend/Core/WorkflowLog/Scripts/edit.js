@@ -11,7 +11,7 @@ function editWorkflowLogDialog(el) {
     $('#md-WorkflowLog-edit').modal('show');
 
 	$('#Edit-WorkflowLog-Email').val(data.email);
-	$('#Edit-WorkflowLog-FullName').val(data.fullName);
+	$('#Edit-WorkflowLog-Fullname').val(data.fullname);
 	$('#Edit-WorkflowLog-GroupNo').val(data.groupNo);
 	$('#Edit-WorkflowLog-IdUser').val(data.idUser);
 	$('#Edit-WorkflowLog-IdWorkflow').val(data.idWorkflow);
@@ -36,7 +36,7 @@ function editWorkflowLogSave() {
         if (isConfirm) {
             var param = {
 				email:$('#Edit-WorkflowLog-Email').val(),
-				fullName:$('#Edit-WorkflowLog-FullName').val(),
+				fullname:$('#Edit-WorkflowLog-Fullname').val(),
 				groupNo:$('#Edit-WorkflowLog-GroupNo').val(),
 				idUser:$('#Edit-WorkflowLog-IdUser').val(),
 				idWorkflow:$('#Edit-WorkflowLog-IdWorkflow').val(),

@@ -65,9 +65,9 @@ namespace Tomori.Epartner.Core.Sync.Command
                 var listExist = new List<GetKompetensiResponse>();
                 foreach ( var item in data.result )
                 {
-                    if (await _context.Entity<VKompetensi>().Where(d => d.CivdId == item.id).AnyAsync())
+                    if (await _context.Entity<VendorKompetensi>().Where(d => d.CivdId == item.id).AnyAsync())
                     {
-                        var update = await _context.Entity<VKompetensi>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
+                        var update = await _context.Entity<VendorKompetensi>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
                         update.BidangSubBidangCode = item.bidangSubBidangCode;
                         update.BidangSubBidang = item.bidangSubBidang;
                         update.Deskripsi = item.deskripsi;
@@ -94,7 +94,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                             {
                                 IdVendor = vendor.Id;
                             }
-                            _context.Add(new VKompetensi
+                            _context.Add(new VendorKompetensi
                             {
                                 Id = Guid.NewGuid(),
                                 CivdId = item.id,

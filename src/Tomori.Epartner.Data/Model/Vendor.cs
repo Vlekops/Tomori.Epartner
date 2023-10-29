@@ -9,19 +9,19 @@ namespace Tomori.Epartner.Data.Model
     {
         public Vendor()
         {
-            VAfiliasi = new HashSet<VAfiliasi>();
-            VBranch = new HashSet<VBranch>();
-            VIzinUsaha = new HashSet<VIzinUsaha>();
-            VKompetensi = new HashSet<VKompetensi>();
-            VLandasanHukum = new HashSet<VLandasanHukum>();
-            VNeraca = new HashSet<VNeraca>();
-            VPajak = new HashSet<VPajak>();
-            VPengalaman = new HashSet<VPengalaman>();
-            VRekeningBank = new HashSet<VRekeningBank>();
-            VSanksi = new HashSet<VSanksi>();
-            VSpda = new HashSet<VSpda>();
-            VSusunanPengurus = new HashSet<VSusunanPengurus>();
-            VSusunanSaham = new HashSet<VSusunanSaham>();
+            VendorAfiliasi = new HashSet<VendorAfiliasi>();
+            VendorBranch = new HashSet<VendorBranch>();
+            VendorIzinUsaha = new HashSet<VendorIzinUsaha>();
+            VendorKompetensi = new HashSet<VendorKompetensi>();
+            VendorLandasanHukum = new HashSet<VendorLandasanHukum>();
+            VendorNeraca = new HashSet<VendorNeraca>();
+            VendorPajak = new HashSet<VendorPajak>();
+            VendorPengalaman = new HashSet<VendorPengalaman>();
+            VendorRekeningBank = new HashSet<VendorRekeningBank>();
+            VendorSanksi = new HashSet<VendorSanksi>();
+            VendorSpda = new HashSet<VendorSpda>();
+            VendorSusunanPengurus = new HashSet<VendorSusunanPengurus>();
+            VendorSusunanSaham = new HashSet<VendorSusunanSaham>();
         }
 
         public Guid Id { get; set; }
@@ -79,18 +79,18 @@ namespace Tomori.Epartner.Data.Model
         public string UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
 
-        public virtual ICollection<VAfiliasi> VAfiliasi { get; set; }
-        public virtual ICollection<VBranch> VBranch { get; set; }
-        public virtual ICollection<VIzinUsaha> VIzinUsaha { get; set; }
-        public virtual ICollection<VKompetensi> VKompetensi { get; set; }
-        public virtual ICollection<VLandasanHukum> VLandasanHukum { get; set; }
-        public virtual ICollection<VNeraca> VNeraca { get; set; }
-        public virtual ICollection<VPajak> VPajak { get; set; }
-        public virtual ICollection<VPengalaman> VPengalaman { get; set; }
-        public virtual ICollection<VRekeningBank> VRekeningBank { get; set; }
-        public virtual ICollection<VSanksi> VSanksi { get; set; }
-        public virtual ICollection<VSpda> VSpda { get; set; }
-        public virtual ICollection<VSusunanPengurus> VSusunanPengurus { get; set; }
-        public virtual ICollection<VSusunanSaham> VSusunanSaham { get; set; }
+        public virtual ICollection<VendorAfiliasi> VendorAfiliasi { get; set; }
+        public virtual ICollection<VendorBranch> VendorBranch { get; set; }
+        public virtual ICollection<VendorIzinUsaha> VendorIzinUsaha { get; set; }
+        public virtual ICollection<VendorKompetensi> VendorKompetensi { get; set; }
+        public virtual ICollection<VendorLandasanHukum> VendorLandasanHukum { get; set; }
+        public virtual ICollection<VendorNeraca> VendorNeraca { get; set; }
+        public virtual ICollection<VendorPajak> VendorPajak { get; set; }
+        public virtual ICollection<VendorPengalaman> VendorPengalaman { get; set; }
+        public virtual ICollection<VendorRekeningBank> VendorRekeningBank { get; set; }
+        public virtual ICollection<VendorSanksi> VendorSanksi { get; set; }
+        public virtual ICollection<VendorSpda> VendorSpda { get; set; }
+        public virtual ICollection<VendorSusunanPengurus> VendorSusunanPengurus { get; set; }
+        public virtual ICollection<VendorSusunanSaham> VendorSusunanSaham { get; set; }
     }
 }

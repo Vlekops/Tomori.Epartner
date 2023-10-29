@@ -63,9 +63,9 @@ namespace Tomori.Epartner.Core.Sync.Command
                 foreach ( var item in data.result )
                 {
 
-                    if (await _context.Entity<VBranch>().Where(d => d.CivdId == item.vendorBranchId).AnyAsync())
+                    if (await _context.Entity<VendorBranch>().Where(d => d.CivdId == item.vendorBranchId).AnyAsync())
                     {
-                        var update = await _context.Entity<VBranch>().Where(d => d.CivdId == item.vendorBranchId).FirstOrDefaultAsync();
+                        var update = await _context.Entity<VendorBranch>().Where(d => d.CivdId == item.vendorBranchId).FirstOrDefaultAsync();
                         update.CompanyType = item.compTypeDesc;
                         update.VendorBranchName = item.vendorBranchName;
                         update.Address = item.vendorBranchAddress;
@@ -91,7 +91,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                             IdVendor = vendor.Id;
                         }
                         
-                        _context.Add(new VBranch {
+                        _context.Add(new VendorBranch {
                             Id = Guid.NewGuid(),
                             CivdId = item.vendorBranchId,
                             IdVendor = IdVendor,

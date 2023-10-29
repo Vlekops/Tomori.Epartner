@@ -10,7 +10,7 @@ function editWorkflowConfigDetailDialog(el) {
     $('.clear').val('');
     $('#md-WorkflowConfigDetail-edit').modal('show');
 
-	$('#Edit-WorkflowConfigDetail-AutoApproveExpired').val(data.autoApproveExpired);
+	$('#Edit-WorkflowConfigDetail-AutoApprovedExpired').val(data.autoApprovedExpired);
 	$('#Edit-WorkflowConfigDetail-CanAdhoc').prop('checked', data.canAdhoc);
 	$('#Edit-WorkflowConfigDetail-IdUser').val(data.idUser);
 	$('#Edit-WorkflowConfigDetail-IdWorkflowConfig').val(data.idWorkflowConfig);
@@ -30,7 +30,7 @@ function editWorkflowConfigDetailSave() {
     ConfirmMessage('Apakah Anda Yakin Akan Mengubah Data Ini?', isConfirm => {
         if (isConfirm) {
             var param = {
-				autoApproveExpired:$('#Edit-WorkflowConfigDetail-AutoApproveExpired').val(),
+				autoApprovedExpired:$('#Edit-WorkflowConfigDetail-AutoApprovedExpired').val(),
 				canAdhoc:$('#Edit-WorkflowConfigDetail-CanAdhoc').is(":checked"),
 				idUser:$('#Edit-WorkflowConfigDetail-IdUser').val(),
 				idWorkflowConfig:$('#Edit-WorkflowConfigDetail-IdWorkflowConfig').val(),

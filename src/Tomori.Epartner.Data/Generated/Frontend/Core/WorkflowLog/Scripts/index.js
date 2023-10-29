@@ -45,7 +45,7 @@ function getListWorkflowLog(page) {
                             <tr>
                                 <td class="text-nowrap text-center">${count}</td>
 								<td class="text-nowrap">${item.email}</td>
-								<td class="text-nowrap">${item.fullName}</td>
+								<td class="text-nowrap">${item.fullname}</td>
 								<td class="text-nowrap">${item.groupNo}</td>
 								<td class="text-nowrap">${item.idUser}</td>
 								<td class="text-nowrap">${item.idWorkflow}</td>

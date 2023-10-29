@@ -14,7 +14,7 @@ namespace Tomori.Epartner.Data.Model
         public Guid IdUser { get; set; }
         public bool IsReviewer { get; set; }
         public bool CanAdhoc { get; set; }
-        public DateTime? AutoApproveExpired { get; set; }
+        public DateTime? AutoApprovedExpired { get; set; }
         public string CreateBy { get; set; }
         public DateTime CreateDate { get; set; }
         public string UpdateBy { get; set; }

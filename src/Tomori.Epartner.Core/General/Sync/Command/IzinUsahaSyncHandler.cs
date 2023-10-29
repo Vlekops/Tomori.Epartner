@@ -47,7 +47,7 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<VIzinUsaha>();
+                var listInsert = new List<VendorIzinUsaha>();
 
                 var rest = await _restHelper.GetIzinUsaha(request.K3SName);
 
@@ -55,14 +55,14 @@ namespace Tomori.Epartner.Core.General.Sync.Command
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new VIzinUsaha();
+                        var insert = new VendorIzinUsaha();
                         Guid? IdVendor = null;
                         var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
                         if (vendor != null)
                         {
                             IdVendor = vendor.Id;
                         }
-                        var iu = await _context.Entity<VIzinUsaha>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        var iu = await _context.Entity<VendorIzinUsaha>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
                         if (iu == null)
                         {
                             insert.Id = Guid.NewGuid();

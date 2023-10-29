@@ -42,21 +42,21 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<VRekeningBank>();
+                var listInsert = new List<VendorRekeningBank>();
                 var listExist = new List<GetRekeningBankResponse>();
                 var rest = await _restHelper.GetRekeningBank(request.CompletedDateFrom);
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new VRekeningBank();
+                        var insert = new VendorRekeningBank();
                         Guid? IdVendor = null;
                         var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
                         if (vendor != null)
                         {
                             IdVendor = vendor.Id;
                         }
-                        var rb = await _context.Entity<VRekeningBank>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        var rb = await _context.Entity<VendorRekeningBank>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
                         if (rb == null)
                         {
                             if (!listExist.Where(d => d.id == data.id).Any())

@@ -65,9 +65,9 @@ namespace Tomori.Epartner.Core.Sync.Command
 
                 foreach ( var item in data.result )
                 {
-                    if (await _context.Entity<VSusunanPengurus>().Where(d => d.CivdId == item.id).AnyAsync())
+                    if (await _context.Entity<VendorSusunanPengurus>().Where(d => d.CivdId == item.id).AnyAsync())
                     {
-                        var update = await _context.Entity<VSusunanPengurus>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
+                        var update = await _context.Entity<VendorSusunanPengurus>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
                         update.TipePengurus = item.tipePengurus;
                         update.Nama = item.nama;
                         update.Jabatan = item.jabatan;
@@ -90,7 +90,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                         {
                             IdVendor = vendor.Id;
                         }
-                        _context.Add(new VSusunanPengurus {
+                        _context.Add(new VendorSusunanPengurus {
                             Id = Guid.NewGuid(),
                             CivdId = item.id,
                             IdVendor = IdVendor,

@@ -46,20 +46,20 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<VNeraca>();
+                var listInsert = new List<VendorNeraca>();
                 var rest = await _restHelper.GetNeraca(request.K3SName);
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new VNeraca();
+                        var insert = new VendorNeraca();
                         Guid? IdVendor = null;
                         var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
                         if (vendor != null)
                         {
                             IdVendor = vendor.Id;
                         }
-                        var n = await _context.Entity<VNeraca>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        var n = await _context.Entity<VendorNeraca>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
                         if (n == null)
                         {
                             insert.Id = Guid.NewGuid();

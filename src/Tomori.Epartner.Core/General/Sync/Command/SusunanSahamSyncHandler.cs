@@ -41,20 +41,20 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<VSusunanSaham>();
+                var listInsert = new List<VendorSusunanSaham>();
                 var rest = await _restHelper.GetSusunanSaham(request.CompletedDateFrom);
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new VSusunanSaham();
+                        var insert = new VendorSusunanSaham();
                         Guid? IdVendor = null;
                         var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
                         if (vendor != null)
                         {
                             IdVendor = vendor.Id;
                         }
-                        var ss = await _context.Entity<VSusunanSaham>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        var ss = await _context.Entity<VendorSusunanSaham>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
                         if (ss == null)
                         {
                             insert.Id = Guid.NewGuid();

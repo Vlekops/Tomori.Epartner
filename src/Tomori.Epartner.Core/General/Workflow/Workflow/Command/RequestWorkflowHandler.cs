@@ -143,7 +143,7 @@ namespace Tomori.Epartner.Core.Workflow.Command
                     IsReviewer = d.IsReviewer,
                     IsAdhoc = false,
                     CanAdhoc = d.CanAdhoc,
-                    AutoApproveExpired = d.AutoApproveExpired,
+                    //AutoApproveExpired = d.AutoApproveExpired,
                     CreateBy = request.Token.Username,
                     CreateDate = DateTime.Now
                 }).ToList();
@@ -157,7 +157,7 @@ namespace Tomori.Epartner.Core.Workflow.Command
                     StepNo = 0,
                     StepName = WorkflowStatusEnum.Request.ToString(),
                     IdUser = request.Token.Id,
-                    FullName = request.Token.FullName,
+                    //FullName = request.Token.FullName,
                     Email = request.Token.Mail,
                     IsReviewer = false,
                     IsAdhoc = false,

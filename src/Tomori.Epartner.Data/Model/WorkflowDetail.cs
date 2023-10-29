@@ -18,7 +18,7 @@ namespace Tomori.Epartner.Data.Model
         public bool IsReviewer { get; set; }
         public bool IsAdhoc { get; set; }
         public bool CanAdhoc { get; set; }
-        public DateTime? AutoApproveExpired { get; set; }
+        public DateTime? AutoApprovedExpired { get; set; }
         public string CreateBy { get; set; }
         public DateTime CreateDate { get; set; }
 

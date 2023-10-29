@@ -21,7 +21,7 @@ function addWorkflowLogSave() {
         if (isConfirm) {
             var param = {
 				email:$('#Add-WorkflowLog-Email').val(),
-				fullName:$('#Add-WorkflowLog-FullName').val(),
+				fullname:$('#Add-WorkflowLog-Fullname').val(),
 				groupNo:$('#Add-WorkflowLog-GroupNo').val(),
 				idUser:$('#Add-WorkflowLog-IdUser').val(),
 				idWorkflow:$('#Add-WorkflowLog-IdWorkflow').val(),

@@ -43,22 +43,22 @@ namespace Tomori.Epartner.Core.General.Sync.Command
             StatusResponse result = new();
             try
             {
-                var listInsert = new List<VSpda>();
+                var listInsert = new List<VendorSpda>();
                 var listExists = new List<GetSpdaHistoryResponse>();
                 var rest = await _restHelper.GetSpdaHistory(request.K3sname);
                 if (rest.success)
                 {
                     foreach (var data in rest.result)
                     {
-                        var insert = new VSpda();
-                        var update = new VSpda();
+                        var insert = new VendorSpda();
+                        var update = new VendorSpda();
                         Guid? IdVendor = null;
                         var vendor = await _context.Entity<Vendor>().Where(d => d.VendorId == data.vendorId).FirstOrDefaultAsync();
                         if (vendor != null)
                         {
                             IdVendor = vendor.Id;
                         }
-                        var s = await _context.Entity<VSpda>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
+                        var s = await _context.Entity<VendorSpda>().Where(a => a.CivdId == data.id).FirstOrDefaultAsync();
                         if (s == null)
                         {
                             if (!listExists.Where(d => d.id == data.id).Any())

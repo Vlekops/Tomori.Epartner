@@ -145,14 +145,14 @@ namespace Tomori.Epartner.Core.Workflow.Query
                         else
                             result_order = (d => d.Email);
                         break;
-                    case "fullname":
-                        if (is_where)
-                        {
-                            result_where = (d => d.FullName.Trim().ToLower().Contains(search));
-                        }
-                        else
-                            result_order = (d => d.FullName);
-                        break;
+                    //case "fullname":
+                    //    if (is_where)
+                    //    {
+                    //        result_where = (d => d.FullName.Trim().ToLower().Contains(search));
+                    //    }
+                    //    else
+                    //        result_order = (d => d.FullName);
+                    //    break;
                     case "groupno":
                         if (is_where)
                         {

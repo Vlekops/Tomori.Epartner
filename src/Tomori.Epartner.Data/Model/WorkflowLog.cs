@@ -13,7 +13,7 @@ namespace Tomori.Epartner.Data.Model
         public int StepNo { get; set; }
         public string StepName { get; set; }
         public Guid IdUser { get; set; }
-        public string FullName { get; set; }
+        public string Fullname { get; set; }
         public string Email { get; set; }
         public string Notes { get; set; }
         public bool IsReviewer { get; set; }

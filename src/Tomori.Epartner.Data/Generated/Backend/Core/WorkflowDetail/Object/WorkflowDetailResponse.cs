@@ -19,7 +19,7 @@ namespace Tomori.Epartner.Core.Response
     public partial class WorkflowDetailResponse: IMapResponse<WorkflowDetailResponse, Tomori.Epartner.Data.Model.WorkflowDetail>
     {
 		public Guid Id{ get; set; }
-		public DateTime? AutoApproveExpired{ get; set; }
+		public DateTime? AutoApprovedExpired{ get; set; }
 		public bool CanAdhoc{ get; set; }
 		public string CreateBy{ get; set; }
 		public DateTime CreateDate{ get; set; }

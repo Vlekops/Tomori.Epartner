@@ -112,14 +112,14 @@ namespace Tomori.Epartner.Core.WorkflowConfigDetail.Query
 						else
 							result_order = (d => d.Id);
 					break;
-					case "autoapproveexpired" : 
-						if(is_where){
-							if (DateTime.TryParse(search, out var _AutoApproveExpired))
-								result_where = (d=>d.AutoApproveExpired == _AutoApproveExpired);
-						}
-						else
-							result_order = (d => d.AutoApproveExpired);
-					break;
+					//case "autoapproveexpired" : 
+					//	if(is_where){
+					//		if (DateTime.TryParse(search, out var _AutoApproveExpired))
+					//			result_where = (d=>d.AutoApproveExpired == _AutoApproveExpired);
+					//	}
+					//	else
+					//		result_order = (d => d.AutoApproveExpired);
+					//break;
 					case "canadhoc" : 
 						if(is_where){
 							if (bool.TryParse(search, out var _CanAdhoc))

@@ -65,9 +65,9 @@ namespace Tomori.Epartner.Core.Sync.Command
                 foreach ( var item in data.result )
                 {
 
-                    if (await _context.Entity<VAfiliasi>().Where(d => d.CivdId == item.id).AnyAsync())
+                    if (await _context.Entity<VendorAfiliasi>().Where(d => d.CivdId == item.id).AnyAsync())
                     {
-                        var dataAfiliasi = await _context.Entity<VAfiliasi>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
+                        var dataAfiliasi = await _context.Entity<VendorAfiliasi>().Where(d => d.CivdId == item.id).FirstOrDefaultAsync();
                         dataAfiliasi.TipeAfiliasi = item.tipeAfiliasi;
                         dataAfiliasi.Deskripsi = item.deskripsi;
                         dataAfiliasi.Share = item.share;
@@ -86,7 +86,7 @@ namespace Tomori.Epartner.Core.Sync.Command
                         {
                             IdVendor = vendor.Id;
                         }
-                        _context.Add(new VAfiliasi {
+                        _context.Add(new VendorAfiliasi {
                             Id = Guid.NewGuid(),
                             CivdId= item.id,    
                             IdVendor = IdVendor,
